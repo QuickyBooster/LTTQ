@@ -14,7 +14,6 @@ public class ShipBig : MonoBehaviour
         x = Input.mousePosition.x;
         y = Input.mousePosition.y;
         z = (Camera.main.transform.position-gameObject.transform.position).magnitude;
-
         point = Camera.main.ScreenToWorldPoint(new Vector3(x, y, z));
         gameObject.transform.position = point;
 
