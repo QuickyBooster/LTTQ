@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    bool destroyed;
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Controller _controller;
+
     SpriteRenderer _renderer;
+    bool _destroyed;
 
     private void Start()
     {
-        destroyed = false;
+        _destroyed = false;
     }
     private void Awake()
     {
@@ -28,16 +29,13 @@ public class Point : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (destroyed) return;
-        if (_controller._turn)
+        if (_destroyed) return;
+        if (_controller.isEnemyTurn())
         {
             GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
-            destroyed = true;
-            _controller._turn = false;
+            _destroyed = true;
+            _controller.setEnemyTurn(false);
         }
     }
-    private void OnMouseOver()
-    {
-        GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
-    }
+    public bool isDestroyed() { return _destroyed; }
 }

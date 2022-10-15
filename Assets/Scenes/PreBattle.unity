@@ -331,7 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abccc02a828ae7e4da68420df3813bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turn: 0
   _point: {fileID: 5069116452013809690, guid: ee38aff1d254daa4489456c56c2de512, type: 3}
   _shipSmall: {fileID: 1216133019645544602, guid: f7fd6338381a47a4581c5e979201c258, type: 3}
   _shipBig: {fileID: 5263436840695234050, guid: f6f58014862420f4389c3dc889a4d27a, type: 3}
