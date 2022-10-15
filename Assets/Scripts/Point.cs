@@ -57,10 +57,6 @@ public class Point : MonoBehaviour
     {
         _shipField= true;
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _shipField = false;
-    }
     private void OnMouseOver()
     {
         if (_destroyed) return;
