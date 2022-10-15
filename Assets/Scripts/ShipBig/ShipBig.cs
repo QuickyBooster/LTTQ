@@ -10,6 +10,7 @@ public class ShipBig : MonoBehaviour
     float x;
     float y;
     int shipID;
+    bool touched;
 
     Transform shipBigPlace;
     float deltaX, deltaY;
@@ -18,6 +19,7 @@ public class ShipBig : MonoBehaviour
     {
         controller = FindObjectOfType<Controller>();
         shipID = controller.getShipID();
+        touched = false;    
     }
     private void Start()
     {
@@ -60,6 +62,10 @@ public class ShipBig : MonoBehaviour
                     {
                         transform.position = new Vector2(tX+2.4445f, tY-0.3745f);
                         controller.setID(shipID-1000, id,true);
+                        if (touched)
+                        {
+                            controller.setID(shipID-1000, -1, false);
+                        }
                         return;
                     }
                     id++;
@@ -70,5 +76,14 @@ public class ShipBig : MonoBehaviour
             }
         }
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("enter");
+        touched = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("exit");
+        touched = false;
+    }
 }

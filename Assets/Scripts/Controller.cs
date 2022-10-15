@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class Controller : MonoBehaviour
     int[] _id = new int[6] ;
     bool[] _status = new bool[6];
     int _shipID;
+    int done;
 
 
     private void Awake()
@@ -34,10 +37,11 @@ public class Controller : MonoBehaviour
         createShips();
         manager.setErrortext("");
         manager.setArrangeText("Arrange the ships");
+        done =0;
     }
     private void Update()
     {
-        int done = 0;
+        done = 0;
         for (int i = 0; i<6; i++)
         {
             if (_status[i]) done++;
@@ -47,6 +51,11 @@ public class Controller : MonoBehaviour
         if (done == 6)
         {
             manager.setErrortext("");
+            manager.showButtonBattle(true);
+        }
+        else
+        {
+            manager.showButtonBattle(false);
         }
     }
 
@@ -114,5 +123,13 @@ public class Controller : MonoBehaviour
     {
         return _shipID++;
     }
-
+    public void navigateBattle()
+    {
+        Debug.Log("hit please");
+        Debug.Log("hit");
+        if (done ==6)
+        {
+            SceneManager.LoadScene("Battle");
+        }
+    }
 }

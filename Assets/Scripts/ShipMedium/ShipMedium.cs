@@ -11,8 +11,7 @@ public class ShipMedium : MonoBehaviour
     float x;
     float y;
     int shipID;
-    
-    //float borderX = -8.216f, borderY = 2.739f;
+    bool touched;
 
     float deltaX, deltaY;
     Vector2 mousePosition, initialPosition;
@@ -20,6 +19,7 @@ public class ShipMedium : MonoBehaviour
     {
         controller = FindObjectOfType<Controller>();
         shipID = controller.getShipID();
+        touched = false;
     }
     private void Start()
     {
@@ -64,6 +64,10 @@ public class ShipMedium : MonoBehaviour
                     {
                         transform.position = new Vector2(tX+2.0835f,tY-0.1885f);
                         controller.setID(shipID-1000, id,true);
+                        if (touched)
+                        {
+                            controller.setID(shipID-1000, -1, false);
+                        }
                         return;
                     }
                     id++;
@@ -74,5 +78,14 @@ public class ShipMedium : MonoBehaviour
             }
         }
     }
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("enter");
+        touched = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("exit");
+        touched = false;
+    }
 }

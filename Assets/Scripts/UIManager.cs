@@ -8,7 +8,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text doneArrange;
     [SerializeField] Text textError;
     [SerializeField] GameObject buttonBattle;
- 
+    [SerializeField] Text textBattle;
+
+    Controller controller;
+    private void Start()
+    {
+        controller = FindObjectOfType<Controller>();    
+    }
+
+    public void showButtonBattle(bool status)
+    {
+        buttonBattle.SetActive(status);   
+    }
     public void setArrangeText(string text)
     {
         if (doneArrange)
@@ -25,6 +36,7 @@ public class UIManager : MonoBehaviour
     }
     public void buttonBattleHit()
     {
-        buttonBattle.SetActive(false);
+            buttonBattle.SetActive(false);  
     }
+    
 }
