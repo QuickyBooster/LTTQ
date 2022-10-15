@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.DeviceSimulation;
 using UnityEngine;
 
 public class ShipSmall : MonoBehaviour
@@ -14,10 +15,12 @@ public class ShipSmall : MonoBehaviour
     Transform shipBigPlace;
     float deltaX, deltaY;
     Vector2 mousePosition, initialPosition, standardPosition;
+    bool touched;
     private void Awake()
     {
         controller = FindObjectOfType<Controller>();
         shipID = controller.getShipID();
+        touched = false;
     }
     private void Start()
     {
@@ -48,7 +51,7 @@ public class ShipSmall : MonoBehaviour
             int id = 0;
             float vX, vY, tX, tY, cX, cY;
 
-            vX = transform.position.x -0.8455f;
+            vX = transform.position.x -0.8955f;
             vY = transform.position.y +0.1885f;
             tX = -8.216f;
             for (int i = 0; i < 16; i++)
@@ -60,8 +63,12 @@ public class ShipSmall : MonoBehaviour
                     cY= Mathf.Abs(vY-tY);
                     if (cX<=0.185f && cY<=0.185f)
                     {
-                        transform.position = new Vector2(tX+0.8455f, tY-0.1885f);
+                        transform.position = new Vector2(tX+0.8955f, tY-0.1885f);
                         controller.setID(shipID-1000, id,true);
+                        if (touched)
+                        {
+                            controller.setID(shipID-1000, -1, false);
+                        }
                         return;
                     }
                     id++;
@@ -71,5 +78,16 @@ public class ShipSmall : MonoBehaviour
                 tX+= 0.37825f;
             }
         }
+    }
+ 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("enter");
+        touched = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("exit");
+        touched = false;
     }
 }

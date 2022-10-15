@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    [SerializeField] UIManager manager;
+
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _shipSmall;
     [SerializeField] GameObject _shipBig;
@@ -11,6 +13,11 @@ public class Controller : MonoBehaviour
 
     bool _enemyTurn; //false = player , true = enemy
     bool _locked;
+    
+
+    //  0  = big ship
+    //  1,2 = medium ship
+    //  3,4,5 = small ship
     int[] _id = new int[6] ;
     bool[] _status = new bool[6];
     int _shipID;
@@ -20,19 +27,38 @@ public class Controller : MonoBehaviour
     {
         _enemyTurn = true;
         _shipID=1000;
-        
+        manager = FindObjectOfType<UIManager>();    
     }
     private void Start()
     {
         createShips();
+        manager.setErrortext("");
+        manager.setArrangeText("Arrange the ships");
     }
+    private void Update()
+    {
+        int done = 0;
+        for (int i = 0; i<6; i++)
+        {
+            if (_status[i]) done++;
+        }
+        manager.setArrangeText("Arrange the ships ("+done+"/6)");
+        manager.setErrortext("Some ships are over each others or you didn't put it into order");
+        if (done == 6)
+        {
+            manager.setErrortext("");
+        }
+    }
+
+
+    
     void createShips()
     {
         float x;
         float y;
         //generate ships
         x=3.65f;
-        y= 3.05f;
+        y= 1.25f;
         GameObject shipBig = Instantiate(_shipBig, new Vector2(x, y), Quaternion.identity);
         x = 4.15f;
         y = 0.05f;
