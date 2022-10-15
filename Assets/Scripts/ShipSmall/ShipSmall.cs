@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class ShipSmall : MonoBehaviour
 {
-    Vector3 point;
     float x;
     float y;
-    float z;
+
+    Transform shipBigPlace;
+    float deltaX, deltaY;
+    Vector2 mousePosition, initialPosition;
+    bool locked;
+    private void Start()
+    {
+        initialPosition = transform.position;
+    }
+    private void OnMouseDown()
+    {
+        if (!locked)
+        {
+            deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+            deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+        }
+    }
     private void OnMouseDrag()
     {
-        Debug.Log("mouse is dragging it now");
-        x = Input.mousePosition.x;
-        y = Input.mousePosition.y;
-        z = (Camera.main.transform.position-gameObject.transform.position).magnitude;
-
-        point = Camera.main.ScreenToWorldPoint(new Vector3(x, y, z));
-        gameObject.transform.position = point;
-
-    }
-    private void OnMouseOver()
-    {
+        if (!locked)
+        {
+            mousePosition =Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(mousePosition.x - deltaX, mousePosition.y - deltaY);
+        }
     }
 }

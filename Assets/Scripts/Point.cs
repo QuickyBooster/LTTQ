@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Point : MonoBehaviour
@@ -7,6 +8,7 @@ public class Point : MonoBehaviour
     bool destroyed;
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Controller _controller;
+    SpriteRenderer _renderer;
 
     private void Start()
     {
@@ -22,22 +24,20 @@ public class Point : MonoBehaviour
             int j = id % 21;
         }
         _controller = FindObjectOfType<Controller>();
-
+        _renderer = GetComponent<SpriteRenderer>();
     }
     private void OnMouseDown()
     {
         if (destroyed) return;
-        Debug.Log(this.name+" chua bi destroy");
         if (_controller._turn)
         {
             GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
-        destroyed = true;
-        _controller._turn = false;
-        Debug.Log(this.name+" destroyed");
+            destroyed = true;
+            _controller._turn = false;
         }
     }
     private void OnMouseOver()
     {
-        Debug.Log("you are over "+this.name); 
+        GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
     }
 }
