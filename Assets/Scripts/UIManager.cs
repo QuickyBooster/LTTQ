@@ -5,38 +5,37 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] Text doneArrange;
-    [SerializeField] Text textError;
-    [SerializeField] GameObject buttonBattle;
-    [SerializeField] Text textBattle;
+    [SerializeField] Text _doneArrange;
+    [SerializeField] Text _textError;
 
-    Controller controller;
+    public GameObject buttonBattle;
+
+    Controller _controller;
     private void Start()
     {
-        controller = FindObjectOfType<Controller>();    
+        _controller = FindObjectOfType<Controller>();
     }
 
     public void showButtonBattle(bool status)
     {
-        buttonBattle.SetActive(status);   
+        buttonBattle.SetActive(status);
     }
     public void setArrangeText(string text)
     {
-        if (doneArrange)
+        if (_doneArrange)
         {
-            doneArrange.text = text;   
+            _doneArrange.text = text;
         }
     }
     public void setErrortext(string text)
     {
-        if (textError)
+        if (_textError)
         {
-            textError.text = text;
+            _textError.text = text;
         }
     }
     public void buttonBattleHit()
     {
-            buttonBattle.SetActive(false);  
+        buttonBattle.SetActive(false);
     }
-    
 }

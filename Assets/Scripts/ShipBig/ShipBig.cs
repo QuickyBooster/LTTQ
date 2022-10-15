@@ -5,46 +5,43 @@ using UnityEngine.Rendering;
 
 public class ShipBig : MonoBehaviour
 {
-    Controller controller;
+    Controller _controller;
 
-    float x;
-    float y;
-    int shipID;
-    bool touched;
+    float _x;
+    float _y;
+    int _shipID;
+    bool _touched;
 
-    Transform shipBigPlace;
-    float deltaX, deltaY;
-    Vector2 mousePosition, initialPosition, standardPosition;
+    float _deltaX, _deltaY;
+    Vector2 _mousePosition;
     private void Awake()
     {
-        controller = FindObjectOfType<Controller>();
-        shipID = controller.getShipID();
-        touched = false;    
+        _controller = FindObjectOfType<Controller>();
+        _shipID = _controller.getShipID();
+        _touched = false;
+        DontDestroyOnLoad(this.gameObject);
     }
-    private void Start()
-    {
-        initialPosition = transform.position;
-    }
+    
     private void OnMouseDown()
     {
-        if (!controller.isLocked())
+        if (!_controller.isLocked())
         {
-            deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-            deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
-            controller.setID((shipID-1000), -1, false);
+            _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+            _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+            _controller.setID((_shipID-1000), -1, false);
         }
     }
     private void OnMouseDrag()
     {
-        if (!controller.isLocked())
+        if (!_controller.isLocked())
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector2(mousePosition.x - deltaX, mousePosition.y - deltaY);
+            _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(_mousePosition.x - _deltaX, _mousePosition.y - _deltaY);
         }
     }
     private void OnMouseUp()
     {
-        if (!controller.isLocked())
+        if (!_controller.isLocked())
         {
 
             // find the standard position of it
@@ -58,13 +55,13 @@ public class ShipBig : MonoBehaviour
                 tY = 2.739f;
                 for (int j = 0; j < 18; j++)
                 {
-                    if (Mathf.Abs(vX-tX)<=0.18f && Mathf.Abs(vY-tY)<=0.18f)
+                    if (Mathf.Abs(vX-tX)<=0.2f && Mathf.Abs(vY-tY)<=0.2f)
                     {
                         transform.position = new Vector2(tX+2.4445f, tY-0.3745f);
-                        controller.setID(shipID-1000, id,true);
-                        if (touched)
+                        _controller.setID(_shipID-1000, id, true);
+                        if (_touched)
                         {
-                            controller.setID(shipID-1000, -1, false);
+                            _controller.setID(_shipID-1000, -1, false);
                         }
                         return;
                     }
@@ -78,12 +75,10 @@ public class ShipBig : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("enter");
-        touched = true;
+        _touched = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("exit");
-        touched = false;
+        _touched = false;
     }
 }

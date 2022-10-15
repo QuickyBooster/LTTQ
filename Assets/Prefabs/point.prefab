@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1428658078}
   m_Layer: 0
   m_Name: point
-  m_TagString: Untagged
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconDestroyed: {fileID: 21300000, guid: d8e16873fff73ac41a12f1dacce23d65, type: 3}
-  _controller: {fileID: 0}
+  _iconSquare: {fileID: 21300000, guid: 1a6dd3bd5eaf5a14da6b0179abc29b78, type: 3}
 --- !u!212 &5069116452013809689
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86,9 +86,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -609976199
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 45cb18a7e630e2b499db14cb12f92adf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

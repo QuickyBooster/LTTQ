@@ -6,45 +6,43 @@ using UnityEngine;
 public class ShipMedium : MonoBehaviour
 {
 
-    Controller controller;
+    Controller _controller;
 
-    float x;
-    float y;
-    int shipID;
-    bool touched;
+    float _x;
+    float _y;
+    int _shipID;
+    bool _touched;
 
-    float deltaX, deltaY;
-    Vector2 mousePosition, initialPosition;
+    float _deltaX, _deltaY;
+    Vector2 _mousePosition;
     private void Awake()
     {
-        controller = FindObjectOfType<Controller>();
-        shipID = controller.getShipID();
-        touched = false;
+        _controller = FindObjectOfType<Controller>();
+        _shipID = _controller.getShipID();
+        _touched = false;
+        DontDestroyOnLoad(this.gameObject);
     }
-    private void Start()
-    {
-        initialPosition = transform.position;
-    }
+    
     private void OnMouseDown()
     {
-        if (!controller.isLocked())
+        if (!_controller.isLocked())
         {
-            deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-            deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
-            controller.setID((shipID-1000), -1, false);
+            _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+            _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+            _controller.setID((_shipID-1000), -1, false);
         }
     }
     private void OnMouseDrag()
     {
-        if (!controller.isLocked())
+        if (!_controller.isLocked())
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector2(mousePosition.x - deltaX, mousePosition.y - deltaY);
+            _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(_mousePosition.x - _deltaX, _mousePosition.y - _deltaY);
         }
     }
     private void OnMouseUp()
     {
-        if (!controller.isLocked())
+        if (!_controller.isLocked())
         {
             // find the standard position of it
             int id = 0;
@@ -58,15 +56,15 @@ public class ShipMedium : MonoBehaviour
                 tY = 2.739f;
                 for (int j = 0; j < 19; j++)
                 {
-                    cX= Mathf.Abs(vX-tX); 
+                    cX= Mathf.Abs(vX-tX);
                     cY= Mathf.Abs(vY-tY);
-                    if (cX<=0.185f && cY<=0.185f)
+                    if (cX<=0.2f && cY<=0.2f)
                     {
-                        transform.position = new Vector2(tX+2.0835f,tY-0.1885f);
-                        controller.setID(shipID-1000, id,true);
-                        if (touched)
+                        transform.position = new Vector2(tX+2.0835f, tY-0.1885f);
+                        _controller.setID(_shipID-1000, id, true);
+                        if (_touched)
                         {
-                            controller.setID(shipID-1000, -1, false);
+                            _controller.setID(_shipID-1000, -1, false);
                         }
                         return;
                     }
@@ -80,12 +78,10 @@ public class ShipMedium : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("enter");
-        touched = true;
+        _touched = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("exit");
-        touched = false;
+        _touched = false;
     }
 }

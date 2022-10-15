@@ -6,61 +6,76 @@ using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] UIManager manager;
+    [SerializeField] UIManager _manager;
 
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _shipSmall;
     [SerializeField] GameObject _shipBig;
     [SerializeField] GameObject _shipMedium;
 
+
     bool _enemyTurn; //false = player , true = enemy
     bool _locked;
-    
+    // scence = 0 pre battle
+    // scence = 1 battle
+    int _scence;
 
     //  0  = big ship
     //  1,2 = medium ship
     //  3,4,5 = small ship
-    int[] _id = new int[6] ;
+    int[] _id = new int[6];
     bool[] _status = new bool[6];
     int _shipID;
-    int done;
+    int _done;
 
 
     private void Awake()
     {
+        _scence = 0;
         _enemyTurn = true;
         _shipID=1000;
-        manager = FindObjectOfType<UIManager>();    
+        _manager = FindObjectOfType<UIManager>();
+        DontDestroyOnLoad(this.gameObject);
     }
     private void Start()
     {
-        createShips();
-        manager.setErrortext("");
-        manager.setArrangeText("Arrange the ships");
-        done =0;
+        if (_scence == 0)
+        {
+
+            createShips();
+            _manager.setErrortext("");
+            _manager.setArrangeText("Arrange the ships");
+            _done =0;
+        }
     }
     private void Update()
     {
-        done = 0;
-        for (int i = 0; i<6; i++)
+        Debug.Log("scence: "+_scence);
+        if (_scence == 0)
         {
-            if (_status[i]) done++;
+
+            _done = 0;
+            for (int i = 0; i<6; i++)
+            {
+                if (_status[i]) _done++;
+            }
+            _manager.setArrangeText("Arrange the ships ("+_done+"/6)");
+            _manager.setErrortext("Some ships are over each others or you didn't put it into order");
+            if (_done == 6)
+            {
+                _manager.setErrortext("");
+                _manager.showButtonBattle(true);
+            }
+            else
+            {
+                _manager.showButtonBattle(false);
+            }
         }
-        manager.setArrangeText("Arrange the ships ("+done+"/6)");
-        manager.setErrortext("Some ships are over each others or you didn't put it into order");
-        if (done == 6)
-        {
-            manager.setErrortext("");
-            manager.showButtonBattle(true);
-        }
-        else
-        {
-            manager.showButtonBattle(false);
-        }
+       
     }
 
 
-    
+
     void createShips()
     {
         float x;
@@ -81,9 +96,9 @@ public class Controller : MonoBehaviour
 
     }
 
-        //generate points in table
-    void createTable() 
-    { 
+    //generate points in table
+    void createTable()
+    {
         int id = 0;
         float x, y;
         x = -8.216f;
@@ -114,7 +129,7 @@ public class Controller : MonoBehaviour
     {
         _enemyTurn =set;
     }
-    public void setID(int ship,int id,bool status)
+    public void setID(int ship, int id, bool status)
     {
         _id[ship] = id;
         _status[ship] = status;
@@ -125,10 +140,12 @@ public class Controller : MonoBehaviour
     }
     public void navigateBattle()
     {
-        Debug.Log("hit please");
-        Debug.Log("hit");
-        if (done ==6)
+        if (_done == 6)
         {
+            
+            createTable();
+            _scence = 1;
+            _locked = true;
             SceneManager.LoadScene("Battle");
         }
     }
