@@ -22,7 +22,7 @@ public class ShipMedium : MonoBehaviour
         _touched = false;
         DontDestroyOnLoad(this.gameObject);
     }
-    
+
     private void OnMouseDown()
     {
         if (!_controller.isLocked())

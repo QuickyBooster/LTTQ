@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class Controller : MonoBehaviour
 
 
     bool _enemyTurn; //false = player , true = enemy
+    //not allow to move ship
     bool _locked;
     // scence = 0 pre battle
     // scence = 1 battle
@@ -36,6 +38,9 @@ public class Controller : MonoBehaviour
     GameObject shipSmall2;
     GameObject shipSmall3;
 
+    //for disable collision2D on ships
+    float _time;
+    bool _disabled;
 
     private void Awake()
     {
@@ -44,6 +49,7 @@ public class Controller : MonoBehaviour
         _shipID=1000;
         _manager = FindObjectOfType<UIManager>();
         DontDestroyOnLoad(this.gameObject);
+        _disabled = false;
     }
     private void Start()
     {
@@ -54,6 +60,7 @@ public class Controller : MonoBehaviour
             _manager.setErrortext("");
             _manager.setArrangeText("Arrange the ships");
             _done =0;
+            _time = 0.5f;
         }
     }
     private void Update()
@@ -64,10 +71,15 @@ public class Controller : MonoBehaviour
             _done = 0;
             for (int i = 0; i<6; i++)
             {
-                if (_status[i]) _done++;
+                if (_status[i])
+                {
+                    _done++;
+                }
+
             }
             _manager.setArrangeText("Arrange the ships ("+_done+"/6)");
-            _manager.setErrortext("Some ships are over each others or you didn't put it into order");
+            _manager.setErrortext("Put ships table or rearrange (if anything is right"+
+                " but the battle button doesn't appeared, you can click on ship to refresh)");
             if (_done == 6)
             {
                 _manager.setErrortext("");
@@ -77,10 +89,29 @@ public class Controller : MonoBehaviour
             {
                 _manager.showButtonBattle(false);
             }
+        }else if (_scence ==1)
+        {
+            //time = 0.5f
+            //disabled = false : kiem tra da disble collider2D chua
+            _time -=Time.deltaTime;
+            if (!_disabled  && _time <0)
+            {
+                print("yayy");
+                disShip();
+                _disabled = true;
+            }
         }
     }
 
-
+    void disShip()
+    {
+        shipBig.GetComponent<Collider2D>().enabled = false;
+        shipMedium1.GetComponent<Collider2D>().enabled = false;
+        shipMedium2.GetComponent<Collider2D>().enabled = false;
+        shipSmall1.GetComponent<Collider2D>().enabled = false;
+        shipSmall2.GetComponent<Collider2D>().enabled = false;
+        shipSmall3.GetComponent<Collider2D>().enabled = false;
+    }
 
     void createShips()
     {
@@ -153,8 +184,7 @@ public class Controller : MonoBehaviour
             _scence = 1;
             _locked = true;
             SceneManager.LoadScene("Battle");
-            shipBig.GetComponent<SpriteRenderer>().sortingLayerID = 0;
-            shipMedium1.GetComponent<SpriteRenderer>().sortingLayerID = 0;
+            
 
         }
     }
