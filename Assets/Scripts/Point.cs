@@ -55,6 +55,7 @@ public class Point : MonoBehaviour
     public bool isDestroyed() { return _destroyed; }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("trigeer");
         _shipField= true;
     }
     private void OnMouseOver()

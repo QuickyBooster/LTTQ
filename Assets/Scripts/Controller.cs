@@ -28,6 +28,14 @@ public class Controller : MonoBehaviour
     int _shipID;
     int _done;
 
+    //ship manage
+    GameObject shipBig;
+    GameObject shipMedium1;
+    GameObject shipMedium2;
+    GameObject shipSmall1;
+    GameObject shipSmall2;
+    GameObject shipSmall3;
+
 
     private void Awake()
     {
@@ -50,7 +58,6 @@ public class Controller : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log("scence: "+_scence);
         if (_scence == 0)
         {
 
@@ -71,7 +78,6 @@ public class Controller : MonoBehaviour
                 _manager.showButtonBattle(false);
             }
         }
-       
     }
 
 
@@ -83,16 +89,16 @@ public class Controller : MonoBehaviour
         //generate ships
         x=3.65f;
         y= 1.25f;
-        GameObject shipBig = Instantiate(_shipBig, new Vector2(x, y), Quaternion.identity);
+        shipBig = Instantiate(_shipBig, new Vector2(x, y), Quaternion.identity);
         x = 4.15f;
         y = 0.05f;
-        GameObject shipMedium1 = Instantiate(_shipMedium, new Vector2(x, y), Quaternion.identity);
-        GameObject shipMedium2 = Instantiate(_shipMedium, new Vector2(x, y), Quaternion.identity);
+        shipMedium1 = Instantiate(_shipMedium, new Vector2(x, y), Quaternion.identity);
+        shipMedium2 = Instantiate(_shipMedium, new Vector2(x, y), Quaternion.identity);
         x=5.12f;
         y =-2.91f;
-        GameObject shipSmall1 = Instantiate(_shipSmall, new Vector2(x, y), Quaternion.identity);
-        GameObject shipSmall2 = Instantiate(_shipSmall, new Vector2(x, y), Quaternion.identity);
-        GameObject shipSmall3 = Instantiate(_shipSmall, new Vector2(x, y), Quaternion.identity);
+        shipSmall1 = Instantiate(_shipSmall, new Vector2(x, y), Quaternion.identity);
+        shipSmall2 = Instantiate(_shipSmall, new Vector2(x, y), Quaternion.identity);
+        shipSmall3 = Instantiate(_shipSmall, new Vector2(x, y), Quaternion.identity);
 
     }
 
@@ -142,11 +148,14 @@ public class Controller : MonoBehaviour
     {
         if (_done == 6)
         {
-            
+
             createTable();
             _scence = 1;
             _locked = true;
             SceneManager.LoadScene("Battle");
+            shipBig.GetComponent<SpriteRenderer>().sortingLayerID = 0;
+            shipMedium1.GetComponent<SpriteRenderer>().sortingLayerID = 0;
+
         }
     }
 }
