@@ -16,10 +16,10 @@ public class Point : MonoBehaviour
 
     private void Start()
     {
-        _destroyed = false;
     }
     private void Awake()
     {
+        _destroyed = false;
         int id;
         string name = this.name;
         if (int.TryParse(name, out id))

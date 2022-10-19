@@ -55,8 +55,8 @@ public class Controller : MonoBehaviour
     //array for anemy ship to spawn
     float[,] _enemySpawnPointX = new float[21, 20];
     float[,] _enemySpawnPointY = new float[21, 20];
-    GameObject[,] _pointEnemies = new GameObject[21, 20];
-    
+    GameObject[,] _pointToAttack = new GameObject[21, 20];
+
 
     private void Awake()
     {
@@ -64,13 +64,13 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         _scence = 0;
-        _enemyTurn = true;
+        _enemyTurn = false;
         _shipID=1000;
         _manager = FindObjectOfType<UIManager>();
         DontDestroyOnLoad(this.gameObject);
         _disabled = false;
         _disabledEnemy = false;
-        _tableCreated = false;  
+        _tableCreated = false;
         if (_scence == 0)
         {
 
@@ -135,7 +135,7 @@ public class Controller : MonoBehaviour
             {
                 if (_time <0)
                 {
-                    enemyAttack(true); 
+                    enemyAttack(true);
                     _time = 2f;
                 }
                 else
@@ -147,15 +147,30 @@ public class Controller : MonoBehaviour
     }
     bool enemyAttack(bool destroyed)
     {
-        Point attacking = FindObjectOfType<Point>();
-        if(attacking.Destroyed())
-            return false;
-        else
+        int rdX = Random.Range(0, 20);
+        int rdY = Random.Range(0, 19);
+        if (_pointToAttack[rdX, rdY].GetComponent<PointEnemy>())
         {
-            if(!attacking.isBeingAttack())
-                enemyAttack(destroyed);
+            print("that's right");
         }
-        return true ;
+        print("Yess");
+        if (_pointToAttack[rdX, rdY])
+        {
+
+            if (_pointToAttack[rdX, rdY].GetComponent<Point>().Destroyed())
+                return false;
+            else
+            {
+                if (!_pointToAttack[rdX, rdY].GetComponent<Point>().isBeingAttack())
+                    enemyAttack(destroyed);
+            }
+            return true;
+        }else
+        {
+            print("wrong");
+        }
+        return false;
+
     }
     void disShip()
     {
@@ -371,6 +386,8 @@ public class Controller : MonoBehaviour
             {
                 GameObject destroyPoint = Instantiate(_point, new Vector2(x, y), Quaternion.identity);
                 destroyPoint.name = id.ToString();
+                _pointToAttack[i, j] = destroyPoint;
+                print("created");
                 y-= 0.3792f;
                 id++;
             }
@@ -389,7 +406,7 @@ public class Controller : MonoBehaviour
             {
                 GameObject pointCreated = Instantiate(_pointEnemy, new Vector2(x, y), Quaternion.identity);
                 pointCreated.name = id.ToString();
-                _pointEnemies[i, j] =  pointCreated;
+                _pointToAttack[i, j] =  pointCreated;
                 y-= 0.3792f;
                 _enemySpawnPointX[i, j] = x;
                 _enemySpawnPointY[i, j] = y;
