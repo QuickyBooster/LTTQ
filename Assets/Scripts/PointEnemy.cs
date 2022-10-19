@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class Point : MonoBehaviour
+public class PointEnemy : MonoBehaviour
 {
-
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Sprite _iconSquare;
     Controller _controller;
@@ -31,15 +29,11 @@ public class Point : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         DontDestroyOnLoad(this.gameObject);
     }
-    
-    public bool Destroyed() { return _destroyed; }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnMouseDown()
     {
-        _shipField= true;
-    }
-    public bool isBeingAttack()
-    {
-        if (!_destroyed)
+        if (_destroyed) return;
+        if (!_controller.isEnemyTurn())
         {
             if (_shipField)
             {
@@ -52,11 +46,14 @@ public class Point : MonoBehaviour
             {
                 GetComponent<SpriteRenderer>().sprite = _iconSquare;
                 _destroyed = true;
-                _controller.setEnemyTurn(false);
+                _controller.setEnemyTurn(true);
             }
-            return true;
         }
-        return false;
+    }
+    public bool isDestroyed() { return _destroyed; }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _shipField= true;
     }
     //private void OnMouseOver()
     //{
