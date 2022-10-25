@@ -18,6 +18,7 @@ public class PointEnemy : MonoBehaviour
     }
     private void Awake()
     {
+        _destroyed = false;
         int id;
         string name = this.name;
         if (int.TryParse(name, out id))
@@ -40,7 +41,7 @@ public class PointEnemy : MonoBehaviour
 
                 GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
                 _destroyed = true;
-                //_controller.setEnemyTurn(false);
+                _controller.setEnemyTurn(false);
             }
             else
             {
@@ -58,7 +59,7 @@ public class PointEnemy : MonoBehaviour
     //private void OnMouseOver()
     //{
     //    if (_destroyed) return;
-    //    if (_controller.isEnemyTurn())
+    //    if (!_controller.isEnemyTurn())
     //    {
     //        if (_shipField)
     //        {

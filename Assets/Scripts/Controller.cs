@@ -58,9 +58,6 @@ public class Controller : MonoBehaviour
     GameObject[,] _pointToAttack = new GameObject[21, 20];
 
 
-    private void Awake()
-    {
-    }
     private void Start()
     {
         _scence = 0;
@@ -115,9 +112,9 @@ public class Controller : MonoBehaviour
             _time -=Time.deltaTime;
             if (!_disabled  && _time <0)
             {
-                disShip();
+                toggleDisplayShip();
                 _disabled = true;
-                _time = 0.02f;
+                _time = 0.002f;
             }
             _time -=Time.deltaTime;
             if (!_tableCreated)
@@ -125,17 +122,18 @@ public class Controller : MonoBehaviour
                 createTableEnemy();
                 createShipEnemy();
                 _tableCreated = true;
+                toggleDisplayShipEnemy();
             }
             if (!_disabledEnemy && _time <0)
             {
-                disShipEnemy();
+                turnOffColliderShipEnemy();
                 _disabledEnemy = true;
             }
             if (_enemyTurn)
             {
                 if (_time <0)
                 {
-                    enemyAttack(true);
+                     enemyAttack(true);
                     _time = 2f;
                 }
                 else
@@ -149,11 +147,6 @@ public class Controller : MonoBehaviour
     {
         int rdX = Random.Range(0, 20);
         int rdY = Random.Range(0, 19);
-        if (_pointToAttack[rdX, rdY].GetComponent<PointEnemy>())
-        {
-            print("that's right");
-        }
-        print("Yess");
         if (_pointToAttack[rdX, rdY])
         {
 
@@ -165,31 +158,30 @@ public class Controller : MonoBehaviour
                     enemyAttack(destroyed);
             }
             return true;
-        }else
-        {
-            print("wrong");
         }
         return false;
 
     }
-    void disShip()
+    void toggleDisplayShip()
     {
-        shipBig.GetComponent<Collider2D>().enabled = false;
-        shipMedium1.GetComponent<Collider2D>().enabled = false;
-        shipMedium2.GetComponent<Collider2D>().enabled = false;
-        shipSmall1.GetComponent<Collider2D>().enabled = false;
-        shipSmall2.GetComponent<Collider2D>().enabled = false;
-        shipSmall3.GetComponent<Collider2D>().enabled = false;
+        shipBig.GetComponent<Collider2D>().enabled =  !shipBig.GetComponent<Collider2D>().enabled;
+        shipMedium1.GetComponent<Collider2D>().enabled = !shipMedium1.GetComponent<Collider2D>().enabled;
+        shipMedium2.GetComponent<Collider2D>().enabled = !shipMedium2.GetComponent<Collider2D>().enabled;
+        shipSmall1.GetComponent<Collider2D>().enabled = !shipSmall1.GetComponent<Collider2D>().enabled;
+        shipSmall2.GetComponent<Collider2D>().enabled = !shipSmall2.GetComponent<Collider2D>().enabled;
+        shipSmall3.GetComponent<Collider2D>().enabled = !shipSmall3.GetComponent<Collider2D>().enabled;
     }
-    void disShipEnemy()
+    void toggleDisplayShipEnemy()
     {
-        // disable display
-        shipBigEnemy.GetComponent<SpriteRenderer>().enabled = false;
-        shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled = false;
-        shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled = false;
-        shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled = false;
-        shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled = false;
-        shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled = false;
+        shipBigEnemy.GetComponent<SpriteRenderer>().enabled = !shipBigEnemy.GetComponent<SpriteRenderer>().enabled;
+        shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled = !shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled;
+        shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled = !shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled;
+        shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled =  !shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled;
+        shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled = !shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled;
+        shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled = !shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled;
+    }
+    void turnOffColliderShipEnemy()
+    {
         //diable collider2D
         shipBigEnemy.GetComponent<Collider2D>().enabled = false;
         shipMediumEnemy1.GetComponent<Collider2D>().enabled = false;
@@ -197,8 +189,8 @@ public class Controller : MonoBehaviour
         shipSmallEnemy1.GetComponent<Collider2D>().enabled = false;
         shipSmallEnemy2.GetComponent<Collider2D>().enabled = false;
         shipSmallEnemy3.GetComponent<Collider2D>().enabled = false;
-    }
 
+    }
     void createShips()
     {
         float x;
@@ -387,7 +379,6 @@ public class Controller : MonoBehaviour
                 GameObject destroyPoint = Instantiate(_point, new Vector2(x, y), Quaternion.identity);
                 destroyPoint.name = id.ToString();
                 _pointToAttack[i, j] = destroyPoint;
-                print("created");
                 y-= 0.3792f;
                 id++;
             }
@@ -406,7 +397,6 @@ public class Controller : MonoBehaviour
             {
                 GameObject pointCreated = Instantiate(_pointEnemy, new Vector2(x, y), Quaternion.identity);
                 pointCreated.name = id.ToString();
-                _pointToAttack[i, j] =  pointCreated;
                 y-= 0.3792f;
                 _enemySpawnPointX[i, j] = x;
                 _enemySpawnPointY[i, j] = y;
