@@ -17,9 +17,10 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _shipMedium;
 
 
-    bool _enemyTurn; //false = player , true = enemy
-    //not allow to move ship
-    bool _locked;
+    int _playerTargetLeft;
+    int _enemyTargetLeft;
+    bool _enemyTurn;
+    bool _lockedShipCoordinate;
     // scence = 0 pre battle
     // scence = 1 battle
     int _scence;
@@ -51,6 +52,7 @@ public class Controller : MonoBehaviour
     bool _disabled;
     bool _disabledEnemy;
     bool _tableCreated;
+    float _timeAttack;
 
     //array for anemy ship to spawn
     float[,] _enemySpawnPointX = new float[21, 20];
@@ -60,11 +62,13 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        _scence = 0;
-        _enemyTurn = false;
-        _shipID=1000;
-        _manager = FindObjectOfType<UIManager>();
         DontDestroyOnLoad(this.gameObject);
+        _manager = FindObjectOfType<UIManager>();
+        _scence = 0;
+        _shipID = 1000;
+        _playerTargetLeft = _enemyTargetLeft = 126;
+        _timeAttack = 2f;
+        _enemyTurn = false;
         _disabled = false;
         _disabledEnemy = false;
         _tableCreated = false;
@@ -74,7 +78,7 @@ public class Controller : MonoBehaviour
             createShips();
             _manager.setErrortext("");
             _manager.setArrangeText("Arrange the ships");
-            _done =0;
+            _done = 0;
             _time = 0.02f;
         }
     }
@@ -107,12 +111,10 @@ public class Controller : MonoBehaviour
         }
         else if (_scence ==1)
         {
-            //time = 0.5f
-            //disabled = false : kiem tra da disble collider2D chua
             _time -=Time.deltaTime;
             if (!_disabled  && _time <0)
             {
-                toggleDisplayShip();
+                toggleColliderShip();
                 _disabled = true;
                 _time = 0.002f;
             }
@@ -129,21 +131,39 @@ public class Controller : MonoBehaviour
                 turnOffColliderShipEnemy();
                 _disabledEnemy = true;
             }
-            if (_enemyTurn)
+            if (!(_enemyTargetLeft == 0 || _playerTargetLeft == 0))
             {
-                if (_time <0)
+                if (_enemyTurn)
                 {
-                     enemyAttack(true);
-                    _time = 2f;
+                    if (_timeAttack < 0)
+                    {
+                        enemyAttack();
+                        _timeAttack = 2f;
+                    }
+                    else
+                    {
+                        _timeAttack -= Time.deltaTime;
+                    }
                 }
                 else
+                    _timeAttack = 2f;
+
+
+            }else
+            {
+                if (_enemyTargetLeft == 0)
                 {
-                    _time -=Time.deltaTime;
+                    // enemy win
+                    print("enemy win");
+                }else
+                {
+                    print("player win");
+                    //player win
                 }
             }
         }
     }
-    bool enemyAttack(bool destroyed)
+    bool enemyAttack()
     {
         int rdX = Random.Range(0, 20);
         int rdY = Random.Range(0, 19);
@@ -154,15 +174,15 @@ public class Controller : MonoBehaviour
                 return false;
             else
             {
-                if (!_pointToAttack[rdX, rdY].GetComponent<Point>().isBeingAttack())
-                    enemyAttack(destroyed);
+                if (_pointToAttack[rdX, rdY].GetComponent<Point>().isBeingAttack())
+                    _enemyTargetLeft--;
             }
             return true;
         }
         return false;
 
     }
-    void toggleDisplayShip()
+    void toggleColliderShip()
     {
         shipBig.GetComponent<Collider2D>().enabled =  !shipBig.GetComponent<Collider2D>().enabled;
         shipMedium1.GetComponent<Collider2D>().enabled = !shipMedium1.GetComponent<Collider2D>().enabled;
@@ -407,18 +427,24 @@ public class Controller : MonoBehaviour
     }
 
 
-    public bool isLocked() { return _locked; }
+    public bool isLocked() { return _lockedShipCoordinate; }
     public void setLocked(bool set)
     {
-        _locked = set;
+        _lockedShipCoordinate = set;
     }
     public bool isEnemyTurn()
     {
         return _enemyTurn;
     }
-    public void setEnemyTurn(bool set)
+    public void toggleEnemyTurn(bool playerHit)
     {
-        _enemyTurn =set;
+        _enemyTurn =!_enemyTurn;
+        //true means player hit a enemy ship, false means opposite
+        if (playerHit)
+        {
+            _playerTargetLeft--;
+            _enemyTurn = !_enemyTurn;
+        }
     }
     public void setID(int ship, int id, bool status)
     {
@@ -436,7 +462,7 @@ public class Controller : MonoBehaviour
 
             createTable();
             _scence = 1;
-            _locked = true;
+            _lockedShipCoordinate = true;
             SceneManager.LoadScene("Battle");
 
 

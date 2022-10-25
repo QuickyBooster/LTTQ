@@ -47,14 +47,15 @@ public class Point : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
                 _destroyed = true;
                 //_controller.setEnemyTurn(false);
+                return true;
             }
             else
             {
                 GetComponent<SpriteRenderer>().sprite = _iconSquare;
                 _destroyed = true;
-                _controller.setEnemyTurn(false);
+                _controller.toggleEnemyTurn(false);
+                return false;
             }
-            return true;
         }
         return false;
     }

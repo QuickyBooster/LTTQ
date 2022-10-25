@@ -33,7 +33,12 @@ public class PointEnemy : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (_destroyed) return;
+        isBeingAttack();
+    }
+
+    bool isBeingAttack()
+    {
+        if (_destroyed) return false ;
         if (!_controller.isEnemyTurn())
         {
             if (_shipField)
@@ -41,15 +46,17 @@ public class PointEnemy : MonoBehaviour
 
                 GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
                 _destroyed = true;
-                _controller.setEnemyTurn(false);
+                _controller.toggleEnemyTurn(true);
             }
             else
             {
                 GetComponent<SpriteRenderer>().sprite = _iconSquare;
                 _destroyed = true;
-                _controller.setEnemyTurn(true);
+                _controller.toggleEnemyTurn(false);
             }
         }
+
+        return false;
     }
     public bool isDestroyed() { return _destroyed; }
     private void OnTriggerEnter2D(Collider2D collision)
