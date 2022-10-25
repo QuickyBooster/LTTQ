@@ -58,6 +58,13 @@ public class Controller : MonoBehaviour
     float[,] _enemySpawnPointX = new float[21, 20];
     float[,] _enemySpawnPointY = new float[21, 20];
     GameObject[,] _pointToAttack = new GameObject[21, 20];
+    /// <summary>
+    /// From 0 to 41 is big ship
+    /// From 42 to 89 is medium ship 1 & 2
+    /// From 89 to 125 is small ship 1 & 2 & 3
+    /// </summary>
+    int[] _enemyCoodinateID = new int[126];
+    bool[] _enemyCoordinateDestroyed = new bool[126];
 
 
     private void Start()
@@ -124,7 +131,7 @@ public class Controller : MonoBehaviour
                 createTableEnemy();
                 createShipEnemy();
                 _tableCreated = true;
-                toggleDisplayShipEnemy();
+                toggleDisplayAllShipEnemy();
             }
             if (!_disabledEnemy && _time <0)
             {
@@ -149,13 +156,15 @@ public class Controller : MonoBehaviour
                     _timeAttack = 2f;
 
 
-            }else
+            }
+            else
             {
                 if (_enemyTargetLeft == 0)
                 {
                     // enemy win
                     print("enemy win");
-                }else
+                }
+                else
                 {
                     print("player win");
                     //player win
@@ -175,12 +184,69 @@ public class Controller : MonoBehaviour
             else
             {
                 if (_pointToAttack[rdX, rdY].GetComponent<Point>().isBeingAttack())
+                {
+                    int idHit = rdX*20+rdY;
                     _enemyTargetLeft--;
+                    return true;
+                }
             }
-            return true;
         }
         return false;
 
+    }
+    bool checkEnemyShipDestroyed(int id)
+    {
+
+        int start, end,idShip;
+        if (id < 42)
+        {
+            start = 0;
+            end =42;
+            idShip = 0;
+        }else
+        {
+            if (id <66)
+            {
+                start =42;
+                end = 66;
+                idShip =1;
+            }else
+            {
+                if (id <89)
+                {
+                    start = 66;
+                    end = 89;
+                    idShip =2;
+                }else
+                {
+                    if (id <101)
+                    {
+                        start = 89;
+                        end =101;
+                        idShip =3;
+                    }else
+                    {
+                        if (id < 113)
+                        {
+                            start = 101;
+                            end = 113;
+                            idShip =4;
+                        }else{
+                            start = 113;
+                            end = 126;
+                            idShip =5;
+                        }
+                    }
+                }
+            }
+        }
+
+        print("ture la"+idShip);
+        for (int i = start; i < end; i++)
+            if (!_enemyCoordinateDestroyed[i])
+                return false;
+        toggleDisplayShipEnemy(idShip);
+        return true;
     }
     void toggleColliderShip()
     {
@@ -191,14 +257,63 @@ public class Controller : MonoBehaviour
         shipSmall2.GetComponent<Collider2D>().enabled = !shipSmall2.GetComponent<Collider2D>().enabled;
         shipSmall3.GetComponent<Collider2D>().enabled = !shipSmall3.GetComponent<Collider2D>().enabled;
     }
-    void toggleDisplayShipEnemy()
+    void toggleDisplayAllShipEnemy()
     {
-        shipBigEnemy.GetComponent<SpriteRenderer>().enabled = !shipBigEnemy.GetComponent<SpriteRenderer>().enabled;
-        shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled = !shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled;
-        shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled = !shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled;
-        shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled =  !shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled;
-        shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled = !shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled;
-        shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled = !shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled;
+        shipBigEnemy.GetComponent<SpriteRenderer>().enabled =
+            !shipBigEnemy.GetComponent<SpriteRenderer>().enabled;
+        shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled =
+            !shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled;
+        shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled =
+            !shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled;
+        shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled =
+            !shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled;
+        shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled =
+            !shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled;
+        shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled =
+            !shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled;
+    }
+    void toggleDisplayShipEnemy(int id)
+    {
+        switch (id)
+        {
+            case 0:
+                {
+                    shipBigEnemy.GetComponent<SpriteRenderer>().enabled =
+                        !shipBigEnemy.GetComponent<SpriteRenderer>().enabled;
+                    break;
+                }
+            case 1:
+                {
+                    shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled =
+                        !shipMediumEnemy1.GetComponent<SpriteRenderer>().enabled;
+                    break;
+                }
+            case 2:
+                {
+                    shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled =
+                        !shipMediumEnemy2.GetComponent<SpriteRenderer>().enabled;
+                    break;
+                }
+            case 3:
+                {
+                    shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled =
+                        !shipSmallEnemy1.GetComponent<SpriteRenderer>().enabled;
+                    break;
+                }
+            case 4:
+                {
+                    shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled =
+                        !shipSmallEnemy2.GetComponent<SpriteRenderer>().enabled;
+                    break;
+                }
+            case 5:
+                {
+                    shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled =
+            !shipSmallEnemy3.GetComponent<SpriteRenderer>().enabled;
+                    break;
+                }
+        }
+        print("bat roi");
     }
     void turnOffColliderShipEnemy()
     {
@@ -242,42 +357,66 @@ public class Controller : MonoBehaviour
         }
         // create big ship
         temp = generatePoint(deniedPosX, deniedPosY, 7, 17, 0);
-        deniedPosX[0] = (int)temp.x;
-        deniedPosY[0] = (int)temp.y;
+        deniedPosX[0]  = (int)temp.x;
+        deniedPosY[0]  = (int)temp.y;
         shipBigEnemy =Instantiate(_shipBig, new Vector2(_enemySpawnPointX[deniedPosX[0], deniedPosY[0]] + 2.4445f,
             _enemySpawnPointY[deniedPosX[0], deniedPosY[0]] - 0.3745f), Quaternion.identity);
+        for (int i = 0; i < 14; i++)
+            for (int j = 0; j<3; j++)
+                _enemyCoodinateID[i*3+j] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+
         //create medium ship
 
         temp = generatePoint(deniedPosX, deniedPosY, 9, 18, 1);
-        deniedPosX[1] = (int)temp.x;
+        deniedPosX[1]  = (int)temp.x;
         deniedPosY[1] = (int)temp.y;
         shipMediumEnemy1 = Instantiate(_shipMedium, new Vector2(_enemySpawnPointX[deniedPosX[1], deniedPosY[1]] + 2.0835f,
             _enemySpawnPointY[deniedPosX[1], deniedPosY[1]] - 0.1885f), Quaternion.identity);
+        for (int i = 14; i < 26; i++)
+            for (int j = 0; j<2; j++)
+                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+
 
         temp = generatePoint(deniedPosX, deniedPosY, 9, 18, 1);
-        deniedPosX[2] = (int)temp.x;
-        deniedPosY[2] = (int)temp.y;
+        deniedPosX[2]  = (int)temp.x;
+        deniedPosY[2]  = (int)temp.y;
         shipMediumEnemy2 = Instantiate(_shipMedium, new Vector2(_enemySpawnPointX[deniedPosX[2], deniedPosY[2]] + 2.0835f,
             _enemySpawnPointY[deniedPosX[2], deniedPosY[2]] - 0.1885f), Quaternion.identity);
+        for (int i = 26; i < 38; i++)
+            for (int j = 0; j<2; j++)
+                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+
         //create small ship
 
         temp = generatePoint(deniedPosX, deniedPosY, 15, 18, 2);
-        deniedPosX[3] = (int)temp.x;
-        deniedPosY[3] = (int)temp.y;
+        deniedPosX[3]  = (int)temp.x;
+        deniedPosY[3]  = (int)temp.y;
         shipSmallEnemy1 = Instantiate(_shipSmall, new Vector2(_enemySpawnPointX[deniedPosX[3], deniedPosY[3]] + 0.94f,
             _enemySpawnPointY[deniedPosX[3], deniedPosY[3]] - 0.1885f), Quaternion.identity);
+        for (int i = 38; i < 44; i++)
+            for (int j = 0; j<2; j++)
+                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+
 
         temp = generatePoint(deniedPosX, deniedPosY, 15, 18, 2);
-        deniedPosX[4] = (int)temp.x;
-        deniedPosY[4] = (int)temp.y;
+        deniedPosX[4]  = (int)temp.x;
+        deniedPosY[4]  = (int)temp.y;
         shipSmallEnemy2 = Instantiate(_shipSmall, new Vector2(_enemySpawnPointX[deniedPosX[4], deniedPosY[4]] + 0.94f,
             _enemySpawnPointY[deniedPosX[4], deniedPosY[4]] - 0.1885f), Quaternion.identity);
+        for (int i = 44; i < 50; i++)
+            for (int j = 0; j<2; j++)
+                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+
 
         temp = generatePoint(deniedPosX, deniedPosY, 15, 18, 2);
-        deniedPosX[5] = (int)temp.x;
-        deniedPosY[5] = (int)temp.y;
+        deniedPosX[5]  = (int)temp.x;
+        deniedPosY[5]  = (int)temp.y;
         shipSmallEnemy3 = Instantiate(_shipSmall, new Vector2(_enemySpawnPointX[deniedPosX[5], deniedPosY[5]] + 0.94f,
             _enemySpawnPointY[deniedPosX[5], deniedPosY[5]] - 0.1885f), Quaternion.identity);
+        for (int i = 50; i < 56; i++)
+            for (int j = 0; j<2; j++)
+                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+
     }
     Vector2 generatePoint(int[] valueX, int[] valueY, int rangeX, int rangeY, int typeShip)
     {
@@ -466,6 +605,19 @@ public class Controller : MonoBehaviour
             SceneManager.LoadScene("Battle");
 
 
+        }
+    }
+    public void returnPointHit(int idHit)
+    {
+        for (int i = 0; i<126; i++)
+        {
+            if (idHit == -_enemyCoodinateID[i])
+            {
+                print("yes");
+                _enemyCoordinateDestroyed[i] = true;
+                checkEnemyShipDestroyed(i);
+                return;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PointEnemy : MonoBehaviour
@@ -11,21 +12,15 @@ public class PointEnemy : MonoBehaviour
     SpriteRenderer _renderer;
     bool _shipField;
     bool _destroyed;
+    int _id;
 
     private void Start()
     {
         _destroyed = false;
+        int.TryParse(this.name, out _id);
     }
     private void Awake()
     {
-        _destroyed = false;
-        int id;
-        string name = this.name;
-        if (int.TryParse(name, out id))
-        {
-            int i = id / 21;
-            int j = id % 21;
-        }
         _controller = FindObjectOfType<Controller>();
         _renderer = GetComponent<SpriteRenderer>();
         DontDestroyOnLoad(this.gameObject);
@@ -47,12 +42,13 @@ public class PointEnemy : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
                 _destroyed = true;
                 _controller.toggleEnemyTurn(true);
+                _controller.returnPointHit(_id);
             }
             else
             {
                 GetComponent<SpriteRenderer>().sprite = _iconSquare;
                 _destroyed = true;
-                _controller.toggleEnemyTurn(false);
+                //_controller.toggleEnemyTurn(false);
             }
         }
 
@@ -63,24 +59,8 @@ public class PointEnemy : MonoBehaviour
     {
         _shipField= true;
     }
-    //private void OnMouseOver()
-    //{
-    //    if (_destroyed) return;
-    //    if (!_controller.isEnemyTurn())
-    //    {
-    //        if (_shipField)
-    //        {
-
-    //            GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
-    //            _destroyed = true;
-    //            //_controller.setEnemyTurn(false);
-    //        }
-    //        else
-    //        {
-    //            GetComponent<SpriteRenderer>().sprite = _iconSquare;
-    //            _destroyed = true;
-    //            //_controller.setEnemyTurn(false);
-    //        }
-    //    }
-    //}
+    private void OnMouseOver()
+    {
+        isBeingAttack();
+    }
 }

@@ -13,20 +13,15 @@ public class Point : MonoBehaviour
     SpriteRenderer _renderer;
     bool _shipField;
     bool _destroyed;
+    int _id;
 
     private void Start()
     {
+        _destroyed = false;
+        int.TryParse(this.name, out _id);
     }
     private void Awake()
     {
-        _destroyed = false;
-        int id;
-        string name = this.name;
-        if (int.TryParse(name, out id))
-        {
-            int i = id / 21;
-            int j = id % 21;
-        }
         _controller = FindObjectOfType<Controller>();
         _renderer = GetComponent<SpriteRenderer>();
         DontDestroyOnLoad(this.gameObject);
