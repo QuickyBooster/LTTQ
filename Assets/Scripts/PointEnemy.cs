@@ -48,7 +48,7 @@ public class PointEnemy : MonoBehaviour
             {
                 GetComponent<SpriteRenderer>().sprite = _iconSquare;
                 _destroyed = true;
-                //_controller.toggleEnemyTurn(false);
+                _controller.toggleEnemyTurn(false);
             }
         }
 
@@ -59,8 +59,8 @@ public class PointEnemy : MonoBehaviour
     {
         _shipField= true;
     }
-    private void OnMouseOver()
-    {
-        isBeingAttack();
-    }
+    //private void OnMouseOver()
+    //{
+    //    isBeingAttack();
+    //}
 }

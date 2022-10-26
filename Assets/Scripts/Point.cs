@@ -31,6 +31,7 @@ public class Point : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _shipField= true;
+        print("yes");
     }
     public bool isBeingAttack()
     {

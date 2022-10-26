@@ -31,7 +31,7 @@ public class Controller : MonoBehaviour
     int[] _id = new int[6];
     bool[] _status = new bool[6];
     int _shipID;
-    int _done;
+    int _shipArranged;
 
     //ship manage
     GameObject shipBig;
@@ -49,9 +49,8 @@ public class Controller : MonoBehaviour
 
     //for disable collision2D on ships
     float _time;
-    bool _disabled;
     bool _disabledEnemy;
-    bool _tableCreated;
+    bool _tableEnemyCreated;
     float _timeAttack;
 
     //array for anemy ship to spawn
@@ -76,17 +75,16 @@ public class Controller : MonoBehaviour
         _playerTargetLeft = _enemyTargetLeft = 126;
         _timeAttack = 2f;
         _enemyTurn = false;
-        _disabled = false;
         _disabledEnemy = false;
-        _tableCreated = false;
+        _tableEnemyCreated = false;
         if (_scence == 0)
         {
 
             createShips();
             _manager.setErrortext("");
             _manager.setArrangeText("Arrange the ships");
-            _done = 0;
-            _time = 0.02f;
+            _shipArranged = 0;
+            _time = 0.2f;
         }
     }
     private void Update()
@@ -94,19 +92,19 @@ public class Controller : MonoBehaviour
         if (_scence == 0)
         {
 
-            _done = 0;
+            _shipArranged = 0;
             for (int i = 0; i<6; i++)
             {
                 if (_status[i])
                 {
-                    _done++;
+                    _shipArranged++;
                 }
 
             }
-            _manager.setArrangeText("Arrange the ships ("+_done+"/6)");
+            _manager.setArrangeText("Arrange the ships ("+_shipArranged+"/6)");
             _manager.setErrortext("Put ships table or rearrange (if anything is right"+
                 " but the battle button doesn't appeared, you can click on ship to refresh)");
-            if (_done == 6)
+            if (_shipArranged == 6)
             {
                 _manager.setErrortext("");
                 _manager.showButtonBattle(true);
@@ -119,22 +117,16 @@ public class Controller : MonoBehaviour
         else if (_scence ==1)
         {
             _time -=Time.deltaTime;
-            if (!_disabled  && _time <0)
-            {
-                toggleColliderShip();
-                _disabled = true;
-                _time = 0.002f;
-            }
-            _time -=Time.deltaTime;
-            if (!_tableCreated)
+            if (!_tableEnemyCreated )
             {
                 createTableEnemy();
                 createShipEnemy();
-                _tableCreated = true;
+                _tableEnemyCreated = true;
                 toggleDisplayAllShipEnemy();
             }
             if (!_disabledEnemy && _time <0)
             {
+                toggleColliderShip();
                 turnOffColliderShipEnemy();
                 _disabledEnemy = true;
             }
@@ -145,7 +137,7 @@ public class Controller : MonoBehaviour
                     if (_timeAttack < 0)
                     {
                         enemyAttack();
-                        _timeAttack = 2f;
+                        _timeAttack = 0.5f;
                     }
                     else
                     {
@@ -153,7 +145,7 @@ public class Controller : MonoBehaviour
                     }
                 }
                 else
-                    _timeAttack = 2f;
+                    _timeAttack = 0.5f;
 
 
             }
@@ -222,13 +214,13 @@ public class Controller : MonoBehaviour
                     if (id <101)
                     {
                         start = 89;
-                        end =101;
+                        end =102;
                         idShip =3;
                     }else
                     {
                         if (id < 113)
                         {
-                            start = 101;
+                            start = 102;
                             end = 113;
                             idShip =4;
                         }else{
@@ -241,7 +233,6 @@ public class Controller : MonoBehaviour
             }
         }
 
-        print("ture la"+idShip);
         for (int i = start; i < end; i++)
             if (!_enemyCoordinateDestroyed[i])
                 return false;
@@ -363,7 +354,7 @@ public class Controller : MonoBehaviour
             _enemySpawnPointY[deniedPosX[0], deniedPosY[0]] - 0.3745f), Quaternion.identity);
         for (int i = 0; i < 14; i++)
             for (int j = 0; j<3; j++)
-                _enemyCoodinateID[i*3+j] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+                _enemyCoodinateID[i*3+j] = -((deniedPosX[0]+i)*20+deniedPosY[0]+j+2);
 
         //create medium ship
 
@@ -374,7 +365,7 @@ public class Controller : MonoBehaviour
             _enemySpawnPointY[deniedPosX[1], deniedPosY[1]] - 0.1885f), Quaternion.identity);
         for (int i = 14; i < 26; i++)
             for (int j = 0; j<2; j++)
-                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+                _enemyCoodinateID[i*2+j+14] = -((deniedPosX[1]+i-14)*20+deniedPosY[1]+j+2);
 
 
         temp = generatePoint(deniedPosX, deniedPosY, 9, 18, 1);
@@ -384,7 +375,8 @@ public class Controller : MonoBehaviour
             _enemySpawnPointY[deniedPosX[2], deniedPosY[2]] - 0.1885f), Quaternion.identity);
         for (int i = 26; i < 38; i++)
             for (int j = 0; j<2; j++)
-                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+                _enemyCoodinateID[i*2+j+14] = -((deniedPosX[2]+i-26)*20+deniedPosY[2]+j+2);
+
 
         //create small ship
 
@@ -395,7 +387,7 @@ public class Controller : MonoBehaviour
             _enemySpawnPointY[deniedPosX[3], deniedPosY[3]] - 0.1885f), Quaternion.identity);
         for (int i = 38; i < 44; i++)
             for (int j = 0; j<2; j++)
-                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+                _enemyCoodinateID[i*2+j+14] = -((deniedPosX[3]+i-38)*20+deniedPosY[3]+j+2);
 
 
         temp = generatePoint(deniedPosX, deniedPosY, 15, 18, 2);
@@ -405,7 +397,7 @@ public class Controller : MonoBehaviour
             _enemySpawnPointY[deniedPosX[4], deniedPosY[4]] - 0.1885f), Quaternion.identity);
         for (int i = 44; i < 50; i++)
             for (int j = 0; j<2; j++)
-                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+                _enemyCoodinateID[i*2+j+14] = -((deniedPosX[4]+i-44)*20+deniedPosY[4]+j+2);
 
 
         temp = generatePoint(deniedPosX, deniedPosY, 15, 18, 2);
@@ -415,7 +407,8 @@ public class Controller : MonoBehaviour
             _enemySpawnPointY[deniedPosX[5], deniedPosY[5]] - 0.1885f), Quaternion.identity);
         for (int i = 50; i < 56; i++)
             for (int j = 0; j<2; j++)
-                _enemyCoodinateID[i*2+j+14] = (deniedPosX[0]+i)*20+deniedPosY[0]+j+1;
+                _enemyCoodinateID[i*2+j+14] = -((deniedPosX[5]+i-50)*20+deniedPosY[5]+j+2);
+
 
     }
     Vector2 generatePoint(int[] valueX, int[] valueY, int rangeX, int rangeY, int typeShip)
@@ -596,7 +589,7 @@ public class Controller : MonoBehaviour
     }
     public void navigateBattle()
     {
-        if (_done == 6)
+        if (_shipArranged == 6)
         {
 
             createTable();
@@ -611,9 +604,8 @@ public class Controller : MonoBehaviour
     {
         for (int i = 0; i<126; i++)
         {
-            if (idHit == -_enemyCoodinateID[i])
+            if (idHit == _enemyCoodinateID[i])
             {
-                print("yes");
                 _enemyCoordinateDestroyed[i] = true;
                 checkEnemyShipDestroyed(i);
                 return;
