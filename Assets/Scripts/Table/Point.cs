@@ -62,30 +62,34 @@ public class Point : MonoBehaviour
         }
         return false;
     }
+    public void setShipField(bool status)
+    {
+        _shipField = status;    
+    }
     public void resetAllElement()
     {
         _shipField = false;
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }
-    private void OnMouseOver()
-    {
-        if (_destroyed) return;
-        if (_controller.isEnemyTurn()) ;
-        {
-            if (_shipField)
-            {
+    //private void OnMouseOver()
+    //{
+    //    if (_destroyed) return;
+    //    if (_controller.isEnemyTurn()) ;
+    //    {
+    //        if (_shipField)
+    //        {
 
-                _renderer.sprite =_iconDestroyed;
-                _destroyed = true;
-                //_controller.setEnemyTurn(false);
-            }
-            else
-            {
-                _renderer.sprite = _iconSquare;
-                _destroyed = true;
-                //_controller.setEnemyTurn(false);
-            }
-        }
-    }
+    //            _renderer.sprite =_iconDestroyed;
+    //            _destroyed = true;
+    //            //_controller.setEnemyTurn(false);
+    //        }
+    //        else
+    //        {
+    //            _renderer.sprite = _iconSquare;
+    //            _destroyed = true;
+    //            //_controller.setEnemyTurn(false);
+    //        }
+    //    }
+    //}
 }

@@ -8,12 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] UIManager _manager;
 
+    [SerializeField] UIManager _manager;
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
-
     Ship ship;
+
 
 
     bool _enemyTurn;
@@ -36,6 +36,8 @@ public class Controller : MonoBehaviour
     float[,] _enemySpawnPointX = new float[5, 5];
     float[,] _enemySpawnPointY = new float[5, 5];
     GameObject[,] _pointToAttack = new GameObject[5, 5];
+    int firstID = 0;
+    
 
     private void Start()
     {
@@ -48,6 +50,7 @@ public class Controller : MonoBehaviour
         _shipInPlace = false;
         _cardChose = true;
         _disabledShip = false;
+        firstID = 0;
         Application.targetFrameRate = 60;
         if (_scence == 0)
         {
@@ -65,22 +68,15 @@ public class Controller : MonoBehaviour
         }
         
 
-        if (_scence == 0 && !_tableCreated)
+        if (_scence == 1 && !_tableCreated)
         {
             createTable();
             createTableEnemy();
             _tableCreated=true;
+            ship.toggleCollider();
+            _disabledShip = true;
         }
-        if (_tableCreated && !_disabledShip&& _scence ==1)
-        {
-            if (timer >0)
-                timer -= Time.deltaTime;
-            else
-            {
-                ship.toggleCollider();
-                _disabledShip = true;
-            }
-        }
+
     }
     
     
@@ -98,11 +94,16 @@ public class Controller : MonoBehaviour
                 GameObject destroyPoint = Instantiate(_point, new Vector2(x, y), Quaternion.identity);
                 destroyPoint.name = id.ToString();
                 _pointToAttack[i, j] = destroyPoint;
+                if (_pointToAttack[i, j].GetComponent<Point>()!= null)
+                    print("true");
                 y-= 0.7197f;
                 id++;
             }
             x+= 0.7198f;
         }
+        _pointToAttack[firstID/5, firstID%5].GetComponent<Point>().setShipField(true);
+        _pointToAttack[firstID/5+1, firstID%5].GetComponent<Point>().setShipField(true);
+        _pointToAttack[firstID/5+2, firstID%5].GetComponent<Point>().setShipField(true);
     }
     void createTableEnemy()
     {
@@ -148,9 +149,12 @@ public class Controller : MonoBehaviour
             _enemyTurn = !_enemyTurn;
         }
     }
-    public void setShipInPlace(bool status)
+    public void setShipInPlace(bool status,int where)
     {
+        
         _shipInPlace = status;
+        if (status)
+            firstID = where;
     }
     public bool isShipInPlace()
     {
@@ -166,6 +170,7 @@ public class Controller : MonoBehaviour
             SceneManager.LoadScene("Battle");
             timer = 0.5f;
 
+            
         }
     }
     public void returnPointHit(int idHit)

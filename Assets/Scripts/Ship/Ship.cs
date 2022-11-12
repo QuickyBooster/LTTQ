@@ -24,7 +24,7 @@ public class Ship : MonoBehaviour
         {
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
-            _controller.setShipInPlace(false);
+            _controller.setShipInPlace(false,0);
         }
     }
     private void OnMouseDrag()
@@ -54,7 +54,7 @@ public class Ship : MonoBehaviour
                     if (Mathf.Abs(vX-tX)<=0.35f && Mathf.Abs(vY-tY)<=0.35f)
                     {
                         transform.position = new Vector2(tX+0.7224f, tY);
-                        _controller.setShipInPlace(true);
+                        _controller.setShipInPlace(true, i*5+j);
                         return;
                     }
                     id++;
@@ -69,8 +69,5 @@ public class Ship : MonoBehaviour
     {
         GetComponent<Collider2D>().enabled = !GetComponent<Collider2D>().enabled;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        print("aaa");
-    }
+   
 }
