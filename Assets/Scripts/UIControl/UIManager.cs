@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] Text _doneArrange;
+    [SerializeField] Text _Arrange;
     [SerializeField] Text _textError;
 
     public GameObject buttonBattle;
@@ -22,9 +22,9 @@ public class UIManager : MonoBehaviour
     }
     public void setArrangeText(string text)
     {
-        if (_doneArrange)
+        if (_Arrange)
         {
-            _doneArrange.text = text;
+            _Arrange.text = text;
         }
     }
     public void setErrortext(string text)

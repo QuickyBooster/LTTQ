@@ -1,25 +1,20 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class ShipMedium : MonoBehaviour
+public class Ship : MonoBehaviour
 {
-
     Controller _controller;
 
     float _x;
     float _y;
-    int _shipID;
-    bool _touched;
 
     float _deltaX, _deltaY;
     Vector2 _mousePosition;
     private void Awake()
     {
         _controller = FindObjectOfType<Controller>();
-        _shipID = _controller.getShipID();
-        _touched = false;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -29,7 +24,7 @@ public class ShipMedium : MonoBehaviour
         {
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
-            _controller.setID((_shipID-1000), -1, false);
+            _controller.setShipInPlace(false);
         }
     }
     private void OnMouseDrag()
@@ -44,45 +39,38 @@ public class ShipMedium : MonoBehaviour
     {
         if (!_controller.isLocked())
         {
+
             // find the standard position of it
             int id = 0;
-            float vX, vY, tX, tY, cX, cY;
-
-            vX = transform.position.x -2.0835f;
-            vY = transform.position.y +0.1885f;
-            tX = -8.216f;
-            for (int i = 0; i < 10; i++)
+            float vX, vY, tX, tY;
+            vX = transform.position.x -0.7224f;
+            vY = transform.position.y;
+            tX = -8.3325f;
+            for (int i = 0; i < 3; i++)
             {
-                tY = 2.739f;
-                for (int j = 0; j < 19; j++)
+                tY = 0.172f;
+                for (int j = 0; j < 5; j++)
                 {
-                    cX= Mathf.Abs(vX-tX);
-                    cY= Mathf.Abs(vY-tY);
-                    if (cX<=0.2f && cY<=0.2f)
+                    if (Mathf.Abs(vX-tX)<=0.35f && Mathf.Abs(vY-tY)<=0.35f)
                     {
-                        transform.position = new Vector2(tX+2.0835f, tY-0.1885f);
-                        _controller.setID(_shipID-1000, id, true);
-                        if (_touched)
-                        {
-                            _controller.setID(_shipID-1000, -1, false);
-                        }
+                        transform.position = new Vector2(tX+0.7224f, tY);
+                        _controller.setShipInPlace(true);
                         return;
                     }
                     id++;
-                    tY-= 0.3792f;
+                    tY-= 0.7197f;
                 }
                 id++;
-                tX+= 0.37825f;
+                tX+= 0.7198f;
             }
         }
     }
-    
+    public void toggleCollider()
+    {
+        GetComponent<Collider2D>().enabled = !GetComponent<Collider2D>().enabled;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _touched = true;
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _touched = false;
+        print("aaa");
     }
 }

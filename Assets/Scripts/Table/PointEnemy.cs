@@ -7,6 +7,7 @@ public class PointEnemy : MonoBehaviour
 {
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Sprite _iconSquare;
+    [SerializeField] Sprite _iconPoint;
     Controller _controller;
 
     SpriteRenderer _renderer;
@@ -39,16 +40,16 @@ public class PointEnemy : MonoBehaviour
             if (_shipField)
             {
 
-                GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
+                _renderer.sprite =_iconDestroyed;
                 _destroyed = true;
-                _controller.toggleEnemyTurn(true);
+                //_controller.toggleEnemyTurn(true);
                 _controller.returnPointHit(_id);
             }
             else
             {
-                GetComponent<SpriteRenderer>().sprite = _iconSquare;
+                _renderer.sprite = _iconSquare;
                 _destroyed = true;
-                _controller.toggleEnemyTurn(false);
+                //_controller.toggleEnemyTurn(false);
             }
         }
 
@@ -58,6 +59,12 @@ public class PointEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _shipField= true;
+    }
+    public void resetAllElement()
+    {
+        _shipField = false;
+        _destroyed = false;
+        _renderer.sprite = _iconPoint;
     }
     //private void OnMouseOver()
     //{

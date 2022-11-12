@@ -8,6 +8,7 @@ public class Point : MonoBehaviour
 
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Sprite _iconSquare;
+    [SerializeField] Sprite _iconPoint;
     Controller _controller;
 
     SpriteRenderer _renderer;
@@ -33,6 +34,12 @@ public class Point : MonoBehaviour
         _shipField= true;
         print("yes");
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _shipField= true;
+        print("yes");
+    }
+
     public bool isBeingAttack()
     {
         if (!_destroyed)
@@ -40,39 +47,45 @@ public class Point : MonoBehaviour
             if (_shipField)
             {
 
-                GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
+                _renderer.sprite =_iconDestroyed;
                 _destroyed = true;
                 //_controller.setEnemyTurn(false);
                 return true;
             }
             else
             {
-                GetComponent<SpriteRenderer>().sprite = _iconSquare;
+                _renderer.sprite = _iconSquare;
                 _destroyed = true;
-                _controller.toggleEnemyTurn(false);
+                //_controller.toggleEnemyTurn(false);
                 return false;
             }
         }
         return false;
     }
-    //private void OnMouseOver()
-    //{
-    //    if (_destroyed) return;
-    //    if (_controller.isEnemyTurn())
-    //    {
-    //        if (_shipField)
-    //        {
+    public void resetAllElement()
+    {
+        _shipField = false;
+        _destroyed = false;
+        _renderer.sprite = _iconPoint;
+    }
+    private void OnMouseOver()
+    {
+        if (_destroyed) return;
+        if (_controller.isEnemyTurn()) ;
+        {
+            if (_shipField)
+            {
 
-    //            GetComponent<SpriteRenderer>().sprite =_iconDestroyed;
-    //            _destroyed = true;
-    //            //_controller.setEnemyTurn(false);
-    //        }
-    //        else
-    //        {
-    //            GetComponent<SpriteRenderer>().sprite = _iconSquare;
-    //            _destroyed = true;
-    //            //_controller.setEnemyTurn(false);
-    //        }
-    //    }
-    //}
+                _renderer.sprite =_iconDestroyed;
+                _destroyed = true;
+                //_controller.setEnemyTurn(false);
+            }
+            else
+            {
+                _renderer.sprite = _iconSquare;
+                _destroyed = true;
+                //_controller.setEnemyTurn(false);
+            }
+        }
+    }
 }
