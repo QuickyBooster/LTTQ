@@ -33,7 +33,7 @@ public class Controller : MonoBehaviour
     int _shipID;
     int _shipArranged;
 
-    //ship manage
+    //ship manager
     GameObject shipBig;
     GameObject shipMedium1;
     GameObject shipMedium2;
@@ -52,8 +52,8 @@ public class Controller : MonoBehaviour
     bool _disabledEnemy;
     bool _tableEnemyCreated;
     float _timeAttack;
-
-    //array for anemy ship to spawn
+   
+    //array for enemy ship to spawn
     float[,] _enemySpawnPointX = new float[21, 20];
     float[,] _enemySpawnPointY = new float[21, 20];
     GameObject[,] _pointToAttack = new GameObject[21, 20];
@@ -65,6 +65,7 @@ public class Controller : MonoBehaviour
     int[] _enemyCoodinateID = new int[126];
     bool[] _enemyCoordinateDestroyed = new bool[126];
 
+    
 
     private void Start()
     {
@@ -93,7 +94,7 @@ public class Controller : MonoBehaviour
         {
 
             _shipArranged = 0;
-            for (int i = 0; i<6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 if (_status[i])
                 {
@@ -101,8 +102,8 @@ public class Controller : MonoBehaviour
                 }
 
             }
-            _manager.setArrangeText("Arrange the ships ("+_shipArranged+"/6)");
-            _manager.setErrortext("Put ships table or rearrange (if anything is right"+
+            _manager.setArrangeText("arrange the ships (" + _shipArranged + "/6)");
+            _manager.setErrortext("put ships table or rearrange (if anything is right" +
                 " but the battle button doesn't appeared, you can click on ship to refresh)");
             if (_shipArranged == 6)
             {
@@ -114,17 +115,17 @@ public class Controller : MonoBehaviour
                 _manager.showButtonBattle(false);
             }
         }
-        else if (_scence ==1)
+        else if (_scence == 1)
         {
-            _time -=Time.deltaTime;
-            if (!_tableEnemyCreated )
+            _time -= Time.deltaTime;
+            if (!_tableEnemyCreated)
             {
                 createTableEnemy();
                 createShipEnemy();
                 _tableEnemyCreated = true;
                 toggleDisplayAllShipEnemy();
             }
-            if (!_disabledEnemy && _time <0)
+            if (!_disabledEnemy && _time < 0)
             {
                 toggleColliderShip();
                 turnOffColliderShipEnemy();
@@ -612,4 +613,6 @@ public class Controller : MonoBehaviour
             }
         }
     }
+
+    
 }

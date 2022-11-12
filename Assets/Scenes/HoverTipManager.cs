@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class HoverTipManager : MonoBehaviour
 {
     public TextMeshProUGUI tipText;
     public RectTransform tipWindow;
-    public static Action <string,Vextor2> OnMouseHover;
+    public static Action<string, Vector2> OnMouseHover;
     public static Action OnMouseLoseFocus;
     
     private void OnEnable()
@@ -30,9 +31,9 @@ public class HoverTipManager : MonoBehaviour
     private void ShowTip(string tip, Vector2 mousePos)
     {
         tipText.text = tip;
-        tipWindow.sizeDelra = new Vector2(tipText.preferredWidth > 200 ? 200 : tipText.preferredWitch, tipText.preferredHeight);
+        tipWindow.sizeDelta = new Vector2(tipText.preferredWidth > 200 ? 200 : tipText.preferredWidth, tipText.preferredHeight);
         tipWindow.gameObject.SetActive(true);
-        tipWindow.tranform.position = new Vector2(mousePos.x + tipWindow.sizeDelta.x * 2, mousePos.y);
+        tipWindow.transform.position = new Vector2(mousePos.x + tipWindow.sizeDelta.x * 2, mousePos.y);
 
     }
 
