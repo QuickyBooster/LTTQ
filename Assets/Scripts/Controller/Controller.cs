@@ -173,18 +173,21 @@ public class Controller : MonoBehaviour
             
         }
     }
-    public void returnPointHit(int idHit)
+    public bool returnPointHit(int idHit)
     {
-        for (int i = 0; i<126; i++)
+        if (_pointToAttack[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
-            //if (idHit == _enemyCoodinateID[i])
-            //{
-            //    _enemyCoordinateDestroyed[i] = true;
-            //    checkEnemyShipDestroyed(i);
-            //    return;
-            //}
-        }
-    }
 
+            return true;
+        }
+        return false;
+    }
+    public bool sendAttack(int idTarget)
+    {
+        // gui toi controller ben kia lenh returnPointHit(idTarget)
+        // neu tra ve la true thi la da danh trung, man hinh se hien thi dau X tren map dich
+        // neu sai thi nguoc lai
+        return true;
+    }
 
 }
