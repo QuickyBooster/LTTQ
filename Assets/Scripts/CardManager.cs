@@ -10,31 +10,38 @@ public class CardManager : MonoBehaviour
     public List<Card> discardPile = new List<Card>();
     public Transform[] cardSlots;
     public bool[] availableCardSlots;
-
+    
     public TextMeshProUGUI deckSizeText;
     public TextMeshProUGUI discardPileSizeText;
+
+    public PanelOpener cardPanel;
     public void DrawCard()
     {
         Debug.Log("drawcard");
-        if (deck.Count >= 1)
+        if (cardPanel.isActive == false)
         {
-            Card randCard = deck[Random.Range(0, deck.Count)];
-            for (int i = 0; i < availableCardSlots.Length; i++)
-            {
-                if (availableCardSlots[i] == true)
-                {
-                    randCard.gameObject.SetActive(true);
-                    randCard.handIndex = i;
-
-                    randCard.transform.position = cardSlots[i].position;
-                    randCard.hasBeenPlayed = false;
-
-                    availableCardSlots[i] = false;
-                    deck.Remove(randCard);
-                    return;
-                }
-            }
+            cardPanel.isActive = true;
+            cardPanel.panel.SetActive(cardPanel.isActive);
         }
+        //if (deck.Count >= 1)
+        //{
+        //    Card randCard = deck[Random.Range(0, deck.Count)];
+        //    for (int i = 0; i < availableCardSlots.Length; i++)
+        //    {
+        //        if (availableCardSlots[i] == true)
+        //        {
+        //            randCard.gameObject.SetActive(true);
+        //            randCard.handIndex = i;
+
+        //            randCard.transform.position = cardSlots[i].position;
+        //            randCard.hasBeenPlayed = false;
+
+        //            availableCardSlots[i] = false;
+        //            deck.Remove(randCard);
+        //            return;
+        //        }
+        //    }
+        //}
     }
 
     public void Shufflle()
