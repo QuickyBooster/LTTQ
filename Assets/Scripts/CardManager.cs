@@ -18,10 +18,10 @@ public class CardManager : MonoBehaviour
     public void DrawCard()
     {
         Debug.Log("drawcard");
-        if (cardPanel.isActive == false)
+        if (cardPanel.isActive() == false)
         {
-            cardPanel.isActive = true;
-            cardPanel.panel.SetActive(cardPanel.isActive);
+            cardPanel.toggleActive();
+           // cardPanel.panel.SetActive(cardPanel.isActive);
         }
         //if (deck.Count >= 1)
         //{

@@ -845,7 +845,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388160309}
+      - m_Target: {fileID: 979114548}
         m_TargetAssemblyTypeName: PanelOpener, Assembly-CSharp
         m_MethodName: Save
         m_Mode: 1
@@ -1032,7 +1032,7 @@ GameObject:
   - component: {fileID: 388160306}
   - component: {fileID: 388160308}
   - component: {fileID: 388160307}
-  - component: {fileID: 388160309}
+  - component: {fileID: 388160310}
   m_Layer: 5
   m_Name: CardPanel
   m_TagString: Untagged
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78039217}
+  m_Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0.78039217}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1101,21 +1101,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388160305}
   m_CullTransparentMesh: 1
---- !u!114 &388160309
-MonoBehaviour:
+--- !u!225 &388160310
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388160305}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b902154d62b444088763037a9afcf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 388160305}
-  isActive: 0
-  cardTransform: {fileID: 1398739063}
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &542382370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +1976,7 @@ MonoBehaviour:
   availableCardSlots: 0101010101
   deckSizeText: {fileID: 791279070}
   discardPileSizeText: {fileID: 1846308057}
-  cardPanel: {fileID: 388160309}
+  cardPanel: {fileID: 979114548}
 --- !u!1 &911741874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2183,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967426841}
   m_CullTransparentMesh: 1
+--- !u!1 &979114547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 979114549}
+  - component: {fileID: 979114548}
+  m_Layer: 0
+  m_Name: CardPannel Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &979114548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979114547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b902154d62b444088763037a9afcf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 388160305}
+  cardTransform: {fileID: 0}
+  myUIGroup: {fileID: 388160310}
+--- !u!4 &979114549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979114547}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9681973, y: 0.109385, z: 41151.383}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1055169471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,7 +2506,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388160309}
+      - m_Target: {fileID: 979114548}
         m_TargetAssemblyTypeName: PanelOpener, Assembly-CSharp
         m_MethodName: Use
         m_Mode: 1
