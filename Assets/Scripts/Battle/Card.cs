@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
+    [SerializeField] Sprite frontSide;
+    [SerializeField] Sprite backSide;    
+
     public bool hasBeenPlayed;
 
     public int handIndex;
@@ -13,6 +17,7 @@ public class Card : MonoBehaviour
     private void Start()
     {
         gm = FindObjectOfType<CardManager>();
+        GetComponent<SpriteRenderer>().sprite = backSide;
     }
 
     private void OnMouseEnter()
