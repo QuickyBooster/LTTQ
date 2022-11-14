@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Unity.UI;
+using UnityEditor.Rendering.LookDev;
 
 public class CardManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CardManager : MonoBehaviour
     public List<Card> discardPile = new List<Card>();
     public Transform[] cardSlots;
     public bool[] availableCardSlots;
+    public int cardNum;
     
     public TextMeshProUGUI deckSizeText;
     public TextMeshProUGUI discardPileSizeText;
@@ -21,27 +23,26 @@ public class CardManager : MonoBehaviour
         if (cardPanel.isActive() == false)
         {
             cardPanel.toggleActive();
-           // cardPanel.panel.SetActive(cardPanel.isActive);
         }
-        //if (deck.Count >= 1)
-        //{
-        //    Card randCard = deck[Random.Range(0, deck.Count)];
-        //    for (int i = 0; i < availableCardSlots.Length; i++)
-        //    {
-        //        if (availableCardSlots[i] == true)
-        //        {
-        //            randCard.gameObject.SetActive(true);
-        //            randCard.handIndex = i;
+        if (deck.Count >= 1)
+        {
+            cardNum = Random.Range(0, deck.Count);
+            Card randCard = deck[cardNum];
+            for (int i = 0; i < availableCardSlots.Length; i++)
+            {
+                if (availableCardSlots[i] == true)
+                {
+                    randCard.gameObject.SetActive(true);
+                    randCard.handIndex = i;
 
-        //            randCard.transform.position = cardSlots[i].position;
-        //            randCard.hasBeenPlayed = false;
+                    randCard.transform.position = cardPanel.cardTransform.position;
+                    cardPanel.SetCardStatus(true);
 
-        //            availableCardSlots[i] = false;
-        //            deck.Remove(randCard);
-        //            return;
-        //        }
-        //    }
-        //}
+                    //deck.Remove(randCard);
+                    return;
+                }
+            }
+        }
     }
 
     public void Shufflle()
@@ -57,5 +58,33 @@ public class CardManager : MonoBehaviour
     {
         deckSizeText.text = deck.Count.ToString();
         discardPileSizeText.text = discardPile.Count.ToString();
+    }
+
+    public void GetCard()
+    {
+        cardPanel.SetHidePannel(true);
+        cardPanel.SetShowPannel(false);
+
+        if(cardPanel.GetCardStatus())
+        {
+            cardPanel.SetCardStatus(false);
+            Card card = deck[cardNum];
+            card.transform.position = cardSlots[card.handIndex].position;
+            availableCardSlots[card.handIndex] = false;
+            deck.Remove(card);
+        }
+    }
+
+    public void UseCard()
+    {
+        cardPanel.SetHidePannel(true);
+        cardPanel.SetShowPannel(false);
+
+        if (cardPanel.GetCardStatus())
+        {
+            cardPanel.SetCardStatus(false);
+            Card card = deck[cardNum];
+            deck.Remove(card);
+        }
     }
 }
