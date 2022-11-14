@@ -201,11 +201,11 @@ RectTransform:
   m_Father: {fileID: 1173052117}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -26.8, y: -21.035004}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 28, y: -28}
   m_SizeDelta: {x: 42.07, y: 42.07}
-  m_Pivot: {x: 0.5, y: 0.49999997}
+  m_Pivot: {x: 0.49999997, y: 0.49999997}
 --- !u!114 &35475718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +249,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 35475719}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1173052120}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: show
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &35475719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,7 +575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -21.035, y: -83.2}
+  m_AnchoredPosition: {x: -54, y: -81}
   m_SizeDelta: {x: 42.07, y: 42.07}
   m_Pivot: {x: 0.50000006, y: 0.5000001}
 --- !u!114 &1149443607
@@ -686,8 +698,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -405.42, y: 159.03}
-  m_SizeDelta: {x: -681.63, y: -318.06}
+  m_AnchoredPosition: {x: -378.47003, y: 159.03}
+  m_SizeDelta: {x: -627.73, y: -318.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173052118
 MonoBehaviour:
