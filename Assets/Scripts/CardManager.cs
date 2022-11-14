@@ -47,7 +47,7 @@ public class CardManager : MonoBehaviour
 
     public void Shufflle()
     {
-        if(discardPile.Count == 10)
+        if(deck.Count == 0)
         {
             foreach (Card card in discardPile)
                 deck.Add(card);
@@ -84,6 +84,7 @@ public class CardManager : MonoBehaviour
         {
             cardPanel.SetCardStatus(false);
             Card card = deck[cardNum];
+            card.Invoke("MoveToDiscardPile", 0.1f);
             deck.Remove(card);
         }
     }
