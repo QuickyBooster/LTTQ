@@ -10,6 +10,7 @@ public class PanelOpener : MonoBehaviour
     [SerializeField] CanvasGroup myUIGroup;
     bool showPannel;
     bool hidePannel;
+    bool isCardInPanel;
     void Start()
     {
         
@@ -54,17 +55,17 @@ public class PanelOpener : MonoBehaviour
          hidePannel = !hidePannel;
     }
 
-    public void Use()
-    {
-        showPannel = false;
-        hidePannel = true;
-    }
+    //public void Use()
+    //{
+    //    showPannel = false;
+    //    hidePannel = true;
+    //}
 
-    public void Save()
-    {
-        showPannel = false;
-        hidePannel = true;
-    }
+    //public void Get()
+    //{
+    //    showPannel = false;
+    //    hidePannel = true;
+    //}
     public bool isActive()
     {
         return showPannel;
@@ -72,5 +73,25 @@ public class PanelOpener : MonoBehaviour
     public void toggleActive()
     {
         showPannel=!showPannel;
+    }
+
+    public void SetHidePannel(bool panelStatus)
+    {
+        hidePannel = panelStatus;
+    }
+
+    public void SetShowPannel(bool panelStatus)
+    {
+        showPannel = panelStatus;
+    }
+
+    public bool GetCardStatus()
+    {
+        return isCardInPanel;
+    }
+
+    public void SetCardStatus(bool cardStatus)
+    {
+        isCardInPanel = cardStatus;
     }
 }
