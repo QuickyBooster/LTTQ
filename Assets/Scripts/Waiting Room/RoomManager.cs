@@ -104,6 +104,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
 
             PlayerItem newPlayerItem = Instantiate(playerItemPrefabs, playerItemParent);
+            newPlayerItem.setPlayerName(player.Value);
             playerItemList.Add(newPlayerItem);
         }
     }
@@ -114,5 +115,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         updatePlayerList();
+    }
+    public void joinRoom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName);
     }
 }
