@@ -53,6 +53,10 @@ public class Card : MonoBehaviour
         //    gm.availableCardSlots[handIndex] = true;
         //    Invoke("MoveToDiscardPile", 0.1f);
         //}
+        usingCard();
+    }
+    public void usingCard()
+    {
         if (cardManager)
         {
             cardManager.UseCard();
@@ -64,6 +68,18 @@ public class Card : MonoBehaviour
                         cardManager.toggleActiveDrawButton();
                         break;
                     }
+                case 2:
+                    {
+                        //send to enemy cardManger: cardManager.card002();
+
+                        break;
+                    }
+                case 3:
+                    {
+
+                        //send to enemy cardManger: cardManager.card003();
+                        break;
+                    }
 
             }
         }
@@ -72,7 +88,6 @@ public class Card : MonoBehaviour
             print("fail");
         }
     }
-    
     void MoveToDiscardPile()
     {
         cardManager.discardPile.Add(this);
