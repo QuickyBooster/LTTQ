@@ -604,7 +604,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 290354624}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100313213}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+        m_MethodName: onClickPlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &290354624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1748,7 +1760,7 @@ MonoBehaviour:
   playerItemList: []
   playerItemPrefabs: {fileID: 4901923850487247243, guid: 5784682ad0c9d554599d922a650c54b1, type: 3}
   playerItemParent: {fileID: 62595316}
-  playButton: {fileID: 0}
+  playButton: {fileID: 290354621}
 --- !u!4 &1100313214
 Transform:
   m_ObjectHideFlags: 0
