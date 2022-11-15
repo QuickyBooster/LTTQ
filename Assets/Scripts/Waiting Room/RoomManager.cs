@@ -26,10 +26,25 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public PlayerItem playerItemPrefabs;
     public Transform playerItemParent;
 
+    public GameObject playButton;
     private void Start()
     {
         PhotonNetwork.JoinLobby();
         roomPanel.SetActive(false);
+    }
+    private void Update()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount ==2)
+        {
+            playButton.SetActive(true);
+        }else
+        {
+            playButton.SetActive(false);
+        }
+    }
+    public void onClickPlayButton()
+    {
+        PhotonNetwork.LoadLevel("PreBattle");
     }
     public void OnClickCreate()
     {
