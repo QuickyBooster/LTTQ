@@ -5,11 +5,14 @@ using UnityEngine;
 using Unity.UI;
 using UnityEditor.Rendering.LookDev;
 using UnityEditor;
+using System.Xml;
+using Unity.VisualScripting;
 
 public class CardManager : MonoBehaviour
 {
     // kiem tra xem card da bi lay ra chua  true la chua, false la roi
-     bool[] allCard = new bool[13];
+     bool[] allCardStill = new bool[13];
+    List<Card> allCard = new List<Card>();
     // id nhung card ma player dang giu
      List<int> playerCard = new List<int>();
     //id nhung card ma enemy dang giu
@@ -37,9 +40,10 @@ public class CardManager : MonoBehaviour
     {
         activeDrawButton = true;
         drawedCard = false;
+        allCard = deck;
         for (int i = 0; i<13; i++)
         {
-            allCard[i] = true;
+            allCardStill[i] = true;
         }
     }
     void Update()
@@ -71,11 +75,12 @@ public class CardManager : MonoBehaviour
                         {
                             int cardID;
                             int.TryParse(randCard.name, out cardID);
-                            allCard[cardID] = false;
+                            allCardStill[cardID] = false;
                             randCard.gameObject.SetActive(true);
                             randCard.handIndex = i;
                             randCard.picked();
                             randCard.transform.position = cardPanel.cardTransform.position;
+                            playerCard.Add(cardID); 
                             cardPanel.SetCardStatus(true);
                             drawedCard=true;
                             notInDeck.Add(randCard);
@@ -98,7 +103,7 @@ public class CardManager : MonoBehaviour
                 deck.Add(card);
                 int idCard;
                 int.TryParse(card.name, out idCard);
-                allCard[idCard] = false;
+                allCardStill[idCard] = false;
             }
             discardPile.Clear();
             activeDrawButton = true;
@@ -108,13 +113,14 @@ public class CardManager : MonoBehaviour
     {
         if (drawedCard)
         {
-            allCard[idCard] = false;
+            allCardStill[idCard] = false;
             foreach (Card card in deck)
             {
                 if (card.name.Equals(idCard.ToString()))
                 {
                     notInDeck.Add(card);
                     deck.Remove(card);
+                    enemyCard.Add(idCard);
                     return;
                 }
             }
@@ -124,13 +130,14 @@ public class CardManager : MonoBehaviour
     {
         if (drawedCard)
         {
-            allCard[idCard] = true;
+            allCardStill[idCard] = true;
             foreach (Card card in notInDeck)
             {
                 if (card.name.Equals(idCard.ToString()))
                 {
                     discardPile.Add(card);
                     notInDeck.Remove(card);
+                    enemyCard.Remove(idCard);
                     return;
                 }
             }
@@ -168,19 +175,39 @@ public class CardManager : MonoBehaviour
     {
         activeDrawButton = !activeDrawButton;
     }
+    // benefits from card
+    public bool usingCard003()
+    {
+        int randomCard = Random.Range(0,enemyCard.Count);
+        foreach (Card card in notInDeck)
+        {
+            if (card.name.Equals(enemyCard[randomCard].ToString()))
+            {
+                playerCard.Add(randomCard);
+                enemyCard.Remove(randomCard);
+                // send enemy card003();
+                return true;
+            }
+        }
+        return false;
+    }
     // enemy attack
     public bool card002()
     {
         drawedCard = true;
         return true;
     }
-    public bool card003()
+    public bool card003(int idCard)
     {
-        int randomCard = Random.Range(0, availableCardSlots.Length);
-        Card pick = deck[randomCard];
-        pick.gameObject.SetActive(false);
-        pick.handIndex = -1;
-        pick.picked();
-        return true;
+        foreach (Card card in notInDeck)
+        {
+            if (card.name.Equals(playerCard[idCard].ToString()))
+            {
+                playerCard.Remove(idCard);
+                enemyCard.Add(idCard);
+                return true;
+            }
+        }
+        return false;
     }
 }
