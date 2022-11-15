@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1080697537573606215}
   - component: {fileID: 1080697537573606212}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: RoomItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c77aa08ea0fa1f40a1bb863483465ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomName: {fileID: 1080697538042312833}
 --- !u!222 &1080697537573606214
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -147,7 +148,7 @@ GameObject:
   - component: {fileID: 1080697538042312832}
   - component: {fileID: 1080697538042312833}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: RoomName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,8 +169,8 @@ RectTransform:
   m_Father: {fileID: 1080697537573606213}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
