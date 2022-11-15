@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 public class CardManager : MonoBehaviour
 {
     // kiem tra xem card da bi lay ra chua  true la chua, false la roi
-     bool[] allCardStill = new bool[13];
+     bool[] allCardStill = new bool[14];
     List<Card> allCard = new List<Card>();
     // id nhung card ma player dang giu
      List<int> playerCard = new List<int>();
@@ -57,22 +57,22 @@ public class CardManager : MonoBehaviour
     }
     public void DrawCard()
     {
-        if (!controller.isEnemyTurn() && !drawedCard)
+        if (/*!controller.isEnemyTurn()&&*/  !drawedCard)
         {
             if (activeDrawButton)
             {
                 if (deck.Count >= 1)
                 {
-                    if (cardPanel.isActive() == false)
-                    {
-                        cardPanel.toggleActive();
-                    }
                     cardNum = Random.Range(0, deck.Count);
                     Card randCard = deck[cardNum];
                     for (int i = 0; i < availableCardSlots.Length; i++)
                     {
                         if (availableCardSlots[i] == true)
                         {
+                            if (cardPanel.isActive() == false)
+                                {
+                                    cardPanel.toggleActive();
+                                }
                             int cardID;
                             int.TryParse(randCard.name, out cardID);
                             allCardStill[cardID] = false;
@@ -82,9 +82,9 @@ public class CardManager : MonoBehaviour
                             randCard.transform.position = cardPanel.cardTransform.position;
                             playerCard.Add(cardID); 
                             cardPanel.SetCardStatus(true);
-                            drawedCard=true;
+                            //drawedCard=true;
                             notInDeck.Add(randCard);
-                            deck.Remove(randCard);
+                            //deck.Remove(randCard);
                             return;
                         }
                     }
@@ -111,8 +111,7 @@ public class CardManager : MonoBehaviour
     }
     public void enemyDrawCard(int idCard)
     {
-        if (drawedCard)
-        {
+        
             allCardStill[idCard] = false;
             foreach (Card card in deck)
             {
@@ -124,12 +123,11 @@ public class CardManager : MonoBehaviour
                     return;
                 }
             }
-        }
+        
     }
     public void enemyUsedCard(int idCard)
     {
-        if (drawedCard)
-        {
+        
             allCardStill[idCard] = true;
             foreach (Card card in notInDeck)
             {
@@ -141,7 +139,6 @@ public class CardManager : MonoBehaviour
                     return;
                 }
             }
-        }
     }
     public void GetCard()
     {
@@ -167,7 +164,7 @@ public class CardManager : MonoBehaviour
         {
             cardPanel.SetCardStatus(false);
             Card card = deck[cardNum];
-            card.Invoke("MoveToDiscardPile", 0.1f);
+            card.MoveToDiscardPile();
             deck.Remove(card);
         }
     }

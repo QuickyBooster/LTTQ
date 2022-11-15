@@ -30,7 +30,7 @@ public class Controller : MonoBehaviour
     //ship manager
 
     // timer
-    float timer;
+    //float timer;
 
     bool _tableCreated;
 
@@ -73,7 +73,7 @@ public class Controller : MonoBehaviour
         }
         
 
-        if (_scence == 1 && !_tableCreated)
+        if (_scence == 1 && !_tableCreated && !_disabledShip)
         {
             createTable();
             createTableEnemy();
@@ -177,7 +177,7 @@ public class Controller : MonoBehaviour
             _scence = 1;
             //_lockedShipCoordinate = true;
             SceneManager.LoadScene("Battle");
-            timer = 0.5f;
+            //timer = 0.5f;
 
             
         }

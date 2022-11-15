@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
 
     public bool hasBeenPlayed;
     public int handIndex;
-    bool isPicked;
+    //bool isPicked;
 
     private CardManager cardManager;
     Controller controller;
@@ -21,14 +21,14 @@ public class Card : MonoBehaviour
     private void Start()
     {
         int.TryParse(this.name,out id);
-        isPicked = false;   
+       // isPicked = false;   
         cardManager = FindObjectOfType<CardManager>().GetComponent<CardManager>();   
         GetComponent<SpriteRenderer>().sprite = backSide;
         controller = FindObjectOfType<Controller>();
     }
     public void picked()
     {
-        isPicked = true;
+        //isPicked = true;
         GetComponent<SpriteRenderer>().sprite = frontSide;  
     }
 
@@ -47,10 +47,10 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //if(hasBeenPlayed == false)
+        //if (hasBeenPlayed == false)
         //{
         //    hasBeenPlayed = true;
-        //    gm.availableCardSlots[handIndex] = true;
+        //    cardManager.availableCardSlots[handIndex] = true;
         //    Invoke("MoveToDiscardPile", 0.1f);
         //}
         usingCard();
@@ -64,8 +64,8 @@ public class Card : MonoBehaviour
             {
                 case 1:
                     {
-                        controller.toggleUsingCard(id);
-                        cardManager.toggleActiveDrawButton();
+                        //controller.toggleUsingCard(id);
+                        //cardManager.toggleActiveDrawButton();
                         break;
                     }
                 case 2:
@@ -88,7 +88,7 @@ public class Card : MonoBehaviour
             print("fail");
         }
     }
-    void MoveToDiscardPile()
+    public void MoveToDiscardPile()
     {
         cardManager.discardPile.Add(this);
         gameObject.SetActive(false); 
