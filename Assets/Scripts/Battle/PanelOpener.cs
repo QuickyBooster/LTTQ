@@ -85,12 +85,12 @@ public class PanelOpener : MonoBehaviour
         showPannel = panelStatus;
     }
 
-    public bool GetCardStatus()
+    public bool isCardInPanelNow()
     {
         return isCardInPanel;
     }
 
-    public void SetCardStatus(bool cardStatus)
+    public void setCardInPanel(bool cardStatus)
     {
         isCardInPanel = cardStatus;
     }

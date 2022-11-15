@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class Card : MonoBehaviour
     [SerializeField] Sprite backSide;    
 
     public bool hasBeenPlayed;
-    public int handIndex;
+    public int handIndex=-1;
     //bool isPicked;
 
     private CardManager cardManager;
@@ -25,6 +26,11 @@ public class Card : MonoBehaviour
         cardManager = FindObjectOfType<CardManager>().GetComponent<CardManager>();   
         GetComponent<SpriteRenderer>().sprite = backSide;
         controller = FindObjectOfType<Controller>();
+        handIndex =-1;
+    }
+    private void Awake()
+    {
+        handIndex =-1;
     }
     public void picked()
     {
@@ -34,7 +40,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(hasBeenPlayed == false)
+        if(hasBeenPlayed == false &&handIndex!=-1)
         {
             transform.position += Vector3.up;  
         }
@@ -42,7 +48,11 @@ public class Card : MonoBehaviour
 
     private void OnMouseExit()
     {
+        if (handIndex!=-1)
+        {
+
         transform.position -= Vector3.up;
+        }
     }
 
     private void OnMouseDown()
@@ -53,13 +63,20 @@ public class Card : MonoBehaviour
         //    cardManager.availableCardSlots[handIndex] = true;
         //    Invoke("MoveToDiscardPile", 0.1f);
         //}
-        usingCard();
+        if (handIndex!=-1)
+        {
+            usingCard();
+
+        }
     }
     public void usingCard()
     {
         if (cardManager)
         {
-            cardManager.UseCard();
+            int idCard;
+            int.TryParse(this.name, out idCard);
+            cardManager.UseCard(handIndex);
+            handIndex =-1;
             switch (id)
             {
                 case 1:
@@ -91,7 +108,7 @@ public class Card : MonoBehaviour
     public void MoveToDiscardPile()
     {
         cardManager.discardPile.Add(this);
-        gameObject.SetActive(false); 
+        this.gameObject.SetActive(false); 
     }
 
 }

@@ -7,22 +7,26 @@ using UnityEditor.Rendering.LookDev;
 using UnityEditor;
 using System.Xml;
 using Unity.VisualScripting;
+using Unity.PlasticSCM.Editor.WebApi;
 
 public class CardManager : MonoBehaviour
 {
     // kiem tra xem card da bi lay ra chua  true la chua, false la roi
-     bool[] allCardStill = new bool[14];
+    bool[] allCardStill = new bool[14];
     List<Card> allCard = new List<Card>();
     // id nhung card ma player dang giu
-     List<int> playerCard = new List<int>();
+    List<int> playerCard = new List<int>();
     //id nhung card ma enemy dang giu
-     List<int> enemyCard = new List<int>();
+    List<int> enemyCard = new List<int>();
     // nhung card khong co trong deck + discard pile
     List<Card> notInDeck = new List<Card>();
     // nhung card tren hang doi, co the draw
     public List<Card> deck = new List<Card>();
     // nhung card da bi su dung, khi deck =0 thi co the shuffle
     public List<Card> discardPile = new List<Card>();
+    // luu lai card vua moi rut
+    public Card tempCard;
+    Card[] slotCard = new Card[5];
 
     public Transform[] cardSlots;
     public bool[] availableCardSlots;
@@ -70,20 +74,21 @@ public class CardManager : MonoBehaviour
                         if (availableCardSlots[i] == true)
                         {
                             if (cardPanel.isActive() == false)
-                                {
-                                    cardPanel.toggleActive();
-                                }
+                            {
+                                cardPanel.toggleActive();
+                            }
                             int cardID;
                             int.TryParse(randCard.name, out cardID);
                             allCardStill[cardID] = false;
                             randCard.gameObject.SetActive(true);
-                            randCard.handIndex = i;
+                            //randCard.handIndex = i;
                             randCard.picked();
                             randCard.transform.position = cardPanel.cardTransform.position;
-                            playerCard.Add(cardID); 
-                            cardPanel.SetCardStatus(true);
+                            playerCard.Add(cardID);
+                            cardPanel.setCardInPanel(true);
                             //drawedCard=true;
                             notInDeck.Add(randCard);
+                            tempCard = randCard;
                             //deck.Remove(randCard);
                             return;
                         }
@@ -91,7 +96,7 @@ public class CardManager : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     public void Shufflle()
@@ -111,62 +116,92 @@ public class CardManager : MonoBehaviour
     }
     public void enemyDrawCard(int idCard)
     {
-        
-            allCardStill[idCard] = false;
-            foreach (Card card in deck)
+
+        allCardStill[idCard] = false;
+        foreach (Card card in deck)
+        {
+            if (card.name.Equals(idCard.ToString()))
             {
-                if (card.name.Equals(idCard.ToString()))
-                {
-                    notInDeck.Add(card);
-                    deck.Remove(card);
-                    enemyCard.Add(idCard);
-                    return;
-                }
+                notInDeck.Add(card);
+                deck.Remove(card);
+                enemyCard.Add(idCard);
+                return;
             }
-        
+        }
+
     }
     public void enemyUsedCard(int idCard)
     {
-        
-            allCardStill[idCard] = true;
-            foreach (Card card in notInDeck)
+
+        allCardStill[idCard] = true;
+        foreach (Card card in notInDeck)
+        {
+            if (card.name.Equals(idCard.ToString()))
             {
-                if (card.name.Equals(idCard.ToString()))
-                {
-                    discardPile.Add(card);
-                    notInDeck.Remove(card);
-                    enemyCard.Remove(idCard);
-                    return;
-                }
+                discardPile.Add(card);
+                notInDeck.Remove(card);
+                enemyCard.Remove(idCard);
+                return;
             }
+        }
     }
     public void GetCard()
     {
         cardPanel.SetHidePannel(true);
         cardPanel.SetShowPannel(false);
-
-        if (cardPanel.GetCardStatus())
+        int i = 0;
+        foreach (bool a in availableCardSlots)
         {
-            cardPanel.SetCardStatus(false);
-            Card card = deck[cardNum];
-            card.transform.position = cardSlots[card.handIndex].position;
-            availableCardSlots[card.handIndex] = false;
-            deck.Remove(card);
+            if (!a) i++;
+            else break;
         }
+        print("i");
+        if (cardPanel.isCardInPanelNow())
+        {
+            tempCard.handIndex =i;
+            cardPanel.setCardInPanel(false);
+            tempCard.transform.position = cardSlots[tempCard.handIndex].position;
+            availableCardSlots[tempCard.handIndex] = false;
+            slotCard[tempCard.handIndex] = tempCard;
+        }
+        deck.Remove(tempCard);
     }
 
-    public void UseCard()
+    public void buttonUseCard()
     {
-        cardPanel.SetHidePannel(true);
-        cardPanel.SetShowPannel(false);
-
-        if (cardPanel.GetCardStatus())
+        UseCard(-2);
+    }
+    public void UseCard(int handIdex)
+    {
+        if (handIdex==-1)
         {
-            cardPanel.SetCardStatus(false);
-            Card card = deck[cardNum];
-            card.MoveToDiscardPile();
-            deck.Remove(card);
+            return;
         }
+        if (handIdex == -2)
+        {
+            deck.Remove(tempCard);
+            cardPanel.setCardInPanel(false);
+            tempCard.MoveToDiscardPile();
+            cardPanel.SetHidePannel(true);
+            cardPanel.SetShowPannel(false);
+            return;
+        }
+        else
+        {
+            print(handIdex);
+            cardPanel.SetHidePannel(true);
+            cardPanel.SetShowPannel(false);
+
+            if (cardPanel.isCardInPanelNow())
+            {
+
+                deck.Remove(tempCard);
+            }
+            cardPanel.setCardInPanel(false);
+            slotCard[handIdex].MoveToDiscardPile();
+            availableCardSlots[handIdex]= true;
+        }
+        //tempCard.gameObject.SetActive(false);
     }
     public void toggleActiveDrawButton()
     {
@@ -175,7 +210,7 @@ public class CardManager : MonoBehaviour
     // benefits from card
     public bool usingCard003()
     {
-        int randomCard = Random.Range(0,enemyCard.Count);
+        int randomCard = Random.Range(0, enemyCard.Count);
         foreach (Card card in notInDeck)
         {
             if (card.name.Equals(enemyCard[randomCard].ToString()))
