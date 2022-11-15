@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Card : MonoBehaviour
@@ -9,15 +11,25 @@ public class Card : MonoBehaviour
     [SerializeField] Sprite backSide;    
 
     public bool hasBeenPlayed;
-
     public int handIndex;
+    bool isPicked;
 
-    private CardManager gm;
+    private CardManager cardManager;
+    Controller controller;
 
+    int id;
     private void Start()
     {
-        gm = FindObjectOfType<CardManager>();
+        int.TryParse(this.name,out id);
+        isPicked = false;   
+        cardManager = FindObjectOfType<CardManager>().GetComponent<CardManager>();   
         GetComponent<SpriteRenderer>().sprite = backSide;
+        controller = FindObjectOfType<Controller>();
+    }
+    public void picked()
+    {
+        isPicked = true;
+        GetComponent<SpriteRenderer>().sprite = frontSide;  
     }
 
     private void OnMouseEnter()
@@ -35,17 +47,36 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(hasBeenPlayed == false)
+        //if(hasBeenPlayed == false)
+        //{
+        //    hasBeenPlayed = true;
+        //    gm.availableCardSlots[handIndex] = true;
+        //    Invoke("MoveToDiscardPile", 0.1f);
+        //}
+        if (cardManager)
         {
-            hasBeenPlayed = true;
-            gm.availableCardSlots[handIndex] = true;
-            Invoke("MoveToDiscardPile", 0.1f);
+            cardManager.UseCard();
+            switch (id)
+            {
+                case 1:
+                    {
+                        controller.toggleUsingCard(id);
+                        cardManager.toggleActiveDrawButton();
+                        break;
+                    }
+
+            }
+        }
+        else
+        {
+            print("fail");
         }
     }
-
+    
     void MoveToDiscardPile()
     {
-        gm.discardPile.Add(this);
+        cardManager.discardPile.Add(this);
         gameObject.SetActive(false); 
     }
+
 }

@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 74c69b1d8ffc0de4c816c28dff60f9bd, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &13968432
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 909368496}
+      - m_Target: {fileID: 1137652389}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: DrawCard
         m_Mode: 1
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 922cc901eed5fb54987f6f61c4867cc1, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &266725520
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 909368496}
+      - m_Target: {fileID: 1137652389}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: GetCard
         m_Mode: 1
@@ -971,8 +971,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: f383c03337dcc254fb1ec863a84bd034, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &388055339
@@ -1191,8 +1191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 5d440f18034a31c428737eefdb08c131, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &419782810
@@ -1319,8 +1319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: c3ff6016f3fd9e049a0edc0290e6739f, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &542382374
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 909368496}
+      - m_Target: {fileID: 1137652389}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: Shufflle
         m_Mode: 1
@@ -1935,13 +1935,13 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 2426
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2021,7 +2021,6 @@ GameObject:
   - component: {fileID: 909368495}
   - component: {fileID: 909368494}
   - component: {fileID: 909368493}
-  - component: {fileID: 909368496}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2079,41 +2078,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &909368496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909368492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf1d60d3f84b8b4b961437f9a08ecfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deck:
-  - {fileID: 388055338}
-  - {fileID: 1376974635}
-  - {fileID: 2077182012}
-  - {fileID: 2069025659}
-  - {fileID: 1986425354}
-  - {fileID: 13968431}
-  - {fileID: 542382373}
-  - {fileID: 1758244536}
-  - {fileID: 911741877}
-  - {fileID: 266725519}
-  discardPile: []
-  cardSlots:
-  - {fileID: 1521000143}
-  - {fileID: 1968134199}
-  - {fileID: 592567614}
-  - {fileID: 1055169472}
-  - {fileID: 2072676434}
-  availableCardSlots: 0101010101
-  cardNum: 0
-  deckSizeText: {fileID: 791279070}
-  discardPileSizeText: {fileID: 1846308057}
-  cardPanel: {fileID: 979114548}
 --- !u!1 &911741874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,8 +2150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 9b23548059e41cd4d89646c4a3af38d0, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &911741878
@@ -2645,7 +2609,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 909368496}
+      - m_Target: {fileID: 1137652389}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: UseCard
         m_Mode: 1
@@ -2695,6 +2659,73 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100341654}
   m_CullTransparentMesh: 1
+--- !u!1 &1137652388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137652390}
+  - component: {fileID: 1137652389}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1137652389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137652388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf1d60d3f84b8b4b961437f9a08ecfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck:
+  - {fileID: 388055338}
+  - {fileID: 1376974635}
+  - {fileID: 2077182012}
+  - {fileID: 2069025659}
+  - {fileID: 1986425354}
+  - {fileID: 13968431}
+  - {fileID: 542382373}
+  - {fileID: 1758244536}
+  - {fileID: 911741877}
+  - {fileID: 266725519}
+  discardPile: []
+  cardSlots:
+  - {fileID: 1521000143}
+  - {fileID: 1968134199}
+  - {fileID: 592567614}
+  - {fileID: 1055169472}
+  - {fileID: 2072676434}
+  availableCardSlots: 0101010101
+  cardNum: 0
+  deckSizeText: {fileID: 791279070}
+  discardPileSizeText: {fileID: 1846308057}
+  cardPanel: {fileID: 979114548}
+--- !u!4 &1137652390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137652388}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165319808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,8 +2998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 9bf4252f11e89ec4d9bdb802328f7fc1, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &1376974636
@@ -3095,8 +3126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 5685a388de9a0bc4b87463b249915b5d, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &1407113894
@@ -3639,7 +3670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 3df88639f87b8eb449b06a3a628b5bc0, type: 3}
   backSide: {fileID: 0}
   hasBeenPlayed: 0
   handIndex: 0
@@ -4040,13 +4071,13 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 2426
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4187,8 +4218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: c132aa0abcff3e24ca318f9eff29bf9a, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &1888349630
@@ -4443,8 +4474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: eaeb34ee2ba560b41908fe8dcbe35522, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &1986425355
@@ -4819,8 +4850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: c9812ea3c84c2684c8c7b802f50d2a13, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &2069025660
@@ -5031,8 +5062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 0}
-  backSide: {fileID: 0}
+  frontSide: {fileID: 21300000, guid: 810cfdefa0b6cb04880ae50179cd7a73, type: 3}
+  backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   handIndex: 0
 --- !u!212 &2077182013

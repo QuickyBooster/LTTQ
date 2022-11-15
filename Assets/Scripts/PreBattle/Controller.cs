@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
@@ -12,8 +13,9 @@ public class Controller : MonoBehaviour
     [SerializeField] UIManager _manager;
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
+    [SerializeField] Sprite _bracket;
     Ship ship;
-
+    CardManager cardManager;
 
 
     bool _enemyTurn;
@@ -36,11 +38,14 @@ public class Controller : MonoBehaviour
     float[,] _enemySpawnPointX = new float[5, 5];
     float[,] _enemySpawnPointY = new float[5, 5];
     GameObject[,] _pointToAttack = new GameObject[5, 5];
+    GameObject[,] _enemyPointAttack = new GameObject[5, 5];
     int firstID = 0;
-    
 
+    bool usingCard;
+    int cardID;
     private void Start()
     {
+        usingCard = false;
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
         _manager = FindObjectOfType<UIManager>();
@@ -76,6 +81,10 @@ public class Controller : MonoBehaviour
             ship.toggleCollider();
             _disabledShip = true;
         }
+        if (!cardManager)
+        {
+            cardManager = FindObjectOfType<CardManager>();
+        }
 
     }
     
@@ -94,8 +103,6 @@ public class Controller : MonoBehaviour
                 GameObject destroyPoint = Instantiate(_point, new Vector2(x, y), Quaternion.identity);
                 destroyPoint.name = id.ToString();
                 _pointToAttack[i, j] = destroyPoint;
-                if (_pointToAttack[i, j].GetComponent<Point>()!= null)
-                    print("true");
                 y-= 0.7197f;
                 id++;
             }
@@ -117,6 +124,8 @@ public class Controller : MonoBehaviour
             {
                 GameObject pointCreated = Instantiate(_pointEnemy, new Vector2(x, y), Quaternion.identity);
                 pointCreated.name = id.ToString();
+                _enemyPointAttack[i, j] = pointCreated;
+                if (!_enemyPointAttack[i, j]) print("nooo");
                 y-= 0.7197f;
                 _enemySpawnPointX[i, j] = x;
                 _enemySpawnPointY[i, j] = y;
@@ -189,5 +198,32 @@ public class Controller : MonoBehaviour
         // neu sai thi nguoc lai
         return true;
     }
-
+    public void toggleUsingCard(int id)
+    {
+        usingCard = !usingCard;
+        cardID   = id;
+    }
+    public bool isUsingCard()
+    {
+        return usingCard;
+    }
+    public int IDCardUsing()
+    {
+        return cardID;
+    }
+    public bool card001(int fakeID)
+    {
+        int id = -fakeID-1;
+        _enemyPointAttack[id/5, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
+        if (id/5 <4)
+        {
+            _enemyPointAttack[id/5+1, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
+            if (id/5 <3)
+            {
+                _enemyPointAttack[id/5+2, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
+            }
+        }
+            cardManager.toggleActiveDrawButton();
+        return true;
+    }
 }

@@ -31,9 +31,17 @@ public class PointEnemy : MonoBehaviour
     {
         isBeingAttack();
     }
-
     bool isBeingAttack()
     {
+        if (_controller.isUsingCard())
+        {
+            if (_controller.IDCardUsing()==1)
+            {
+                _controller.card001(_id);
+                _controller.toggleUsingCard(-1);
+            }
+            return true;
+        }
         if (_destroyed) return false ;
         if (!_controller.isEnemyTurn())
         {
@@ -42,14 +50,14 @@ public class PointEnemy : MonoBehaviour
 
                 _renderer.sprite =_iconDestroyed;
                 _destroyed = true;
-                //_controller.toggleEnemyTurn(true);
+                _controller.toggleEnemyTurn(true);
                 _controller.returnPointHit(_id);
             }
             else
             {
                 _renderer.sprite = _iconSquare;
                 _destroyed = true;
-                //_controller.toggleEnemyTurn(false);
+                _controller.toggleEnemyTurn(false);
             }
         }
 
