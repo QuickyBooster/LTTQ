@@ -18,7 +18,11 @@ public class UIManager : MonoBehaviour
 
     public void showButtonBattle(bool status)
     {
+        if (buttonBattle)
+        {
+
         buttonBattle.SetActive(status);
+        }
     }
     public void setArrangeText(string text)
     {

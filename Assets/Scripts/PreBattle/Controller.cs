@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -196,6 +197,8 @@ public class Controller : MonoBehaviour
         // gui toi controller ben kia lenh returnPointHit(idTarget)
         // neu tra ve la true thi la da danh trung, man hinh se hien thi dau X tren map dich
         // neu sai thi nguoc lai
+        // PhotonNetwork.ConnectMethod();
+        //PhotonNetwork.send
         return true;
     }
     public void toggleUsingCard(int id)
