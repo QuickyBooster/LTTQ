@@ -1278,6 +1278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1351068040}
   - component: {fileID: 1351068039}
+  - component: {fileID: 1351068041}
   m_Layer: 0
   m_Name: battle_sound
   m_TagString: Untagged
@@ -1396,6 +1397,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351068041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351068038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2e508f5861d6644a69240fc453160e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1579161397
 GameObject:
   m_ObjectHideFlags: 1
