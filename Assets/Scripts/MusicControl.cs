@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MusicControl : MonoBehaviour
 {
+    public static MusicControl instance;
     private void Awake()
     {
         GameObject[] musicObj = GameObject.FindGameObjectsWithTag("GameMusic");
