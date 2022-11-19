@@ -8,11 +8,20 @@ public class MusicControl : MonoBehaviour
     public static MusicControl instance;
     private void Awake()
     {
-        GameObject[] musicObj = GameObject.FindGameObjectsWithTag("GameMusic");
-        if (musicObj.Length > 1) 
+        //GameObject[] musicObj = GameObject.FindGameObjectsWithTag("GameMusic");
+        //if (musicObj.Length > 1)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //DontDestroyOnLoad(this.gameObject);
+
+        if (instance != null)
+            Destroy(gameObject);
+        else
         {
-            Destroy(this.gameObject);
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
+ 
     }
 }
