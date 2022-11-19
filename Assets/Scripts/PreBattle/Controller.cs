@@ -177,8 +177,8 @@ public class Controller : MonoBehaviour
 
             _scence = 1;
             //_lockedShipCoordinate = true;
-            SceneManager.LoadScene("Battle");
-            //PhotonNetwork.LoadLevel("Battle");
+            //SceneManager.LoadScene("Battle");
+            PhotonNetwork.LoadLevel("Battle");
             //timer = 0.5f;
 
             
