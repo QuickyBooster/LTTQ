@@ -802,7 +802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: -376}
+  m_AnchoredPosition: {x: -0.0000019073, y: -376}
   m_SizeDelta: {x: 254.22, y: 122.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &352207966
@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b902154d62b444088763037a9afcf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 388160305}
+  pannel: {fileID: 388160305}
   cardTransform: {fileID: 1355936773}
   myUIGroup: {fileID: 388160310}
 --- !u!4 &979114549
@@ -3950,8 +3950,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76f11e5789979a648ac4f68e71b52685, type: 2}
+  m_sharedMaterial: {fileID: -2694862254876738392, guid: 76f11e5789979a648ac4f68e71b52685, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

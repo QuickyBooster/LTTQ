@@ -160,9 +160,11 @@ public class CardManager : MonoBehaviour
         {
             tempCard.handIndex =i;
             cardPanel.setCardInPanel(false);
-            tempCard.transform.position = cardSlots[tempCard.handIndex].position;
+            //tempCard.transform.position = cardSlots[tempCard.handIndex].position;
             availableCardSlots[tempCard.handIndex] = false;
             slotCard[tempCard.handIndex] = tempCard;
+            //tempCard.transform.position = new Vector2(-4.69f, -1.08f);
+            print(tempCard.transform.position.x);
         }
         deck.Remove(tempCard);
     }

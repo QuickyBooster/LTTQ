@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PanelOpener : MonoBehaviour
 {
-    public GameObject panel;
+    public GameObject pannel;
     public Transform cardTransform;
     [SerializeField] CanvasGroup myUIGroup;
     bool showPannel;
@@ -14,7 +14,7 @@ public class PanelOpener : MonoBehaviour
     void Start()
     {
         
-        panel.SetActive(false);
+        pannel.SetActive(false);
         showPannel = false; 
         hidePannel = false;
         myUIGroup.alpha = 0;
@@ -25,7 +25,7 @@ public class PanelOpener : MonoBehaviour
         {
             if (myUIGroup.alpha<1)
             {
-                panel.SetActive(true);
+                pannel.SetActive(true);
                 myUIGroup.alpha += Time.deltaTime;
                 if (myUIGroup.alpha>=1)
                 {
@@ -41,7 +41,7 @@ public class PanelOpener : MonoBehaviour
                 if (myUIGroup.alpha ==0)
                 {
                     hidePannel = false;
-                    panel.SetActive(false);
+                    pannel.SetActive(false);
                 }
             }
         }
