@@ -15,6 +15,7 @@ public class PlayerNetwork : MonoBehaviour
     {
         PlayersInGame = 0;
         Instance = this;
+        photonView.GetComponent<PhotonView>();
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             
