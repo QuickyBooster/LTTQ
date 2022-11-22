@@ -15,7 +15,6 @@ public class PlayerNetwork : MonoBehaviour
     {
         PlayersInGame = 0;
         Instance = this;
-        photonView.GetComponent<PhotonView>();
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             
@@ -24,6 +23,13 @@ public class PlayerNetwork : MonoBehaviour
 
         //SceneManager.sceneLoaded += OnSceneFinishedLoading;
         PhotonNetwork.AutomaticallySyncScene= true;
+    }
+    private void Update()
+    {
+        if (photonView)
+        {
+            photonView.GetComponent<PhotonView>();
+        }
     }
     //void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     //{
@@ -54,8 +60,7 @@ public class PlayerNetwork : MonoBehaviour
     }
     void MasterLoadedGame()
     {
-        // dang khong duoc goi
-        photonView.RPC("RPC_LoadedGameScene", RpcTarget.Others);
+        photonView.RPC("RPC_LoadedGameScene", RpcTarget.All);
     }
     void ClientLoadedGame()
     {
