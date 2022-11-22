@@ -48,8 +48,9 @@ public class PlayerNetwork : MonoBehaviour
     //}
     public void readyToBattle()
     {
-        if (true)
+        if (true&&!ready)
         {
+            ready = true;
             if (PhotonNetwork.IsMasterClient)
             {
                 MasterLoadedGame();
@@ -78,14 +79,11 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     void RPC_LoadedGameScene()
     {
-        if (!ready)
+        PlayersInGame++;
+        if (PlayersInGame ==2)
         {
-
-            PlayersInGame++;
-            if (PlayersInGame ==2)
-            {
-                PhotonNetwork.LoadLevel("Battle");
-            }
+            PhotonNetwork.LoadLevel("Battle");
         }
+
     }
 }
