@@ -10,6 +10,7 @@ public class PlayerNetwork : MonoBehaviour
     public string PlayerName { get; private set; }
     PhotonView photonView;
     int PlayersInGame;
+    bool ready;
 
     private void Awake()
     {
@@ -17,12 +18,13 @@ public class PlayerNetwork : MonoBehaviour
         Instance = this;
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            
+
             PlayerName = player.Value.ToString();
         }
 
         //SceneManager.sceneLoaded += OnSceneFinishedLoading;
         PhotonNetwork.AutomaticallySyncScene= true;
+        ready = false;
     }
     private void Update()
     {
@@ -76,10 +78,14 @@ public class PlayerNetwork : MonoBehaviour
     [PunRPC]
     void RPC_LoadedGameScene()
     {
-        PlayersInGame++;
-        if (PlayersInGame ==2)
+        if (!ready)
         {
-            PhotonNetwork.LoadLevel("Battle");
+
+            PlayersInGame++;
+            if (PlayersInGame ==2)
+            {
+                PhotonNetwork.LoadLevel("Battle");
+            }
         }
     }
 }
