@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Unity.UI;
-using UnityEditor.Rendering.LookDev;
+//using Unity.UI;
+//using UnityEditor.Rendering.LookDev;
 using UnityEditor;
 using System.Xml;
 using Unity.VisualScripting;
-using Unity.PlasticSCM.Editor.WebApi;
+//using Unity.PlasticSCM.Editor.WebApi;
 
 public class CardManager : MonoBehaviour
 {
