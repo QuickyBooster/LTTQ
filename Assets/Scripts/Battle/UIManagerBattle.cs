@@ -11,7 +11,15 @@ public class UIManagerBattle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _controller = FindObjectOfType<Controller>();   
+        _controller = FindObjectOfType<Controller>();
+        if (_controller.isEnemyTurn())
+        {
+            this.setTextTurn("Enemy turn: ");
+        }
+        else
+        {
+            this.setTextTurn("Your turn: ");
+        }
     }
 
     // Update is called once per frame

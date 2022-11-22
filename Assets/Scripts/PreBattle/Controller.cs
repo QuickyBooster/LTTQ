@@ -48,13 +48,16 @@ public class Controller : MonoBehaviour
     int idToAttack;
     private void Start()
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            _enemyTurn = false;
+        }
         idToAttack = 999;
         usingCard = false;
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
         _manager = FindObjectOfType<UIManager>();
         _scence = 0;
-        _enemyTurn = false;
         _tableCreated = false;
         _shipInPlace = false;
         _cardChose = true;
@@ -201,12 +204,6 @@ public class Controller : MonoBehaviour
     }
     public int sendAttack()
     {
-        // gui toi controller ben kia lenh returnPointHit(idTarget)
-        // neu tra ve la true thi la da danh trung, man hinh se hien thi dau X tren map dich
-        // neu sai thi nguoc lai
-        // PhotonNetwork.ConnectMethod();
-        //PhotonNetwork.send
-        //nhap vao id phia tren de thang nay gui
         return idToAttack;
     }
     public void sendIDToAttack(int id)

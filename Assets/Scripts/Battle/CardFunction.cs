@@ -8,7 +8,6 @@ public class CardFunction : MonoBehaviour
 {
     [SerializeField] PhotonView photonView;
     [SerializeField] GameObject cardManagerObject;
-    GameObject controllerObject;
 
     CardManager cardManager;
     Controller controller;
@@ -19,7 +18,7 @@ public class CardFunction : MonoBehaviour
     private void Awake()
     {
         cardManager = cardManagerObject.GetComponent<CardManager>();
-        controller = controllerObject.GetComponent<Controller>();
+        controller = FindObjectOfType<Controller>();
     }
     public void setNextTurn()
     {
@@ -59,8 +58,9 @@ public class CardFunction : MonoBehaviour
     }
     void receiveAttack(int id)
     {
-       tempInt = id;
-       tempBool = controller.returnPointHit(id);
+        tempInt = id;
+        tempBool = controller.returnPointHit(id);
+        setNextTurn();
     }
     //void displayPointHit(bool)
 }
