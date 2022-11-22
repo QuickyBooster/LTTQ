@@ -1,11 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class Controller : MonoBehaviour
 {
@@ -66,7 +67,7 @@ public class Controller : MonoBehaviour
     {
         if (_scence == 0 )
         {
-            if (_shipInPlace && _cardChose)
+            if (_shipInPlace /*&& _cardChose*/)
                 _manager.showButtonBattle(true);
             else
                 _manager.showButtonBattle(false);
@@ -87,7 +88,6 @@ public class Controller : MonoBehaviour
         }
 
     }
-    
     
     
     void createTable()
@@ -226,5 +226,9 @@ public class Controller : MonoBehaviour
             cardManager.toggleActiveDrawButton();
         return true;
     }
+
+
     
 }
+
+

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -27,11 +28,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     public GameObject playButton;
+
+    int PlayersInGame;
     private void Start()
     {
         PhotonNetwork.JoinLobby();
         roomPanel.SetActive(false);
     }
+
     private void Update()
     {
         if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount ==2)
