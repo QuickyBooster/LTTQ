@@ -2989,6 +2989,7 @@ MonoBehaviour:
   deckSizeText: {fileID: 791279070}
   discardPileSizeText: {fileID: 1846308057}
   cardPanel: {fileID: 979114548}
+  cardFunctionObject: {fileID: 1834101246}
 --- !u!4 &1137652390
 Transform:
   m_ObjectHideFlags: 0
@@ -4318,6 +4319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 1834101247}
+  cardManagerObject: {fileID: 1137652388}
 --- !u!4 &1834101249
 Transform:
   m_ObjectHideFlags: 0

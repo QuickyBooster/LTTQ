@@ -15,10 +15,9 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
     [SerializeField] Sprite _bracket; 
-    [SerializeField] GameObject cardFunctionObject;
     CardFunction cardFunction;
-    Ship ship;
     CardManager cardManager;
+    Ship ship;
 
 
     bool _enemyTurn;
@@ -87,13 +86,13 @@ public class Controller : MonoBehaviour
             _disabledShip= true;
             _disabledShip = true;
         }
-        if (!cardManager)
+        if (_scence == 1 && !cardManager)
         {
             cardManager = FindObjectOfType<CardManager>();
         }
-        if (!cardFunction)
+        if (_scence ==1 && !cardFunction)
         {
-            cardFunction = cardFunctionObject.GetComponent<CardFunction>();
+            cardFunction = FindObjectOfType<CardFunction>();
         }
 
     }

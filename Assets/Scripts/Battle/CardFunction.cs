@@ -8,7 +8,7 @@ public class CardFunction : MonoBehaviour
 {
     [SerializeField] PhotonView photonView;
     [SerializeField] GameObject cardManagerObject;
-    [SerializeField] GameObject controllerObject;
+    GameObject controllerObject;
 
     CardManager cardManager;
     Controller controller;
