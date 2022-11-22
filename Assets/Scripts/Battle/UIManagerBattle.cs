@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class UIManagerBattle : MonoBehaviour
 {
     [SerializeField] Text _textTurn;
-    [SerializeField] Controller _controller;
+     Controller _controller;
     // Start is called before the first frame update
     void Start()
     {
+        this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
         if (_controller.isEnemyTurn())
         {

@@ -1,7 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardFunction : MonoBehaviour
@@ -19,6 +16,27 @@ public class CardFunction : MonoBehaviour
     {
         cardManager = cardManagerObject.GetComponent<CardManager>();
         controller = FindObjectOfType<Controller>();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            bool rand = (1==Random.Range(0, 1));
+            if (rand)
+            {
+                controller.toggleEnemyTurn();
+            }
+            else
+            {
+                setFirstTurn();
+            }
+        }
+
+    }
+    public void setFirstTurn()
+    {
+        photonView.RPC("RPC_setFirstTurn", RpcTarget.Others);
+    }
+    void RPC_setFirstTurn()
+    {
+        controller.toggleEnemyTurn();
     }
     public void setNextTurn()
     {

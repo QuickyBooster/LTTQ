@@ -1,12 +1,6 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 //using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -48,10 +42,6 @@ public class Controller : MonoBehaviour
     int idToAttack;
     private void Start()
     {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            _enemyTurn = false;
-        }
         idToAttack = 999;
         usingCard = false;
         ship = FindObjectOfType<Ship>();
@@ -71,6 +61,7 @@ public class Controller : MonoBehaviour
     }
     private void Update()
     {
+        print("our turn? : " + isEnemyTurn());
         if (_scence == 0 )
         {
             if (_shipInPlace && _cardChose)
