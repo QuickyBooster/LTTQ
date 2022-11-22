@@ -20,8 +20,7 @@ public class UIManager : MonoBehaviour
     {
         if (buttonBattle)
         {
-
-        buttonBattle.SetActive(status);
+            buttonBattle.SetActive(status);
         }
     }
     public void setArrangeText(string text)

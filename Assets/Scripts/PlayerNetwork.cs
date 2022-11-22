@@ -8,7 +8,7 @@ public class PlayerNetwork : MonoBehaviour
 {
     public static PlayerNetwork Instance;
     public string PlayerName { get; private set; }
-    PhotonView photonView;
+    [SerializeField] PhotonView photonView;
     int PlayersInGame;
     bool ready;
 
@@ -28,10 +28,6 @@ public class PlayerNetwork : MonoBehaviour
     }
     private void Update()
     {
-        if (photonView)
-        {
-            photonView.GetComponent<PhotonView>();
-        }
     }
     //void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     //{
