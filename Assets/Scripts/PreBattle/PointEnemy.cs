@@ -29,9 +29,9 @@ public class PointEnemy : MonoBehaviour
 
     private void OnMouseDown()
     {
-        isBeingAttack();
+        _controller.sendIDToAttack(_id);
     }
-    bool isBeingAttack()
+    public bool isBeingAttack()
     {
         if (_controller.isUsingCard())
         {
@@ -50,14 +50,14 @@ public class PointEnemy : MonoBehaviour
 
                 _renderer.sprite =_iconDestroyed;
                 _destroyed = true;
-                _controller.toggleEnemyTurn(true);
+                _controller.toggleEnemyTurn();
                 _controller.returnPointHit(_id);
             }
             else
             {
                 _renderer.sprite = _iconSquare;
                 _destroyed = true;
-                _controller.toggleEnemyTurn(false);
+                _controller.toggleEnemyTurn();
             }
         }
 

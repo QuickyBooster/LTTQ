@@ -14,7 +14,9 @@ public class Controller : MonoBehaviour
     [SerializeField] UIManager _manager;
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
-    [SerializeField] Sprite _bracket;
+    [SerializeField] Sprite _bracket; 
+    [SerializeField] GameObject cardFunctionObject;
+    CardFunction cardFunction;
     Ship ship;
     CardManager cardManager;
 
@@ -36,16 +38,18 @@ public class Controller : MonoBehaviour
     bool _tableCreated;
 
     //array for enemy ship to spawn
-    float[,] _enemySpawnPointX = new float[5, 5];
-    float[,] _enemySpawnPointY = new float[5, 5];
+    //float[,] _enemySpawnPointX = new float[5, 5];
+    //float[,] _enemySpawnPointY = new float[5, 5];
     GameObject[,] _pointToAttack = new GameObject[5, 5];
     GameObject[,] _enemyPointAttack = new GameObject[5, 5];
     int firstID = 0;
 
     bool usingCard;
     int cardID;
+    int idToAttack;
     private void Start()
     {
+        idToAttack = 999;
         usingCard = false;
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
@@ -86,6 +90,10 @@ public class Controller : MonoBehaviour
         if (!cardManager)
         {
             cardManager = FindObjectOfType<CardManager>();
+        }
+        if (!cardFunction)
+        {
+            cardFunction = cardFunctionObject.GetComponent<CardFunction>();
         }
 
     }
@@ -129,14 +137,17 @@ public class Controller : MonoBehaviour
                 _enemyPointAttack[i, j] = pointCreated;
                 if (!_enemyPointAttack[i, j]) print("nooo");
                 y-= 0.7197f;
-                _enemySpawnPointX[i, j] = x;
-                _enemySpawnPointY[i, j] = y;
+                //_enemySpawnPointX[i, j] = x;
+                //_enemySpawnPointY[i, j] = y;
                 id--;
             }
             x+= 0.7202f;
         }
     }
-
+    public void displayAtack(int id)
+    {
+        _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().isBeingAttack();
+    }
 
     public bool isLocked() { return _lockedShipCoordinate; }
     public void setLockedCoordinate(bool set)
@@ -151,14 +162,10 @@ public class Controller : MonoBehaviour
     {
         return _enemyTurn;
     }
-    public void toggleEnemyTurn(bool playerHit)
+    public void toggleEnemyTurn()
     {
         _enemyTurn =!_enemyTurn;
-        //true means player hit a enemy ship, false means opposite
-        if (playerHit)
-        {
-            _enemyTurn = !_enemyTurn;
-        }
+        
     }
     public void setShipInPlace(bool status,int where)
     {
@@ -189,19 +196,28 @@ public class Controller : MonoBehaviour
     {
         if (_pointToAttack[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
-
             return true;
         }
         return false;
     }
-    public bool sendAttack(int idTarget)
+    public int sendAttack()
     {
         // gui toi controller ben kia lenh returnPointHit(idTarget)
         // neu tra ve la true thi la da danh trung, man hinh se hien thi dau X tren map dich
         // neu sai thi nguoc lai
         // PhotonNetwork.ConnectMethod();
         //PhotonNetwork.send
-        return true;
+        //nhap vao id phia tren de thang nay gui
+        return idToAttack;
+    }
+    public void sendIDToAttack(int id)
+    {
+        idToAttack = id;
+        sendAttack();
+    }
+    public void receiveAttack(int id)
+    {
+        // do something
     }
     public void toggleUsingCard(int id)
     {
