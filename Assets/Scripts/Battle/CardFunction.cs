@@ -80,22 +80,8 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
                 print("received");
                 receiveAttack((int)stream.ReceiveNext());
                 controller.displayAttack(tempInt);
-
+                controller.isEnemyDown(tempInt,(bool)stream.ReceiveNext());
             }
         }
-        //if (controller.isEnemyTurn())
-        //{
-        //    if (stream.IsReading)
-        //    {
-        //        receiveAttack((int)stream.ReceiveNext());
-        //        print("yas, enemy and reading");
-        //    }
-        //    if (stream.IsWriting)
-        //    {
-        //        stream.SendNext(tempBool);
-        //        print("rcdsafas");
-        //    }
-
-        //}
     }
 }
