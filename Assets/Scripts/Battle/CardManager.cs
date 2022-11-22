@@ -155,7 +155,6 @@ public class CardManager : MonoBehaviour
             if (!a) i++;
             else break;
         }
-        print(i);
         if (cardPanel.isCardInPanelNow())
         {
             tempCard.handIndex =i;

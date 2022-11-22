@@ -80,6 +80,7 @@ public class Controller : MonoBehaviour
             createTableEnemy();
             _tableCreated=true;
             ship.toggleCollider();
+            _disabledShip= true;
             _disabledShip = true;
         }
         if (!cardManager)
