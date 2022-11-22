@@ -80,6 +80,5 @@ public class PlayerNetwork : MonoBehaviour
         {
             PhotonNetwork.LoadLevel("Battle");
         }
-
     }
 }

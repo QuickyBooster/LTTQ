@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class CardFunction : MonoBehaviour
+public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
 {
     [SerializeField] PhotonView photonView;
     [SerializeField] GameObject cardManagerObject;
@@ -21,10 +21,12 @@ public class CardFunction : MonoBehaviour
             bool rand = (1==Random.Range(0, 1));
             if (rand)
             {
+                print("true roi ha");
                 controller.toggleEnemyTurn();
             }
             else
             {
+                print("false roi nha");
                 setFirstTurn();
             }
         }
@@ -34,6 +36,7 @@ public class CardFunction : MonoBehaviour
     {
         photonView.RPC("RPC_setFirstTurn", RpcTarget.Others);
     }
+    [PunRPC]
     void RPC_setFirstTurn()
     {
         controller.toggleEnemyTurn();
@@ -47,38 +50,52 @@ public class CardFunction : MonoBehaviour
     {
         controller.toggleEnemyTurn();
     }
-    private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (!controller.isEnemyTurn())
-        {
 
-            if (stream.IsWriting)
-            {
-                stream.SendNext(controller.sendAttack());
-            }
-            if (stream.IsReading)
-            {
-                controller.displayAtack(tempInt);
-            }
-        }
-        if (controller.isEnemyTurn())
-        {
-            if (stream.IsReading)
-            {
-                receiveAttack((int)stream.ReceiveNext());
-            }
-            if (stream.IsWriting)
-            {
-                stream.SendNext(tempBool);
-            }
 
-        }
-    }
     void receiveAttack(int id)
     {
+        print(id);
         tempInt = id;
         tempBool = controller.returnPointHit(id);
         setNextTurn();
     }
-    //void displayPointHit(bool)
+    void isEnemyDown(bool status)
+    {
+
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (true)
+        {
+
+            if (stream.IsWriting)
+            {
+                print("sendign");
+                stream.SendNext(controller.sendAttack());
+                stream.SendNext(tempBool);
+            }
+            if (stream.IsReading)
+            {
+                print("received");
+                receiveAttack((int)stream.ReceiveNext());
+                controller.displayAttack(tempInt);
+
+            }
+        }
+        //if (controller.isEnemyTurn())
+        //{
+        //    if (stream.IsReading)
+        //    {
+        //        receiveAttack((int)stream.ReceiveNext());
+        //        print("yas, enemy and reading");
+        //    }
+        //    if (stream.IsWriting)
+        //    {
+        //        stream.SendNext(tempBool);
+        //        print("rcdsafas");
+        //    }
+
+        //}
+    }
 }

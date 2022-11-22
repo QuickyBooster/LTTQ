@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class PointEnemy : MonoBehaviour
@@ -29,7 +26,10 @@ public class PointEnemy : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _controller.sendIDToAttack(_id);
+        if (!_controller.isEnemyTurn())
+        {
+            _controller.sendIDToAttack(-_id-1);
+        }
     }
     public bool isBeingAttack()
     {
@@ -43,25 +43,21 @@ public class PointEnemy : MonoBehaviour
             return true;
         }
         if (_destroyed) return false ;
-        if (!_controller.isEnemyTurn())
+        return false;
+    }
+    public void displayDestroy(bool status)
+    {
+        if (status)
         {
-            if (_shipField)
-            {
+            _renderer.sprite =_iconDestroyed;
+            _destroyed = true;
 
-                _renderer.sprite =_iconDestroyed;
-                _destroyed = true;
-                _controller.toggleEnemyTurn();
-                _controller.returnPointHit(_id);
-            }
-            else
-            {
-                _renderer.sprite = _iconSquare;
-                _destroyed = true;
-                _controller.toggleEnemyTurn();
-            }
+        }else
+        {
+            _renderer.sprite =_iconSquare;
+            _destroyed = true;
         }
 
-        return false;
     }
     public bool isDestroyed() { return _destroyed; }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -74,8 +70,4 @@ public class PointEnemy : MonoBehaviour
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }
-    //private void OnMouseOver()
-    //{
-    //    isBeingAttack();
-    //}
 }

@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEditor;
-using System.Xml;
-using Unity.VisualScripting;
 
 public class CardManager : MonoBehaviour
 {

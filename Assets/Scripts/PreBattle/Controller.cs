@@ -1,6 +1,6 @@
 using Photon.Pun;
-//using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -42,7 +42,7 @@ public class Controller : MonoBehaviour
     int idToAttack;
     private void Start()
     {
-        idToAttack = 999;
+        idToAttack = -1;
         usingCard = false;
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
@@ -61,7 +61,6 @@ public class Controller : MonoBehaviour
     }
     private void Update()
     {
-        print("our turn? : " + isEnemyTurn());
         if (_scence == 0 )
         {
             if (_shipInPlace && _cardChose)
@@ -71,20 +70,19 @@ public class Controller : MonoBehaviour
         }
         
 
-        if (_scence == 1 && !_tableCreated && !_disabledShip)
+        if (SceneManager.GetActiveScene().name.Equals("Battle") && !_tableCreated && !_disabledShip)
         {
             createTable();
             createTableEnemy();
             _tableCreated=true;
             ship.toggleCollider();
-            _disabledShip= true;
             _disabledShip = true;
         }
-        if (_scence == 1 && !cardManager)
+        if (SceneManager.GetActiveScene().name.Equals("Battle") && !cardManager)
         {
             cardManager = FindObjectOfType<CardManager>();
         }
-        if (_scence ==1 && !cardFunction)
+        if (SceneManager.GetActiveScene().name.Equals("Battle") && !cardFunction)
         {
             cardFunction = FindObjectOfType<CardFunction>();
         }
@@ -137,8 +135,10 @@ public class Controller : MonoBehaviour
             x+= 0.7202f;
         }
     }
-    public void displayAtack(int id)
+    public void displayAttack(int id)
     {
+        if (id ==-1)
+            return;
         _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().isBeingAttack();
     }
 
@@ -187,24 +187,27 @@ public class Controller : MonoBehaviour
     }
     public bool returnPointHit(int idHit)
     {
+        if (idHit == -1)
+            return false;
         if (_pointToAttack[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
             return true;
         }
         return false;
     }
+    public void isEnemyDown(int id,bool status)
+    {
+        _enemyPointAttack[id/5,id%5].GetComponent<PointEnemy>().displayDestroy(status); 
+    }
     public int sendAttack()
     {
+        print("i just attack id: "+idToAttack);
         return idToAttack;
     }
     public void sendIDToAttack(int id)
     {
         idToAttack = id;
         sendAttack();
-    }
-    public void receiveAttack(int id)
-    {
-        // do something
     }
     public void toggleUsingCard(int id)
     {
