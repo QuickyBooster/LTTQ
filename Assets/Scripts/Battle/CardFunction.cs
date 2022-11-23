@@ -91,7 +91,7 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
             if (stream.IsWriting)
             {
                 print("sendign");
-                if (controller.isThisANewAttack())
+                if (controller.isThisANewAttack()&& !needInfoDefend)
                 {
                     print("sending attack");
                     stream.SendNext(controller.sendAttack());
