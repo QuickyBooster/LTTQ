@@ -158,8 +158,6 @@ public class CardManager : MonoBehaviour
             tempCard.transform.position = cardSlots[tempCard.handIndex].position;
             availableCardSlots[tempCard.handIndex] = false;
             slotCard[tempCard.handIndex] = tempCard;
-            //tempCard.transform.position = new Vector2(-4.69f, -1.08f);
-            //print(tempCard.transform.position.x);
         }
         deck.Remove(tempCard);
     }
@@ -198,7 +196,6 @@ public class CardManager : MonoBehaviour
             slotCard[handIdex].MoveToDiscardPile();
             availableCardSlots[handIdex]= true;
         }
-        //tempCard.gameObject.SetActive(false);
     }
     public void toggleActiveDrawButton()
     {

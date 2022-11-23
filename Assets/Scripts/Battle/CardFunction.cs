@@ -54,6 +54,7 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
 
     void receiveAttack(int id)
     {
+        if (id ==-1) return;
         print(id);
         tempInt = id;
         tempBool = controller.returnPointHit(id);
