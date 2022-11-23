@@ -31,8 +31,6 @@ public class Controller : MonoBehaviour
     bool _tableCreated;
 
     //array for enemy ship to spawn
-    //float[,] _enemySpawnPointX = new float[5, 5];
-    //float[,] _enemySpawnPointY = new float[5, 5];
     GameObject[,] _pointToAttack = new GameObject[5, 5];
     GameObject[,] _enemyPointAttack = new GameObject[5, 5];
     int firstID = 0;
@@ -128,8 +126,6 @@ public class Controller : MonoBehaviour
                 _enemyPointAttack[i, j] = pointCreated;
                 if (!_enemyPointAttack[i, j]) print("nooo");
                 y-= 0.7197f;
-                //_enemySpawnPointX[i, j] = x;
-                //_enemySpawnPointY[i, j] = y;
                 id--;
             }
             x+= 0.7202f;
@@ -139,6 +135,7 @@ public class Controller : MonoBehaviour
     {
         if (id ==-1)
             return;
+        print("display attack at"+id);
         _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().isBeingAttack();
     }
 
@@ -171,20 +168,6 @@ public class Controller : MonoBehaviour
     {
         return _shipInPlace;
     }
-    public void navigateBattle()
-    {
-        if (_shipInPlace && _cardChose)
-        {
-
-            _scence = 1;
-            //_lockedShipCoordinate = true;
-            //SceneManager.LoadScene("Battle");
-            PhotonNetwork.LoadLevel("Battle");
-            //timer = 0.5f;
-
-            
-        }
-    }
     public bool returnPointHit(int idHit)
     {
         if (idHit == -1)
@@ -197,6 +180,8 @@ public class Controller : MonoBehaviour
     }
     public void isEnemyDown(int id,bool status)
     {
+        if (id == -1) return;
+        print("id at 197 controller, is enemydown"+id);
         _enemyPointAttack[id/5,id%5].GetComponent<PointEnemy>().displayDestroy(status); 
     }
     public int sendAttack()

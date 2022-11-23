@@ -8,7 +8,6 @@ public class PointEnemy : MonoBehaviour
     Controller _controller;
 
     SpriteRenderer _renderer;
-    bool _shipField;
     bool _destroyed;
     int _id;
 
@@ -60,13 +59,8 @@ public class PointEnemy : MonoBehaviour
 
     }
     public bool isDestroyed() { return _destroyed; }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        _shipField= true;
-    }
     public void resetAllElement()
     {
-        _shipField = false;
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }

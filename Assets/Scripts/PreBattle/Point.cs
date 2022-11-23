@@ -49,14 +49,12 @@ public class Point : MonoBehaviour
 
                 _renderer.sprite =_iconDestroyed;
                 _destroyed = true;
-                //_controller.setEnemyTurn(false);
                 return true;
             }
             else
             {
                 _renderer.sprite = _iconSquare;
                 _destroyed = true;
-                //_controller.toggleEnemyTurn(false);
                 return false;
             }
         }
@@ -72,24 +70,5 @@ public class Point : MonoBehaviour
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }
-    //private void OnMouseOver()
-    //{
-    //    if (_destroyed) return;
-    //    if (_controller.isEnemyTurn()) ;
-    //    {
-    //        if (_shipField)
-    //        {
-
-    //            _renderer.sprite =_iconDestroyed;
-    //            _destroyed = true;
-    //            //_controller.setEnemyTurn(false);
-    //        }
-    //        else
-    //        {
-    //            _renderer.sprite = _iconSquare;
-    //            _destroyed = true;
-    //            //_controller.setEnemyTurn(false);
-    //        }
-    //    }
-    //}
+   
 }
