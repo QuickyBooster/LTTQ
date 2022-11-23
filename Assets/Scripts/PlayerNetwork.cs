@@ -66,11 +66,6 @@ public class PlayerNetwork : MonoBehaviour
         photonView.RPC("RPC_LoadedGameScene", RpcTarget.All);
     }
 
-    [PunRPC]
-    void RPC_LoadedGameOthers()
-    {
-        // do nothing
-    }
 
     [PunRPC]
     void RPC_LoadedGameScene()

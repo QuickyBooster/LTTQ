@@ -37,10 +37,11 @@ public class Controller : MonoBehaviour
 
     bool usingCard;
     int cardID;
-    int idToAttack;
+    int idToAttackNext;
+    int idToAttackPrev;
     private void Start()
     {
-        idToAttack = -1;
+        idToAttackNext = idToAttackPrev = -1;
         usingCard = false;
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
@@ -135,8 +136,8 @@ public class Controller : MonoBehaviour
     {
         if (id ==-1)
             return;
-        print("display attack at"+id);
-        _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().isBeingAttack();
+        print("display attack at "+id);
+        //_enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().displayDestroy();
     }
 
     public bool isLocked() { return _lockedShipCoordinate; }
@@ -186,12 +187,18 @@ public class Controller : MonoBehaviour
     }
     public int sendAttack()
     {
-        print("i just attack id: "+idToAttack);
-        return idToAttack;
+        
+        print("i just attack id: "+idToAttackNext);
+        return idToAttackNext;
     }
     public void sendIDToAttack(int id)
     {
-        idToAttack = id;
+        if (!isEnemyTurn())
+            cardFunction.setNextTurn();
+        else return ;
+        if (id== idToAttackPrev) return;
+        idToAttackNext = idToAttackPrev = id;
+        if (id == -1) return; 
         sendAttack();
     }
     public void toggleUsingCard(int id)

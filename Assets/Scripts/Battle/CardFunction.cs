@@ -58,9 +58,8 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
         print(id);
         tempInt = id;
         tempBool = controller.returnPointHit(id);
-        setNextTurn();
     }
-    void isEnemyDown(bool status)
+    void sendAttack()
     {
 
     }
@@ -80,7 +79,6 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
             {
                 print("received");
                 receiveAttack((int)stream.ReceiveNext());
-                controller.displayAttack(tempInt);
                 controller.isEnemyDown(tempInt,(bool)stream.ReceiveNext());
             }
         }
