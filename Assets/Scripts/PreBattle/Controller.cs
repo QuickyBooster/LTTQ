@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -184,6 +185,12 @@ public class Controller : MonoBehaviour
         if (id == -1) return;
         print("id at 197 controller, is enemydown"+id);
         _enemyPointAttack[id/5,id%5].GetComponent<PointEnemy>().displayDestroy(status); 
+    }
+    public bool isThisANewAttack()
+    {
+        if (idToAttackPrev == idToAttackNext)
+            return false;
+        return true;
     }
     public int sendAttack()
     {
