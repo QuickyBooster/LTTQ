@@ -188,7 +188,7 @@ public class Controller : MonoBehaviour
     }
     public bool isThisANewAttack()
     {
-        if (idToAttackPrev == idToAttackNext&& isEnemyTurn())
+        if (idToAttackPrev == idToAttackNext && isEnemyTurn())
             return false;
         return true;
     }

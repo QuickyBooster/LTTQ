@@ -93,12 +93,14 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
                 print("sendign");
                 if (controller.isThisANewAttack())
                 {
+                    print("sending attack");
                     stream.SendNext(controller.sendAttack());
                     needInfoDefend = true;
                 }
                 ///
                 if (!needInfoAttack)
                 {
+                    print("sengding info");
                     stream.SendNext(tempBool);
                     needInfoAttack= true;
                 }
@@ -108,11 +110,13 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
                 print("received");
                 if (needInfoAttack)
                 {
+                    print("received attack");
                     receiveAttack((int)stream.ReceiveNext());
                     needInfoAttack= false;
                 }
                 if (needInfoDefend)
                 {
+                    print("received defend");
                     controller.isEnemyDown(tempIntNext,(bool)stream.ReceiveNext());
                 }
             }
