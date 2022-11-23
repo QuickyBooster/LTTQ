@@ -188,7 +188,7 @@ public class Controller : MonoBehaviour
     }
     public bool isThisANewAttack()
     {
-        if (idToAttackPrev == idToAttackNext)
+        if (idToAttackPrev == idToAttackNext&& isEnemyTurn())
             return false;
         return true;
     }
@@ -200,10 +200,9 @@ public class Controller : MonoBehaviour
     }
     public void sendIDToAttack(int id)
     {
-        if (!isEnemyTurn())
-            cardFunction.setNextTurn();
-        else return ;
-        if (id== idToAttackPrev) return;
+        if (isEnemyTurn())
+            return;
+        if (id == idToAttackPrev) return;
         idToAttackNext = idToAttackPrev = id;
         if (id == -1) return; 
         sendAttack();

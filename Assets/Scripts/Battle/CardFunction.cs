@@ -10,10 +10,11 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
     Controller controller;
 
 
-    bool tempBool;
-    int tempInt;
+    bool tempBool,needInfoAttack,needInfoDefend;
+    int tempIntNext,tempIntPrev;
     private void Awake()
     {
+        needInfoAttack =needInfoDefend= false;
         cardManager = cardManagerObject.GetComponent<CardManager>();
         controller = FindObjectOfType<Controller>();
         if (PhotonNetwork.IsMasterClient)
@@ -23,14 +24,25 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
             {
                 print("true roi ha");
                 controller.toggleEnemyTurn();
+                setNeedInfoAttack();
             }
             else
             {
                 print("false roi nha");
                 setFirstTurn();
+                needInfoAttack = true;
             }
         }
 
+    }
+    public void setNeedInfoAttack()
+    {
+        photonView.RPC("RPC_setFirstReceive", RpcTarget.Others);
+    }
+    [PunRPC]
+    void RPC_setFirstReceive()
+    {
+        needInfoAttack = true;
     }
     public void setFirstTurn()
     {
@@ -56,9 +68,16 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
     {
         if (id ==-1) return;
         print(id);
-        tempInt = id;
+        if (tempIntNext == tempIntPrev)
+        {
+            needInfoAttack = true;
+        }
+
+        tempIntNext = tempIntPrev = id;
         tempBool = controller.returnPointHit(id);
+        setNextTurn();
     }
+
     void sendAttack()
     {
 
@@ -75,14 +94,27 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
                 if (controller.isThisANewAttack())
                 {
                     stream.SendNext(controller.sendAttack());
+                    needInfoDefend = true;
                 }
-                stream.SendNext(tempBool);
+                ///
+                if (!needInfoAttack)
+                {
+                    stream.SendNext(tempBool);
+                    needInfoAttack= true;
+                }
             }
             if (stream.IsReading)
             {
                 print("received");
-                receiveAttack((int)stream.ReceiveNext());
-                controller.isEnemyDown(tempInt,(bool)stream.ReceiveNext());
+                if (needInfoAttack)
+                {
+                    receiveAttack((int)stream.ReceiveNext());
+                    needInfoAttack= false;
+                }
+                if (needInfoDefend)
+                {
+                    controller.isEnemyDown(tempIntNext,(bool)stream.ReceiveNext());
+                }
             }
         }
     }
