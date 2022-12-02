@@ -16,6 +16,7 @@ public class Controller : MonoBehaviour
     Ship ship;
     PointFunction pointFunction;
 
+
     bool _enemyTurn;
     bool _lockedShipCoordinate;
     bool _shipInPlace;
@@ -131,7 +132,6 @@ public class Controller : MonoBehaviour
                 GameObject pointCreated = Instantiate(_pointEnemy, new Vector2(x, y), Quaternion.identity);
                 pointCreated.name = id.ToString();
                 _enemyPointAttack[i, j] = pointCreated;
-                if (!_enemyPointAttack[i, j]) print("nooo");
                 y-= 0.7197f;
                 id--;
             }
