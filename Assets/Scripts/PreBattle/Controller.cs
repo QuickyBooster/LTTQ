@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,11 +10,11 @@ public class Controller : MonoBehaviour
     [SerializeField] UIManager _manager;
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
-    [SerializeField] Sprite _bracket; 
+    [SerializeField] Sprite _bracket;
     CardFunction cardFunction;
     CardManager cardManager;
     Ship ship;
-
+    PointFunction pointFunction;
 
     bool _enemyTurn;
     bool _lockedShipCoordinate;
@@ -61,14 +62,14 @@ public class Controller : MonoBehaviour
     }
     private void Update()
     {
-        if (_scence == 0 )
+        if (_scence == 0)
         {
             if (_shipInPlace && _cardChose)
                 _manager.showButtonBattle(true);
             else
                 _manager.showButtonBattle(false);
         }
-        
+
 
         if (SceneManager.GetActiveScene().name.Equals("Battle") && !_tableCreated && !_disabledShip)
         {
@@ -78,19 +79,23 @@ public class Controller : MonoBehaviour
             ship.toggleCollider();
             _disabledShip = true;
         }
-        if (SceneManager.GetActiveScene().name.Equals("Battle") && !cardManager)
+        if (!cardManager && SceneManager.GetActiveScene().name.Equals("Battle"))
         {
             cardManager = FindObjectOfType<CardManager>();
         }
-        if (SceneManager.GetActiveScene().name.Equals("Battle") && !cardFunction)
+        if (!cardFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
         {
             cardFunction = FindObjectOfType<CardFunction>();
         }
+        if (!pointFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
+        {
+            pointFunction = FindObjectOfType<PointFunction>();
+        }
 
     }
-    
-    
-    
+
+
+
     void createTable()
     {
         int id = 0;
@@ -157,11 +162,11 @@ public class Controller : MonoBehaviour
     public void toggleEnemyTurn()
     {
         _enemyTurn =!_enemyTurn;
-        
+
     }
-    public void setShipInPlace(bool status,int where)
+    public void setShipInPlace(bool status, int where)
     {
-        
+
         _shipInPlace = status;
         if (status)
             firstID = where;
@@ -180,11 +185,11 @@ public class Controller : MonoBehaviour
         }
         return false;
     }
-    public void isEnemyDown(int id,bool status)
+    public void isEnemyDown(int id, bool status)
     {
         if (id == -1) return;
         print("id at 197 controller, is enemydown"+id);
-        _enemyPointAttack[id/5,id%5].GetComponent<PointEnemy>().displayDestroy(status); 
+        _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().displayDestroy(status);
     }
     public bool isThisANewAttack()
     {
@@ -192,20 +197,10 @@ public class Controller : MonoBehaviour
             return false;
         return true;
     }
-    public int sendAttack()
-    {
-        
-        print("i just attack id: "+idToAttackNext);
-        return idToAttackNext;
-    }
     public void sendIDToAttack(int id)
     {
-        if (isEnemyTurn())
-            return;
-        if (id == idToAttackPrev) return;
-        idToAttackNext = idToAttackPrev = id;
-        if (id == -1) return; 
-        sendAttack();
+        pointFunction.managerAllPoint(id);
+        cardFunction.setNextTurn();
     }
     public void toggleUsingCard(int id)
     {
@@ -232,8 +227,8 @@ public class Controller : MonoBehaviour
                 _enemyPointAttack[id/5+2, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
             }
         }
-            cardManager.toggleActiveDrawButton();
+        cardManager.toggleActiveDrawButton();
         return true;
     }
-    
+
 }

@@ -68,7 +68,6 @@ public class Ship : MonoBehaviour
     public void toggleCollider()
     {
         GetComponent<Collider2D>().enabled = !GetComponent<Collider2D>().enabled;
-        print(GetComponent<Collider2D>().enabled);
     }
    
 }

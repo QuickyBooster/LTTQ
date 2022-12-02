@@ -43,6 +43,34 @@ MonoBehaviour:
   - RPC_LoadedGameScene
   - RPC_setTurn
   - RPC_setFirstTurn
+  - RPC_setFirstReceive
+  - receiveFalseFromEnemy
+  - receiveTrueFromEnemy
+  - RPC_attackPoint00
+  - RPC_attackPoint01
+  - RPC_attackPoint02
+  - RPC_attackPoint03
+  - RPC_attackPoint04
+  - RPC_attackPoint05
+  - RPC_attackPoint06
+  - RPC_attackPoint07
+  - RPC_attackPoint08
+  - RPC_attackPoint09
+  - RPC_attackPoint10
+  - RPC_attackPoint11
+  - RPC_attackPoint12
+  - RPC_attackPoint13
+  - RPC_attackPoint14
+  - RPC_attackPoint15
+  - RPC_attackPoint16
+  - RPC_attackPoint17
+  - RPC_attackPoint18
+  - RPC_attackPoint19
+  - RPC_attackPoint20
+  - RPC_attackPoint21
+  - RPC_attackPoint22
+  - RPC_attackPoint23
+  - RPC_attackPoint24
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

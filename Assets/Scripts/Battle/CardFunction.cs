@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
+public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
 {
     [SerializeField] PhotonView photonView;
     [SerializeField] GameObject cardManagerObject;
@@ -10,11 +10,9 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
     Controller controller;
 
 
-    bool tempBool,needInfoAttack,needInfoDefend;
-    int tempIntNext,tempIntPrev;
+    int tempIntNext, tempIntPrev;
     private void Awake()
     {
-        needInfoAttack =needInfoDefend= false;
         cardManager = cardManagerObject.GetComponent<CardManager>();
         controller = FindObjectOfType<Controller>();
         if (PhotonNetwork.IsMasterClient)
@@ -24,26 +22,16 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
             {
                 print("true roi ha");
                 controller.toggleEnemyTurn();
-                setNeedInfoAttack();
             }
             else
             {
                 print("false roi nha");
                 setFirstTurn();
-                needInfoAttack = true;
             }
         }
 
     }
-    public void setNeedInfoAttack()
-    {
-        photonView.RPC("RPC_setFirstReceive", RpcTarget.Others);
-    }
-    [PunRPC]
-    void RPC_setFirstReceive()
-    {
-        needInfoAttack = true;
-    }
+
     public void setFirstTurn()
     {
         photonView.RPC("RPC_setFirstTurn", RpcTarget.Others);
@@ -70,11 +58,9 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
         print(id);
         if (tempIntNext == tempIntPrev)
         {
-            needInfoAttack = true;
         }
 
         tempIntNext = tempIntPrev = id;
-        tempBool = controller.returnPointHit(id);
         setNextTurn();
     }
 
@@ -83,43 +69,39 @@ public class CardFunction : MonoBehaviour, Photon.Pun.IPunObservable
 
     }
 
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (true)
-        {
+    //void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
 
-            if (stream.IsWriting)
-            {
-                print("sendign");
-                if (controller.isThisANewAttack()&& !needInfoDefend)
-                {
-                    print("sending attack");
-                    stream.SendNext(controller.sendAttack());
-                    needInfoDefend = true;
-                }
-                ///
-                if (!needInfoAttack)
-                {
-                    print("sengding info");
-                    stream.SendNext(tempBool);
-                    needInfoAttack= true;
-                }
-            }
-            if (stream.IsReading)
-            {
-                print("received");
-                if (needInfoAttack)
-                {
-                    print("received attack");
-                    receiveAttack((int)stream.ReceiveNext());
-                    needInfoAttack= false;
-                }
-                if (needInfoDefend)
-                {
-                    print("received defend");
-                    controller.isEnemyDown(tempIntNext,(bool)stream.ReceiveNext());
-                }
-            }
-        }
-    }
+    //    if (stream.IsWriting)
+    //    {
+    //        print("sendign");
+    //        if (controller.isThisANewAttack()&& !needInfoDefend)
+    //        {
+    //            print("1");
+    //            stream.SendNext(controller.sendAttack());
+    //            needInfoDefend = true;
+    //        }
+    //        if (!needInfoAttack)
+    //        {
+    //            print("2");
+    //            stream.SendNext(tempBool);
+    //            needInfoAttack= true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        print("received");
+    //        if (needInfoAttack)
+    //        {
+    //            print("3");
+    //            receiveAttack((int)stream.ReceiveNext());
+    //            needInfoAttack= false;
+    //        }
+    //        if (needInfoDefend)
+    //        {
+    //            print("4");
+    //            controller.isEnemyDown(tempIntNext, (bool)stream.ReceiveNext());
+    //        }
+    //    }
+    //}
 }

@@ -57,7 +57,7 @@ public class CardManager : MonoBehaviour
     }
     public void DrawCard()
     {
-        if (!controller.isEnemyTurn()&&  !drawedCard)
+        if (/*!controller.isEnemyTurn()&& */ !drawedCard)
         {
             if (activeDrawButton)
             {
