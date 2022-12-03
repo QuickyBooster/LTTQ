@@ -63,53 +63,5 @@ public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
     }
 
 
-    void receiveAttack(int id)
-    {
-        if (id ==-1) return;
-        print(id);
-        if (tempIntNext == tempIntPrev)
-        {
-        }
 
-        tempIntNext = tempIntPrev = id;
-        setNextTurn();
-    }
-
-
-
-    //void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-
-    //    if (stream.IsWriting)
-    //    {
-    //        print("sendign");
-    //        if (controller.isThisANewAttack()&& !needInfoDefend)
-    //        {
-    //            print("1");
-    //            stream.SendNext(controller.sendAttack());
-    //            needInfoDefend = true;
-    //        }
-    //        if (!needInfoAttack)
-    //        {
-    //            print("2");
-    //            stream.SendNext(tempBool);
-    //            needInfoAttack= true;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        print("received");
-    //        if (needInfoAttack)
-    //        {
-    //            print("3");
-    //            receiveAttack((int)stream.ReceiveNext());
-    //            needInfoAttack= false;
-    //        }
-    //        if (needInfoDefend)
-    //        {
-    //            print("4");
-    //            controller.isEnemyDown(tempIntNext, (bool)stream.ReceiveNext());
-    //        }
-    //    }
-    //}
 }
