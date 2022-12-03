@@ -25,6 +25,7 @@ public class PointEnemy : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (_destroyed) return;
         if (!_controller.isEnemyTurn())
         {
             _controller.sendIDToAttack(-_id-1);
@@ -32,6 +33,7 @@ public class PointEnemy : MonoBehaviour
     }
     public bool isBeingAttack()
     {
+        if (_destroyed) return false;
         if (_controller.isUsingCard())
         {
             if (_controller.IDCardUsing()==1)
@@ -41,7 +43,6 @@ public class PointEnemy : MonoBehaviour
             }
             return true;
         }
-        if (_destroyed) return false ;
         return false;
     }
     public void displayDestroy(bool status)

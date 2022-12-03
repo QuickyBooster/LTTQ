@@ -69,5 +69,9 @@ public class Ship : MonoBehaviour
     {
         GetComponent<Collider2D>().enabled = !GetComponent<Collider2D>().enabled;
     }
-   
+    public void exitGame()
+    {
+        Destroy(this);
+    }
+
 }

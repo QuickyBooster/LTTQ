@@ -7,21 +7,20 @@ using UnityEngine.UI;
 public class UIManagerBattle : MonoBehaviour
 {
     [SerializeField] Text _textTurn;
-    [SerializeField] TextMeshPro _textResult;
+    [SerializeField] Text _textResult;
     [SerializeField] GameObject _resultPanel;
-    [SerializeField] CanvasGroup _canvasGroup;
 
     Controller _controller;
-
-    bool end;
+    CardFunction _cardFunction;
+    bool ended;
     // Start is called before the first frame update
     void Start()
     {
-        end = false;
-        _canvasGroup.alpha =0;
+        ended = false;
         _resultPanel.SetActive(false);
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
+        _cardFunction = FindObjectOfType<CardFunction>();
         if (_controller.isEnemyTurn())
         {
             this.setTextTurn("Enemy turn: ");
@@ -43,10 +42,11 @@ public class UIManagerBattle : MonoBehaviour
         {
             this.setTextTurn("Your turn: ");
         }
-        if (end)
+        if (_controller.HP() == 0 && !ended)
         {
-            _canvasGroup.alpha += Time.deltaTime;
-            if (_canvasGroup.alpha>=1) end = false;
+            _cardFunction.endMatch();
+            showResult(false);
+            ended = true;
         }
     }
     public void setTextTurn(string text)
@@ -74,6 +74,7 @@ public class UIManagerBattle : MonoBehaviour
 
     public void OKbutton()
     {
+        _controller.exitGame();
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Waiting Room");
     }

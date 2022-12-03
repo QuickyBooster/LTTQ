@@ -5,6 +5,7 @@ public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
 {
     [SerializeField] PhotonView photonView;
     [SerializeField] GameObject cardManagerObject;
+    [SerializeField] UIManagerBattle UIManager;
 
     CardManager cardManager;
     Controller controller;
@@ -15,6 +16,7 @@ public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
     {
         cardManager = cardManagerObject.GetComponent<CardManager>();
         controller = FindObjectOfType<Controller>();
+        UIManager = FindObjectOfType<UIManagerBattle>();
         if (PhotonNetwork.IsMasterClient)
         {
             bool rand = (1==Random.Range(0, 1));
@@ -32,6 +34,15 @@ public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
 
     }
 
+    public void endMatch()
+    {
+        photonView.RPC("RPC_endMatch", RpcTarget.Others);
+    }
+    [PunRPC]
+    void RPC_endMatch()
+    {
+        UIManager.showResult(true);
+    }
     public void setFirstTurn()
     {
         photonView.RPC("RPC_setFirstTurn", RpcTarget.Others);
@@ -64,10 +75,7 @@ public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
         setNextTurn();
     }
 
-    void sendAttack()
-    {
 
-    }
 
     //void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     //{

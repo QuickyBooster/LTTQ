@@ -37,14 +37,12 @@ public class Controller : MonoBehaviour
     GameObject[,] _pointToAttack = new GameObject[5, 5];
     GameObject[,] _enemyPointAttack = new GameObject[5, 5];
     int firstID = 0;
-
+    int HPleft;
     bool usingCard;
     int cardID;
-    int idToAttackNext;
-    int idToAttackPrev;
     private void Start()
     {
-        idToAttackNext = idToAttackPrev = -1;
+        HPleft = 3;
         usingCard = false;
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
@@ -181,6 +179,7 @@ public class Controller : MonoBehaviour
             return false;
         if (_pointToAttack[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
+            HPleft--;
             return true;
         }
         return false;
@@ -190,12 +189,6 @@ public class Controller : MonoBehaviour
         if (id == -1) return;
         print("id at 197 controller, is enemydown"+id);
         _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().displayDestroy(status);
-    }
-    public bool isThisANewAttack()
-    {
-        if (idToAttackPrev == idToAttackNext && isEnemyTurn())
-            return false;
-        return true;
     }
     public void sendIDToAttack(int id)
     {
@@ -230,5 +223,22 @@ public class Controller : MonoBehaviour
         cardManager.toggleActiveDrawButton();
         return true;
     }
-
+    public int HP()
+    {
+        return HPleft;
+    }
+    public void exitGame()
+    {
+        ship.exitGame();
+        for (int i = 0; i<5; i++)
+        {
+            for (int j = 0; j<5; j++)
+            {
+                Destroy(_pointToAttack[i, j]);
+                Destroy(_enemyPointAttack[i, j]);
+            }
+        }
+        Destroy(this);
+        print(this.IsDestroyed());
+    }
 }
