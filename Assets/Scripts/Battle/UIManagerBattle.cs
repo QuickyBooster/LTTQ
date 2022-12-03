@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManagerBattle : MonoBehaviour
+public class UIManagerBattle : MonoBehaviourPunCallbacks
 {
     [SerializeField] Text _textTurn;
     [SerializeField] Text _textResult;
@@ -76,6 +76,15 @@ public class UIManagerBattle : MonoBehaviour
     {
         _controller.exitGame();
         PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.JoinLobby();
+
+        base.OnLeftRoom();
+    }
+    public override void OnConnectedToMaster()
+    {
         SceneManager.LoadScene("Waiting Room");
     }
 }

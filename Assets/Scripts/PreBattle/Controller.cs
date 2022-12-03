@@ -1,5 +1,4 @@
-using Photon.Pun;
-using System.Drawing;
+
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -238,7 +237,8 @@ public class Controller : MonoBehaviour
                 Destroy(_enemyPointAttack[i, j]);
             }
         }
-        Destroy(this);
+        Destroy(this.gameObject);
         print(this.IsDestroyed());
     }
+    
 }

@@ -34,7 +34,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount ==2)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             playButton.SetActive(true);
         }else
@@ -59,7 +59,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         lobbyPanel.SetActive(false);
         roomPanel.SetActive(true);
-        roomName.text="Room:"  +PhotonNetwork.CurrentRoom.Name;
+        roomName.text="Room:"  + PhotonNetwork.CurrentRoom.Name;
         updatePlayerList();
     }
     
@@ -93,9 +93,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         roomList.Clear();
         foreach (RoomInfo room in list)
         {
-            RoomItem newRoom = Instantiate(roomItem, contentObject);
-            newRoom.setRoomName(room.Name);
-            roomList.Add(newRoom);
+            if (room.PlayerCount!=2 && room.PlayerCount != 0)
+            {
+                RoomItem newRoom = Instantiate(roomItem, contentObject);
+                newRoom.setRoomName(room.Name);
+                roomList.Add(newRoom);
+            }
         }
     }
     public void onClickLeaveRoom()

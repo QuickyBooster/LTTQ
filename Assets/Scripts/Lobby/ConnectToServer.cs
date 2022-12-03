@@ -19,13 +19,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             buttonText.text = "Connecting...";
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.ConnectUsingSettings();
-            //SceneManager.LoadScene("Waiting Room");
         }
-    }
-    private void OnConnectedToServer()
-    {
-        SceneManager.LoadScene("Waiting Room");
-        print("ooa");
     }
     public override void OnConnectedToMaster()
     {

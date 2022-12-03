@@ -71,7 +71,7 @@ public class Ship : MonoBehaviour
     }
     public void exitGame()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
 }
