@@ -35,7 +35,8 @@ public class Card : MonoBehaviour
     public void picked()
     {
         //isPicked = true;
-        GetComponent<SpriteRenderer>().sprite = frontSide;  
+        GetComponent<SpriteRenderer>().sprite = frontSide;
+
     }
 
     private void OnMouseEnter()
