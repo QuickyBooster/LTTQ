@@ -72,6 +72,8 @@ MonoBehaviour:
   - RPC_attackPoint23
   - RPC_attackPoint24
   - RPC_endMatch
+  - receiveFromEnemy
+  - RPC_attackPoint
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -21,20 +21,20 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
         _cardFunction = FindObjectOfType<CardFunction>();
-        /*if (_controller.isEnemyTurn())
+        if (_controller.isEnemyTurn())
         {
             this.setTextTurn("Enemy turn: ");
         }
         else
         {
             this.setTextTurn("Your turn: ");
-        }*/
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (_controller.isEnemyTurn())
+        if (_controller.isEnemyTurn())
         {
             this.setTextTurn("Enemy turn: ");
         }
@@ -44,10 +44,11 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         }
         if (_controller.HP() == 0 && !ended)
         {
+            _controller.isEnded();
             _cardFunction.endMatch();
             showResult(false);
             ended = true;
-        }*/
+        }
     }
     public void setTextTurn(string text)
     {

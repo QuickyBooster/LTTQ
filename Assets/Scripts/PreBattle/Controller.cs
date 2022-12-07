@@ -186,7 +186,6 @@ public class Controller : MonoBehaviour
     public void isEnemyDown(int id, bool status)
     {
         if (id == -1) return;
-        print("id at 197 controller, is enemydown"+id);
         _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().displayDestroy(status);
     }
     public void sendIDToAttack(int id)
@@ -226,9 +225,8 @@ public class Controller : MonoBehaviour
     {
         return HPleft;
     }
-    public void exitGame()
+    public void isEnded()
     {
-        ship.exitGame();
         for (int i = 0; i<5; i++)
         {
             for (int j = 0; j<5; j++)
@@ -237,6 +235,11 @@ public class Controller : MonoBehaviour
                 Destroy(_enemyPointAttack[i, j]);
             }
         }
+
+    }
+    public void exitGame()
+    {
+        ship.exitGame();
         Destroy(this.gameObject);
         print(this.IsDestroyed());
     }
