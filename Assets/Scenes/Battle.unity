@@ -2349,7 +2349,6 @@ MonoBehaviour:
   updateText: {fileID: 1227950551}
   bubbleSpeechObjectEnemy: {fileID: 537232571}
   updateTextEnemy: {fileID: 1227950551}
-  chatInputField: {fileID: 0}
 --- !u!114 &675777748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3641,7 +3640,6 @@ MonoBehaviour:
   updateText: {fileID: 869251260}
   bubbleSpeechObjectEnemy: {fileID: 537232571}
   updateTextEnemy: {fileID: 1227950551}
-  chatInputField: {fileID: 546184114}
 --- !u!114 &929405364
 MonoBehaviour:
   m_ObjectHideFlags: 0

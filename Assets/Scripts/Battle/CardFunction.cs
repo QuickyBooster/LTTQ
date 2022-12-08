@@ -22,12 +22,10 @@ public class CardFunction : MonoBehaviour/*, Photon.Pun.IPunObservable*/
             bool rand = (1==Random.Range(0, 1));
             if (rand)
             {
-                print("true roi ha");
                 controller.toggleEnemyTurn();
             }
             else
             {
-                print("false roi nha");
                 setFirstTurn();
             }
         }

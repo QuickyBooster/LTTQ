@@ -14,7 +14,7 @@ public class ChatManager : MonoBehaviour
     [SerializeField] GameObject bubbleSpeechObjectEnemy;
     [SerializeField] Text updateTextEnemy;
 
-     InputField chatInputField;
+    InputField chatInputField;
     private bool disableSend;
 
     private void Awake()
@@ -24,18 +24,20 @@ public class ChatManager : MonoBehaviour
     }
     private void Update()
     {
+
         if (photonView.IsMine)
         {
             if (!disableSend && chatInputField.isFocused)
             {
-                if (chatInputField.text  != "" && chatInputField.text.Length >0 && Input.GetKeyDown(KeyCode.KeypadEnter))
+                print("into 2");
+                if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Tab))
                 {
-                    photonView.RPC("sendMessage", RpcTarget.Others, chatInputField.text);
-                    updateText.text = chatInputField.text;
-                    bubbleSpeechObject.SetActive(true);
-                    chatInputField.text = "";
-                    disableSend= true;
-                    StartCoroutine("remove");
+                        photonView.RPC("sendMessage", RpcTarget.Others, chatInputField.text);
+                        updateText.text = chatInputField.text;
+                        bubbleSpeechObject.SetActive(true);
+                        chatInputField.text = "";
+                        disableSend= true;
+                        StartCoroutine("remove");
                 }
             }
         }
@@ -56,6 +58,6 @@ public class ChatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3.5f);
         bubbleSpeechObject.SetActive(false);
-        disableSend= false; 
+        disableSend= false;
     }
 }
