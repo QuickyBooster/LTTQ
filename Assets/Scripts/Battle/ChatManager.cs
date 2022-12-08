@@ -14,12 +14,13 @@ public class ChatManager : MonoBehaviour
     [SerializeField] GameObject bubbleSpeechObjectEnemy;
     [SerializeField] Text updateTextEnemy;
 
-    [SerializeField] InputField chatInputField;
+     InputField chatInputField;
     private bool disableSend;
 
     private void Awake()
     {
         disableSend = false;
+        chatInputField = GameObject.Find("ChatInput").GetComponent<InputField>();
     }
     private void Update()
     {
