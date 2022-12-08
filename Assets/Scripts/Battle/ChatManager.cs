@@ -9,7 +9,7 @@ public class ChatManager : MonoBehaviour
 {
     public Player player;
     [SerializeField] PhotonView photonView;
-    [SerializeField] GameObject bubbleSpeechObject;
+    GameObject bubbleSpeechObject;
     [SerializeField] Text updateText;
     [SerializeField] GameObject bubbleSpeechObjectEnemy;
     [SerializeField] Text updateTextEnemy;
@@ -22,10 +22,15 @@ public class ChatManager : MonoBehaviour
         disableSend = false;
         chatInputField = GameObject.Find("ChatInput").GetComponent<InputField>();
     }
+    private void Start()
+    {
+        bubbleSpeechObject = GameObject.Find("bubbleMe");
+        bubbleSpeechObject.SetActive(false);
+    }
     private void Update()
     {
 
-        if (photonView.IsMine||true)
+        if (photonView.IsMine)
         {
             if (!disableSend && chatInputField.isFocused)
             {
