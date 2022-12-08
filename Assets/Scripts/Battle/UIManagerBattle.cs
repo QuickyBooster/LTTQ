@@ -76,6 +76,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     public void OKbutton()
     {
         _controller.exitGame();
+        _controller.isEnded();
         PhotonNetwork.LeaveRoom();
     }
     public override void OnLeftRoom()

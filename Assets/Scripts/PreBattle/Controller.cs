@@ -241,7 +241,7 @@ public class Controller : MonoBehaviour
     {
         ship.exitGame();
         Destroy(this.gameObject);
-        print(this.IsDestroyed());
+        print("Hoan tat xoa item: "+this.IsDestroyed());
     }
     
 }
