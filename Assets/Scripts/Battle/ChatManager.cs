@@ -25,12 +25,12 @@ public class ChatManager : MonoBehaviour
     private void Update()
     {
 
-        if (photonView.IsMine)
+        if (photonView.IsMine||true)
         {
             if (!disableSend && chatInputField.isFocused)
             {
                 print("into 2");
-                if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Tab))
+                if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Tab ))
                 {
                         photonView.RPC("sendMessage", RpcTarget.Others, chatInputField.text);
                         updateText.text = chatInputField.text;
