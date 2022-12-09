@@ -9,40 +9,38 @@ public class ChatManager : MonoBehaviour
 {
     public Player player;
     [SerializeField] PhotonView photonView;
-    GameObject bubbleSpeechObject;
+    [SerializeField] GameObject bubbleSpeechObject;
     [SerializeField] Text updateText;
-    [SerializeField] GameObject bubbleSpeechObjectEnemy;
+    [SerializeField] GameObject enemyBubbleSpeechObject;
     [SerializeField] Text updateTextEnemy;
 
     InputField chatInputField;
-    private bool disableSend;
+
 
     private void Awake()
     {
-        disableSend = false;
+
         chatInputField = GameObject.Find("ChatInput").GetComponent<InputField>();
     }
     private void Start()
     {
-        bubbleSpeechObject = GameObject.Find("bubbleMe");
-        bubbleSpeechObject.SetActive(false);
+            bubbleSpeechObject.SetActive(false);
+
     }
     private void Update()
     {
-
         if (photonView.IsMine)
         {
-            if (!disableSend && chatInputField.isFocused)
+            if ( chatInputField.isFocused )
             {
-                print("into 2");
-                if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Tab ))
+                if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Tab))
                 {
-                        photonView.RPC("sendMessage", RpcTarget.Others, chatInputField.text);
-                        updateText.text = chatInputField.text;
-                        bubbleSpeechObject.SetActive(true);
-                        chatInputField.text = "";
-                        disableSend= true;
-                        StartCoroutine("remove");
+                    photonView.RPC("sendMessage", RpcTarget.Others, chatInputField.text);
+                    updateText.text = chatInputField.text;
+                    bubbleSpeechObject.SetActive(true);
+                   
+                    chatInputField.text = "";
+                    StartCoroutine("remove");
                 }
             }
         }
@@ -50,19 +48,19 @@ public class ChatManager : MonoBehaviour
     [PunRPC]
     void sendMessage(string txt)
     {
-        bubbleSpeechObjectEnemy.SetActive(true);
+        enemyBubbleSpeechObject.SetActive(true);
         updateTextEnemy.text = txt;
         StartCoroutine("removeEnemyChat");
     }
     IEnumerator removeEnemyChat()
     {
         yield return new WaitForSeconds(3.5f);
-        bubbleSpeechObjectEnemy.SetActive(false);
+        enemyBubbleSpeechObject.SetActive(false);
     }
     IEnumerator remove()
     {
         yield return new WaitForSeconds(3.5f);
         bubbleSpeechObject.SetActive(false);
-        disableSend= false;
+
     }
 }

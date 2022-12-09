@@ -7,6 +7,7 @@ TagManager:
   - Ship
   - Point
   - GameMusic
+  - chatMe
   layers:
   - Default
   - TransparentFX
