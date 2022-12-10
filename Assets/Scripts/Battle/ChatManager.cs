@@ -28,9 +28,7 @@ public class ChatManager : MonoBehaviour
 
     }
     private void Update()
-    {
-        if (photonView.IsMine)
-        {
+    {     
             if ( chatInputField.isFocused )
             {
                 if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Tab))
@@ -43,7 +41,6 @@ public class ChatManager : MonoBehaviour
                     StartCoroutine("remove");
                 }
             }
-        }
     }
     [PunRPC]
     void sendMessage(string txt)
