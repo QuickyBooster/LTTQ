@@ -11,6 +11,7 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
     [SerializeField] Sprite _bracket;
+ 
     CardFunction cardFunction;
     CardManager cardManager;
     Ship ship;
