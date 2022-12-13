@@ -1,5 +1,3 @@
-
-using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -139,13 +137,6 @@ public class Controller : MonoBehaviour
             x+= 0.7202f;
         }
     }
-    public void displayAttack(int id)
-    {
-        if (id ==-1)
-            return;
-        print("display attack at "+id);
-        //_enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().displayDestroy();
-    }
 
     public bool isLocked() { return _lockedShipCoordinate; }
     public void setLockedCoordinate(bool set)
@@ -257,7 +248,6 @@ public class Controller : MonoBehaviour
     {
         ship.exitGame();
         Destroy(this.gameObject);
-        print("Hoan tat xoa item: "+this.IsDestroyed());
     }
     
 }

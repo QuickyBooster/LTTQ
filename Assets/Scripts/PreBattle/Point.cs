@@ -66,7 +66,6 @@ public class Point : MonoBehaviour
     }
     public void resetAllElement()
     {
-        _shipField = false;
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }

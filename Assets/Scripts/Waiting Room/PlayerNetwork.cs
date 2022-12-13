@@ -26,30 +26,17 @@ public class PlayerNetwork : MonoBehaviour
         PhotonNetwork.AutomaticallySyncScene= true;
         ready = false;
     }
-    private void Update()
-    {
-    }
     
     public void readyToBattle()
     {
-        if (true&&!ready)
+        if (!ready)
         {
             ready = true;
-            if (PhotonNetwork.IsMasterClient)
-            {
-                MasterLoadedGame();
-            }
-            else
-            {
-                ClientLoadedGame();
-            }
+            loadedGame();
         }
     }
-    void MasterLoadedGame()
-    {
-        photonView.RPC("RPC_LoadedGameScene", RpcTarget.All);
-    }
-    void ClientLoadedGame()
+
+    void loadedGame()
     {
         photonView.RPC("RPC_LoadedGameScene", RpcTarget.All);
     }
