@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+using Mono.Cecil;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
@@ -20,8 +23,12 @@ public class CardManager : MonoBehaviour
     // luu lai card vua moi rut
     public Card tempCard;
     Card[] slotCard = new Card[5];
+    //nhung card cua enemy
+    Card[] enemySlotCard = new Card[5];
 
     public Transform[] cardSlots;
+    //vi tri cua card enemy
+    public Transform[] enemyCardSlots;
     public bool[] availableCardSlots;
     public int cardNum;
 
@@ -57,7 +64,7 @@ public class CardManager : MonoBehaviour
     }
     public void DrawCard()
     {
-        if (/*!controller.isEnemyTurn()&& */ !drawedCard)
+        if (!controller.isEnemyTurn()&&  !drawedCard)
         {
             if (activeDrawButton)
             {
@@ -220,18 +227,36 @@ public class CardManager : MonoBehaviour
     // enemy attack
     public bool card002()
     {
+        if (enemyCard.Count >= 1)
+        {
+            int randNum = Random.Range(0, enemyCard.Count);
+            foreach(Card card in notInDeck)
+            {
+                if (card.name.Equals(enemyCard[randNum].ToString()))
+                {
+                    card.gameObject.SetActive(false);
+                }
+            }
+
+        }
         drawedCard = true;
         return true;
     }
     public bool card003(int idCard)
     {
-        foreach (Card card in notInDeck)
+        for (int i = 0; i < availableCardSlots.Length; i++)
         {
-            if (card.name.Equals(playerCard[idCard].ToString()))
+            if (availableCardSlots[i] == true)
             {
-                playerCard.Remove(idCard);
-                enemyCard.Add(idCard);
-                return true;
+                foreach (Card card in notInDeck)
+                {
+                    if (card.name.Equals(playerCard[idCard].ToString()))
+                    {
+                        playerCard.Remove(idCard);
+                        enemyCard.Add(idCard);
+                        return true;
+                    }
+                }
             }
         }
         return false;

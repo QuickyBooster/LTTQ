@@ -1,4 +1,5 @@
 
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,10 +11,11 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
     [SerializeField] Sprite _bracket;
+ 
     CardFunction cardFunction;
     CardManager cardManager;
     Ship ship;
-    PointFunction pointFunction;
+    PointFunction pointFunction;    
 
 
     bool _enemyTurn;
@@ -39,6 +41,8 @@ public class Controller : MonoBehaviour
     int HPleft;
     bool usingCard;
     int cardID;
+    //so turn de torpedo no?
+    int turns_left = 3;
     private void Start()
     {
         HPleft = 3;
@@ -221,6 +225,18 @@ public class Controller : MonoBehaviour
         cardManager.toggleActiveDrawButton();
         return true;
     }
+    public bool card004(int fakeID)
+    {
+        int id = -fakeID - 1;
+        _enemyPointAttack[id / 5, id % 5].GetComponent<SpriteRenderer>().sprite = _bracket;
+        if (turns_left == 3)
+        {
+
+        }
+        cardManager.toggleActiveDrawButton();
+        return true;
+    }
+
     public int HP()
     {
         return HPleft;
