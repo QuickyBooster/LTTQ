@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
-
     [SerializeField] UIManager _manager;
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
@@ -17,8 +16,8 @@ public class Controller : MonoBehaviour
 
 
     bool _enemyTurn;
-    bool _lockedShipCoordinate;
-    bool _shipInPlace;
+    //bool _lockedShipCoordinate;
+    //bool _shipInPlace;
     bool _cardChose;
     bool _disabledShip;
     // scence = 0 pre battle
@@ -50,7 +49,7 @@ public class Controller : MonoBehaviour
         _manager = FindObjectOfType<UIManager>();
         _scence = 0;
         _tableCreated = false;
-        _shipInPlace = false;
+        //_shipInPlace = false;
         _cardChose = true;
         _disabledShip = false;
         firstID = 0;
@@ -62,13 +61,13 @@ public class Controller : MonoBehaviour
     }
     private void Update()
     {
-        if (_scence == 0)
-        {
-            if (_shipInPlace && _cardChose)
-                _manager.showButtonBattle(true);
-            else
-                _manager.showButtonBattle(false);
-        }
+        //if (_scence == 0)
+        //{
+        //    if (_shipInPlace && _cardChose)
+        //        _manager.showButtonBattle(true);
+        //    else
+        //        _manager.showButtonBattle(false);
+        //}
 
 
         if (SceneManager.GetActiveScene().name.Equals("Battle") && !_tableCreated && !_disabledShip)
@@ -94,7 +93,27 @@ public class Controller : MonoBehaviour
 
     }
 
-
+    void LoadedScence()
+    {
+        while (!_tableCreated && !_disabledShip)
+            if (SceneManager.GetActiveScene().name.Equals("Battle"))
+            {
+                createTable();
+                createTableEnemy();
+                _tableCreated = true;
+                ship.toggleCollider();
+                _disabledShip = true;
+            }
+        while (!cardManager)
+            if (SceneManager.GetActiveScene().name.Equals("Battle"))
+                cardManager = FindObjectOfType<CardManager>();
+        while (!cardFunction)
+            if (SceneManager.GetActiveScene().name.Equals("Battle"))
+                cardFunction = FindObjectOfType<CardFunction>();
+        while (!pointFunction)
+            if (SceneManager.GetActiveScene().name.Equals("Battle"))
+                pointFunction = FindObjectOfType<PointFunction>();
+    }
 
     void createTable()
     {
@@ -138,15 +157,15 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public bool isLocked() { return _lockedShipCoordinate; }
-    public void setLockedCoordinate(bool set)
-    {
-        _lockedShipCoordinate = set;
-    }
-    public bool isLockedCoordinate()
-    {
-        return _lockedShipCoordinate;
-    }
+    //public bool isLocked() { return _lockedShipCoordinate; }
+    //public void setLockedCoordinate(bool set)
+    //{
+    //    _lockedShipCoordinate = set;
+    //}
+    //public bool isLockedCoordinate()
+    //{
+    //    return _lockedShipCoordinate;
+    //}
     public bool isEnemyTurn()
     {
         return _enemyTurn;
@@ -159,14 +178,14 @@ public class Controller : MonoBehaviour
     public void setShipInPlace(bool status, int where)
     {
 
-        _shipInPlace = status;
+        ship.setLockedCoordinate(status);
         if (status)
             firstID = where;
     }
-    public bool isShipInPlace()
-    {
-        return _shipInPlace;
-    }
+    //public bool isShipInPlace()
+    //{
+    //    return _shipInPlace;
+    //}
     public bool returnPointHit(int idHit)
     {
         if (idHit == -1)
@@ -249,5 +268,12 @@ public class Controller : MonoBehaviour
         ship.exitGame();
         Destroy(this.gameObject);
     }
-    
+
+    public bool isFinishedChoosingCard()
+    {
+        return _cardChose;
+    }
+
+
+
 }
