@@ -837,10 +837,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 785351019}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64cd91f5ca437184c9d1f24d2a88ad59, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dedc9bb430852f49a3a894bda450beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 286480836}
 --- !u!4 &785351021
 Transform:
   m_ObjectHideFlags: 0

@@ -16,20 +16,9 @@ public class Controller : MonoBehaviour
 
 
     bool _enemyTurn;
-    //bool _lockedShipCoordinate;
-    //bool _shipInPlace;
     bool _cardChose;
     bool _disabledShip;
-    // scence = 0 pre battle
-    // scence = 1 battle
-    int _scence;
 
-    //ship manager
-
-    // timer
-    //float timer;
-
-    bool _tableCreated;
 
     //array for enemy ship to spawn
     GameObject[,] _pointToAttack = new GameObject[5, 5];
@@ -47,21 +36,42 @@ public class Controller : MonoBehaviour
         ship = FindObjectOfType<Ship>();
         DontDestroyOnLoad(this.gameObject);
         _manager = FindObjectOfType<UIManager>();
-        _scence = 0;
-        _tableCreated = false;
-        //_shipInPlace = false;
+
         _cardChose = true;
         _disabledShip = false;
         firstID = 0;
         Application.targetFrameRate = 60;
-        if (_scence == 0)
+        _manager.setArrangeText("Put ship into table and choose your card you will bring!");
+    }
+    private void OnEnable()
+    {
+        Debug.Log("OnEnable called!");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        Debug.Log("OnDisable called!");
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 3)
         {
-            _manager.setArrangeText("Put ship into table and choose your card you will bring!");
+            ship.setLockedCoordinate(true);
+            createTable();
+            createTableEnemy();
+            ship.toggleCollider();
+            while(!cardManager)
+                cardManager = FindObjectOfType<CardManager>();
+            while (!cardFunction)
+                cardFunction = FindObjectOfType<CardFunction>();
+            while (!pointFunction)
+                pointFunction = FindObjectOfType<PointFunction>();
         }
     }
     private void Update()
     {
-        //if (_scence == 0)
+        //if (SceneManager.GetActiveScene().name.Equals("PreBattle"))
         //{
         //    if (_shipInPlace && _cardChose)
         //        _manager.showButtonBattle(true);
@@ -70,50 +80,50 @@ public class Controller : MonoBehaviour
         //}
 
 
-        if (SceneManager.GetActiveScene().name.Equals("Battle") && !_tableCreated && !_disabledShip)
-        {
-            createTable();
-            createTableEnemy();
-            _tableCreated=true;
-            ship.toggleCollider();
-            _disabledShip = true;
-        }
-        if (!cardManager && SceneManager.GetActiveScene().name.Equals("Battle"))
-        {
-            cardManager = FindObjectOfType<CardManager>();
-        }
-        if (!cardFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
-        {
-            cardFunction = FindObjectOfType<CardFunction>();
-        }
-        if (!pointFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
-        {
-            pointFunction = FindObjectOfType<PointFunction>();
-        }
+        //if (SceneManager.GetActiveScene().name.Equals("Battle") && !_tableCreated && !_disabledShip)
+        //{
+        //    createTable();
+        //    createTableEnemy();
+        //    _tableCreated=true;
+        //    ship.toggleCollider();
+        //    _disabledShip = true;
+        //}
+        //if (!cardManager && SceneManager.GetActiveScene().name.Equals("Battle"))
+        //{
+        //    cardManager = FindObjectOfType<CardManager>();
+        //}
+        //if (!cardFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
+        //{
+        //    cardFunction = FindObjectOfType<CardFunction>();
+        //}
+        //if (!pointFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
+        //{
+        //    pointFunction = FindObjectOfType<PointFunction>();
+        //}
 
     }
 
-    void LoadedScence()
-    {
-        while (!_tableCreated && !_disabledShip)
-            if (SceneManager.GetActiveScene().name.Equals("Battle"))
-            {
-                createTable();
-                createTableEnemy();
-                _tableCreated = true;
-                ship.toggleCollider();
-                _disabledShip = true;
-            }
-        while (!cardManager)
-            if (SceneManager.GetActiveScene().name.Equals("Battle"))
-                cardManager = FindObjectOfType<CardManager>();
-        while (!cardFunction)
-            if (SceneManager.GetActiveScene().name.Equals("Battle"))
-                cardFunction = FindObjectOfType<CardFunction>();
-        while (!pointFunction)
-            if (SceneManager.GetActiveScene().name.Equals("Battle"))
-                pointFunction = FindObjectOfType<PointFunction>();
-    }
+    //void LoadedScence() ??
+    //{
+    //    while (!_tableCreated && !_disabledShip)
+    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
+    //        {
+    //            createTable();
+    //            createTableEnemy();
+    //            _tableCreated = true;
+    //            ship.toggleCollider();
+    //            _disabledShip = true;
+    //        }
+    //    while (!cardManager)
+    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
+    //            cardManager = FindObjectOfType<CardManager>();
+    //    while (!cardFunction)
+    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
+    //            cardFunction = FindObjectOfType<CardFunction>();
+    //    while (!pointFunction)
+    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
+    //            pointFunction = FindObjectOfType<PointFunction>();
+    //}
 
     void createTable()
     {
@@ -157,15 +167,6 @@ public class Controller : MonoBehaviour
         }
     }
 
-    //public bool isLocked() { return _lockedShipCoordinate; }
-    //public void setLockedCoordinate(bool set)
-    //{
-    //    _lockedShipCoordinate = set;
-    //}
-    //public bool isLockedCoordinate()
-    //{
-    //    return _lockedShipCoordinate;
-    //}
     public bool isEnemyTurn()
     {
         return _enemyTurn;
@@ -177,15 +178,11 @@ public class Controller : MonoBehaviour
     }
     public void setShipInPlace(bool status, int where)
     {
-
-        ship.setLockedCoordinate(status);
         if (status)
+        {
             firstID = where;
+        }
     }
-    //public bool isShipInPlace()
-    //{
-    //    return _shipInPlace;
-    //}
     public bool returnPointHit(int idHit)
     {
         if (idHit == -1)

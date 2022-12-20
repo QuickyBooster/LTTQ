@@ -65,6 +65,7 @@ public class Ship : MonoBehaviour
                     {
                         transform.position = new Vector2(tX + 0.7224f, tY);
                         _controller.setShipInPlace(true, i * 5 + j);
+                        checkReady();
                         return;
                     }
                     id++;
@@ -96,9 +97,9 @@ public class Ship : MonoBehaviour
 
     void checkReady()
     {
-        if (_lockedShipCoordinate && _controller.isFinishedChoosingCard())
+        if (_controller.isFinishedChoosingCard())
             _manager.showButtonBattle(true);
         else
-            _manager = FindObjectOfType<UIManager>();
+            _manager.showButtonBattle(false);
     }
 }

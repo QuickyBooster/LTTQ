@@ -2083,10 +2083,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 558945416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64cd91f5ca437184c9d1f24d2a88ad59, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dedc9bb430852f49a3a894bda450beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 40356647}
 --- !u!4 &558945418
 Transform:
   m_ObjectHideFlags: 0
@@ -4219,6 +4218,7 @@ MonoBehaviour:
   - {fileID: 592567614}
   - {fileID: 1055169472}
   - {fileID: 2072676434}
+  enemyCardSlots: []
   availableCardSlots: 0101010101
   cardNum: 0
   deckSizeText: {fileID: 791279070}
