@@ -90,11 +90,6 @@ public class Ship : MonoBehaviour
     {
         _lockedShipCoordinate = set;
     }
-    public bool isLockedCoordinate()
-    {
-        return _lockedShipCoordinate;
-    }
-
     void checkReady()
     {
         if (_controller.isFinishedChoosingCard())

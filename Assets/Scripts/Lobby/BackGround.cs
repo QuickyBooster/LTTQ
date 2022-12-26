@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Scroll : MonoBehaviour
+public class BackGround : MonoBehaviour
 {
     [SerializeField] private RawImage _img;
     [SerializeField] private float _x, _y;

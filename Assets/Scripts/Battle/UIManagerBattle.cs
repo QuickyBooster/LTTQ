@@ -13,11 +13,9 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
 
     Controller _controller;
     CardFunction _cardFunction;
-    bool ended;
     // Start is called before the first frame update
     void Start()
     {
-        ended = false;
         _resultPanel.SetActive(false);
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
@@ -43,13 +41,11 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         {
             this.setTextTurn("Your turn: ");
         }
-        if (_controller.HP() == 0 && !ended)
-        {
-            _controller.isEnded();
-            _cardFunction.endMatch();
-            showResult(false);
-            ended = true;
-        }
+    }
+    public void endMatch()
+    {
+        _cardFunction.endMatch();
+        showResult(false);
     }
     public void setTextTurn(string text)
     {
@@ -77,7 +73,6 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     public void OKbutton()
     {
         _controller.exitGame();
-        _controller.isEnded();
         PhotonNetwork.LeaveRoom();
     }
     public override void OnLeftRoom()

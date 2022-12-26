@@ -2035,12 +2035,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1970174160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dedc9bb430852f49a3a894bda450beb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4286a8d7f82c8e04f97ddcb05393ace7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _img: {fileID: 1970174162}
-  _x: 0.01
-  _y: 0.01
+  _x: 0.5
+  _y: 0.5
 --- !u!1 &2075199767
 GameObject:
   m_ObjectHideFlags: 0

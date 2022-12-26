@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,33 +13,35 @@ public class Controller : MonoBehaviour
     CardFunction cardFunction;
     CardManager cardManager;
     Ship ship;
-    PointFunction pointFunction;    
+    PointFunction pointFunction;
+    UIManagerBattle uIManagerBattle;
 
 
     bool _enemyTurn;
     bool _cardChose;
-    bool _disabledShip;
-
+    bool _usingCard;
+    //life
+    int life;
 
     //array for enemy ship to spawn
     GameObject[,] _pointToAttack = new GameObject[5, 5];
     GameObject[,] _enemyPointAttack = new GameObject[5, 5];
     int firstID = 0;
     int HPleft;
-    bool usingCard;
     int cardID;
     //so turn de torpedo no?
     int turns_left = 3;
+    
     private void Start()
     {
+        life = 3;
         HPleft = 3;
-        usingCard = false;
-        ship = FindObjectOfType<Ship>();
+        _usingCard = false;
         DontDestroyOnLoad(this.gameObject);
+        ship = FindObjectOfType<Ship>();
         _manager = FindObjectOfType<UIManager>();
 
         _cardChose = true;
-        _disabledShip = false;
         firstID = 0;
         Application.targetFrameRate = 60;
         _manager.setArrangeText("Put ship into table and choose your card you will bring!");
@@ -67,63 +70,17 @@ public class Controller : MonoBehaviour
                 cardFunction = FindObjectOfType<CardFunction>();
             while (!pointFunction)
                 pointFunction = FindObjectOfType<PointFunction>();
+            while(!uIManagerBattle)
+                uIManagerBattle = FindObjectOfType<UIManagerBattle>();
         }
     }
     private void Update()
     {
-        //if (SceneManager.GetActiveScene().name.Equals("PreBattle"))
-        //{
-        //    if (_shipInPlace && _cardChose)
-        //        _manager.showButtonBattle(true);
-        //    else
-        //        _manager.showButtonBattle(false);
-        //}
-
-
-        //if (SceneManager.GetActiveScene().name.Equals("Battle") && !_tableCreated && !_disabledShip)
-        //{
-        //    createTable();
-        //    createTableEnemy();
-        //    _tableCreated=true;
-        //    ship.toggleCollider();
-        //    _disabledShip = true;
-        //}
-        //if (!cardManager && SceneManager.GetActiveScene().name.Equals("Battle"))
-        //{
-        //    cardManager = FindObjectOfType<CardManager>();
-        //}
-        //if (!cardFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
-        //{
-        //    cardFunction = FindObjectOfType<CardFunction>();
-        //}
-        //if (!pointFunction && SceneManager.GetActiveScene().name.Equals("Battle"))
-        //{
-        //    pointFunction = FindObjectOfType<PointFunction>();
-        //}
+        
 
     }
 
-    //void LoadedScence() ??
-    //{
-    //    while (!_tableCreated && !_disabledShip)
-    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
-    //        {
-    //            createTable();
-    //            createTableEnemy();
-    //            _tableCreated = true;
-    //            ship.toggleCollider();
-    //            _disabledShip = true;
-    //        }
-    //    while (!cardManager)
-    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
-    //            cardManager = FindObjectOfType<CardManager>();
-    //    while (!cardFunction)
-    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
-    //            cardFunction = FindObjectOfType<CardFunction>();
-    //    while (!pointFunction)
-    //        if (SceneManager.GetActiveScene().name.Equals("Battle"))
-    //            pointFunction = FindObjectOfType<PointFunction>();
-    //}
+
 
     void createTable()
     {
@@ -190,6 +147,27 @@ public class Controller : MonoBehaviour
         if (_pointToAttack[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
             HPleft--;
+            if (HPleft ==0)
+            {
+                if (--life ==-1)
+                {
+                    deletePoint();
+                    uIManagerBattle.endMatch();
+                }
+                HPleft = 3;
+                deleteOurPoint();
+                ship.toggleCollider();
+                //Need to finish things here
+
+
+
+
+
+
+
+
+
+            }
             return true;
         }
         return false;
@@ -206,12 +184,12 @@ public class Controller : MonoBehaviour
     }
     public void toggleUsingCard(int id)
     {
-        usingCard = !usingCard;
+        _usingCard = !_usingCard;
         cardID   = id;
     }
     public bool isUsingCard()
     {
-        return usingCard;
+        return _usingCard;
     }
     public int IDCardUsing()
     {
@@ -244,11 +222,20 @@ public class Controller : MonoBehaviour
         return true;
     }
 
-    public int HP()
+    void deleteOurPoint()
     {
-        return HPleft;
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                Destroy(_pointToAttack[i, j]);
     }
-    public void isEnded()
+    void deleteEnemyPoint()
+    {
+        for (int i = 0; i<5; i++)       
+            for (int j = 0; j<5; j++)           
+                Destroy(_enemyPointAttack[i, j]);                 
+    }
+    
+    public void deletePoint()
     {
         for (int i = 0; i<5; i++)
         {
@@ -271,6 +258,9 @@ public class Controller : MonoBehaviour
         return _cardChose;
     }
 
-
+    public int lifeCount()
+    {
+        return life;
+    }
 
 }

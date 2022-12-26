@@ -42,14 +42,7 @@ public class PointFunction : MonoBehaviour
     //end
     void feedbackToEnemy(int id)
     {
-        if (controller.returnPointHit(id))
-        {
-            view.RPC("receiveFromEnemy", RpcTarget.Others, true);
-        }
-        else
-        {
-            view.RPC("receiveFromEnemy", RpcTarget.Others, false);
-        }
+        view.RPC("receiveFromEnemy", RpcTarget.Others, controller.returnPointHit(id));
     }
     public void attackPoint(int id)
     {
