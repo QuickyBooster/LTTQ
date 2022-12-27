@@ -10,8 +10,6 @@ public class CardFunction : MonoBehaviour
     CardManager cardManager;
     Controller controller;
 
-
-    int tempIntNext, tempIntPrev;
     private void Awake()
     {
         cardManager = cardManagerObject.GetComponent<CardManager>();

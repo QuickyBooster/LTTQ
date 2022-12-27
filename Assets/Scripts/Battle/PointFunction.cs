@@ -44,15 +44,7 @@ public class PointFunction : MonoBehaviour
     {
         controller.isEnemyDown(tempID, status);
     }
-    public void endMatch()
-    {
-        view.RPC("RPC_endMatch", RpcTarget.Others);
-    }
-    [PunRPC]
-    void RPC_endMatch()
-    {
-        controller.endMatch();
-    }
+
     // The following lines are about when pause the battle
     // then continue after someone lose a ship
     public void pauseBattle()
