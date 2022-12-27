@@ -49,6 +49,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         }
         _controller.setBattleAgain();
         this.showButtonReadyToCountinue(false);
+        _controller.toggleEnemyTurn();
     }
     public void endMatch()
     {
