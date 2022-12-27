@@ -10,6 +10,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     [SerializeField] Text _textTurn;
     [SerializeField] Text _textResult;
     [SerializeField] GameObject _resultPanel;
+    [SerializeField] GameObject _buttonReadyToCountinue;
 
     Controller _controller;
     CardFunction _cardFunction;
@@ -29,9 +30,14 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
             this.setTextTurn("Your turn: ");
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void showButtonReadyToCountinue(bool state)
+    {
+        if (_buttonReadyToCountinue)
+        {
+            _buttonReadyToCountinue.SetActive(state);
+        }
+    }
+    public void buttonReadyToContinueClick()
     {
         if (_controller.isEnemyTurn())
         {
@@ -41,6 +47,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         {
             this.setTextTurn("Your turn: ");
         }
+        _controller.setBattleAgain();
     }
     public void endMatch()
     {

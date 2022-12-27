@@ -14,11 +14,9 @@ public class Ship : MonoBehaviour
     float _deltaX, _deltaY;
     Vector2 _mousePosition;
 
-    bool _lockedShipCoordinate;
 
     private void Start()
     {
-        _lockedShipCoordinate = false;
         _manager = FindObjectOfType<UIManager>();
     }
     private void Awake()
@@ -29,7 +27,7 @@ public class Ship : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!isLocked())
+        if (true)
         {
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
@@ -39,7 +37,7 @@ public class Ship : MonoBehaviour
     }
     private void OnMouseDrag()
     {
-        if (!isLocked())
+        if (true)
         {
             _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector2(_mousePosition.x - _deltaX, _mousePosition.y - _deltaY);
@@ -47,7 +45,7 @@ public class Ship : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        if (!isLocked())
+        if (true)
         {
 
             // find the standard position of it
@@ -65,7 +63,6 @@ public class Ship : MonoBehaviour
                     {
                         transform.position = new Vector2(tX + 0.7224f, tY);
                         _controller.setShipInPlace(true, i * 5 + j);
-                        checkReady();
                         return;
                     }
                     id++;
@@ -83,18 +80,5 @@ public class Ship : MonoBehaviour
     public void exitGame()
     {
         Destroy(this.gameObject);
-    }
-
-    public bool isLocked() { return _lockedShipCoordinate; }
-    public void setLockedCoordinate(bool set)
-    {
-        _lockedShipCoordinate = set;
-    }
-    void checkReady()
-    {
-        if (_controller.isFinishedChoosingCard())
-            _manager.showButtonBattle(true);
-        else
-            _manager.showButtonBattle(false);
     }
 }

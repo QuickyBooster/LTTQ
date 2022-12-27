@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +7,7 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
     [SerializeField] Sprite _bracket;
- 
+
     CardFunction cardFunction;
     CardManager cardManager;
     Ship ship;
@@ -31,7 +29,7 @@ public class Controller : MonoBehaviour
     int cardID;
     //so turn de torpedo no?
     int turns_left = 3;
-    
+
     private void Start()
     {
         life = 3;
@@ -56,33 +54,32 @@ public class Controller : MonoBehaviour
         Debug.Log("OnDisable called!");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    private void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex == 3)
         {
-            ship.setLockedCoordinate(true);
             createTable();
             createTableEnemy();
             ship.toggleCollider();
-            while(!cardManager)
+            while (!cardManager)
                 cardManager = FindObjectOfType<CardManager>();
             while (!cardFunction)
                 cardFunction = FindObjectOfType<CardFunction>();
             while (!pointFunction)
                 pointFunction = FindObjectOfType<PointFunction>();
-            while(!uIManagerBattle)
+            while (!uIManagerBattle)
                 uIManagerBattle = FindObjectOfType<UIManagerBattle>();
         }
     }
     private void Update()
     {
-        
+
 
     }
 
 
 
-    void createTable()
+    public void createTable()
     {
         int id = 0;
         float x, y;
@@ -104,7 +101,7 @@ public class Controller : MonoBehaviour
         _pointToAttack[firstID/5+1, firstID%5].GetComponent<Point>().setShipField(true);
         _pointToAttack[firstID/5+2, firstID%5].GetComponent<Point>().setShipField(true);
     }
-    void createTableEnemy()
+    public void createTableEnemy()
     {
         int id = -1;
         float x, y;
@@ -131,15 +128,50 @@ public class Controller : MonoBehaviour
     public void toggleEnemyTurn()
     {
         _enemyTurn =!_enemyTurn;
-
+        if (_enemyTurn)
+            uIManagerBattle.setTextTurn("Enemy turn: ");
+        else
+            uIManagerBattle.setTextTurn("Your turn: ");
     }
     public void setShipInPlace(bool status, int where)
     {
+        Scene scene = SceneManager.GetActiveScene();
         if (status)
         {
             firstID = where;
+            if (scene.buildIndex ==2)
+            {
+                if (isFinishedChoosingCard())
+                    _manager.showButtonBattle(true);
+                else
+                    _manager.showButtonBattle(false);
+            }
+            else
+                uIManagerBattle.showButtonReadyToCountinue(true);
+        }
+        else
+        {
+            if (scene.buildIndex ==2)
+            {
+                if (isFinishedChoosingCard())
+                    _manager.showButtonBattle(true);
+                else
+                    _manager.showButtonBattle(false);
+            }
+            else
+            {
+                uIManagerBattle.setTextTurn("Enemy is waiting for you!\n"
+                    +"Adjust your ship location then press ready to continue.");
+                uIManagerBattle.showButtonReadyToCountinue(false);
+            }
         }
     }
+    public void setBattleAgain()
+    {
+        createTable();
+        ship.toggleCollider();
+    }
+
     public bool returnPointHit(int idHit)
     {
         if (idHit == -1)
@@ -154,18 +186,12 @@ public class Controller : MonoBehaviour
                     deletePoint();
                     uIManagerBattle.endMatch();
                 }
+                // delete our points and send a message to enemy
+                pointFunction.pauseBattle();
+                deleteOurPoints();
+
                 HPleft = 3;
-                deleteOurPoint();
                 ship.toggleCollider();
-                //Need to finish things here
-
-
-
-
-
-
-
-
 
             }
             return true;
@@ -179,7 +205,7 @@ public class Controller : MonoBehaviour
     }
     public void sendIDToAttack(int id)
     {
-        pointFunction.managerAllPoint(id);
+        pointFunction.attackPoint(id);
         cardFunction.setNextTurn();
     }
     public void toggleUsingCard(int id)
@@ -222,19 +248,19 @@ public class Controller : MonoBehaviour
         return true;
     }
 
-    void deleteOurPoint()
+    public void deleteOurPoints()
     {
         for (int i = 0; i<5; i++)
             for (int j = 0; j<5; j++)
                 Destroy(_pointToAttack[i, j]);
     }
-    void deleteEnemyPoint()
+    public void deleteEnemyPoints()
     {
-        for (int i = 0; i<5; i++)       
-            for (int j = 0; j<5; j++)           
-                Destroy(_enemyPointAttack[i, j]);                 
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                Destroy(_enemyPointAttack[i, j]);
     }
-    
+
     public void deletePoint()
     {
         for (int i = 0; i<5; i++)
@@ -261,6 +287,10 @@ public class Controller : MonoBehaviour
     public int lifeCount()
     {
         return life;
+    }
+    public void textForWaitingEnemy()
+    {
+        uIManagerBattle.setTextTurn("Please wait for enemy!");
     }
 
 }
