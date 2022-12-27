@@ -33,7 +33,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        life = 3;
+        life = 1;
         HPleft = 3;
         _usingCard = false;
         DontDestroyOnLoad(this.gameObject);
@@ -185,7 +185,6 @@ public class Controller : MonoBehaviour
                 if (--life ==-1)
                 {
                     uIManagerBattle.endMatch();
-                    exitGame();
                     return true;
                 }
                 toggleEnemyTurn();

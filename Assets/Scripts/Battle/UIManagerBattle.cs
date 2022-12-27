@@ -53,7 +53,6 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     }
     public void endMatch()
     {
-        _controller.exitGame();
         _cardFunction.endMatch();
         showResult(false);
     }
