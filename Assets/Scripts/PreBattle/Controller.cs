@@ -184,8 +184,8 @@ public class Controller : MonoBehaviour
             {
                 if (--life ==-1)
                 {
-                    deletePoint();
                     uIManagerBattle.endMatch();
+                    exitGame();
                     return true;
                 }
                 toggleEnemyTurn();
@@ -281,6 +281,7 @@ public class Controller : MonoBehaviour
     public void exitGame()
     {
         ship.exitGame();
+        deletePoint();
         Destroy(this.gameObject);
     }
 
