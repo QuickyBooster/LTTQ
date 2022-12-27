@@ -75,6 +75,9 @@ MonoBehaviour:
   - receiveFromEnemy
   - RPC_attackPoint
   - sendMessage
+  - RPC_pauseBattle
+  - RPC_receiveFromEnemy
+  - RPC_resumeBattle
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
