@@ -170,6 +170,7 @@ public class Controller : MonoBehaviour
     {
         createTable();
         ship.toggleCollider();
+        pointFunction.resumeBattle();
     }
 
     public bool returnPointHit(int idHit)
@@ -186,6 +187,8 @@ public class Controller : MonoBehaviour
                     deletePoint();
                     uIManagerBattle.endMatch();
                 }
+                uIManagerBattle.setTextTurn("Enemy is waiting for you!\n"
+                    +"Adjust your ship location then press ready to continue.");
                 // delete our points and send a message to enemy
                 pointFunction.pauseBattle();
                 deleteOurPoints();

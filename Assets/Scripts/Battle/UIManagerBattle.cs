@@ -48,6 +48,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
             this.setTextTurn("Your turn: ");
         }
         _controller.setBattleAgain();
+        this.showButtonReadyToCountinue(false);
     }
     public void endMatch()
     {
