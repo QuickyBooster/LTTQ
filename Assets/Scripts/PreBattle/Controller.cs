@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -172,7 +173,11 @@ public class Controller : MonoBehaviour
         ship.toggleCollider();
         pointFunction.resumeBattle();
     }
-
+    public void endMatch()
+    {
+        deletePoint();
+        uIManagerBattle.endMatch();
+    }
     public bool returnPointHit(int idHit)
     {
         if (idHit == -1)
@@ -184,8 +189,8 @@ public class Controller : MonoBehaviour
             {
                 if (--life ==-1)
                 {
-                    deletePoint();
-                    uIManagerBattle.endMatch();
+                    endMatch();
+                    pointFunction.endMatch();
                     return true;
                 }
                 toggleEnemyTurn();

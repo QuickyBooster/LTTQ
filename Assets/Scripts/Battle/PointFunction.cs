@@ -4,7 +4,6 @@ using UnityEngine;
 public class PointFunction : MonoBehaviour
 {
     [SerializeField] PhotonView view;
-    [SerializeField] GameObject cardManagerObject;
 
 
     Controller controller;
@@ -33,7 +32,7 @@ public class PointFunction : MonoBehaviour
         feedbackToEnemy(id);
     }
 
-    // The following lines are about receive an attack from enemy
+    // The following lines are about receive an attack from enemy and feedback about that attack
 
     void feedbackToEnemy(int id)
     {
@@ -45,7 +44,15 @@ public class PointFunction : MonoBehaviour
     {
         controller.isEnemyDown(tempID, status);
     }
-
+    public void endMatch()
+    {
+        view.RPC("RPC_endMatch", RpcTarget.Others);
+    }
+    [PunRPC]
+    void RPC_endMatch()
+    {
+        controller.endMatch();
+    }
     // The following lines are about when pause the battle
     // then continue after someone lose a ship
     public void pauseBattle()
