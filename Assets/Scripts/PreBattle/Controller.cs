@@ -187,9 +187,10 @@ public class Controller : MonoBehaviour
                     uIManagerBattle.endMatch();
                     return true;
                 }
-                toggleEnemyTurn();
-                uIManagerBattle.setTextTurn("Enemy is waiting for you!\n"
-                    +"Adjust your ship location then press ready to continue.");
+                _enemyTurn = true;
+                // what is the error
+                uIManagerBattle.setTextTurn(
+                    "Adjust your ship location then press ready to continue.");
                 // delete our points and send a message to enemy
                 pointFunction.pauseBattle();
                 deleteOurPoints();

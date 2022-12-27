@@ -1,9 +1,7 @@
 using Photon.Pun;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
 
 public class UIManagerBattle : MonoBehaviourPunCallbacks
 {
