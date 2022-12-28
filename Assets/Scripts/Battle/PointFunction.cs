@@ -15,11 +15,6 @@ public class PointFunction : MonoBehaviour
     }
 
     //The following lines are about attack the enemy points
-    [PunRPC]
-    void receiveTrueFromEnemy()
-    {
-        controller.isEnemyDown(tempID, true);
-    }
     public void attackPoint(int id)
     {
         tempID = id;

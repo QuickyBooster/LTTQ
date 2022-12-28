@@ -37,17 +37,9 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     }
     public void buttonReadyToContinueClick()
     {
-        if (_controller.isEnemyTurn())
-        {
-            this.setTextTurn("Enemy turn: ");
-        }
-        else
-        {
-            this.setTextTurn("Your turn: ");
-        }
         _controller.setBattleAgain();
         this.showButtonReadyToCountinue(false);
-        _controller.toggleEnemyTurn();
+        _controller.toggleEnemyTurnWithText();
     }
     public void endMatch()
     {

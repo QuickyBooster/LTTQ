@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -126,7 +127,7 @@ public class Controller : MonoBehaviour
     {
         return _enemyTurn;
     }
-    public void toggleEnemyTurn()
+    public void toggleEnemyTurnWithText()
     {
         _enemyTurn =!_enemyTurn;
         if (_enemyTurn)
@@ -173,6 +174,13 @@ public class Controller : MonoBehaviour
         ship.toggleCollider();
         pointFunction.resumeBattle();
     }
+    IEnumerator textChangeWhenLoseLife(float time)
+    {
+        yield return new WaitForSeconds(time);
+        uIManagerBattle.setTextTurn(
+                    "Adjust your ship location then press ready to continue.");
+        _enemyTurn = true;
+    }
     public bool returnPointHit(int idHit)
     {
         if (idHit == -1)
@@ -187,10 +195,8 @@ public class Controller : MonoBehaviour
                     uIManagerBattle.endMatch();
                     return true;
                 }
-                _enemyTurn = true;
-                // what is the error
-                uIManagerBattle.setTextTurn(
-                    "Adjust your ship location then press ready to continue.");
+                StartCoroutine(textChangeWhenLoseLife(0.5f));
+                
                 // delete our points and send a message to enemy
                 pointFunction.pauseBattle();
                 deleteOurPoints();

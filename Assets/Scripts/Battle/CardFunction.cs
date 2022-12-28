@@ -20,7 +20,7 @@ public class CardFunction : MonoBehaviour
             bool rand = (1==Random.Range(0, 1));
             if (rand)
             {
-                controller.toggleEnemyTurn();
+                controller.toggleEnemyTurnWithText();
             }
             else
             {
@@ -46,7 +46,7 @@ public class CardFunction : MonoBehaviour
     [PunRPC]
     void RPC_setFirstTurn()
     {
-        controller.toggleEnemyTurn();
+        controller.toggleEnemyTurnWithText();
     }
     public void setNextTurn()
     {
@@ -55,7 +55,7 @@ public class CardFunction : MonoBehaviour
     [PunRPC]
     void RPC_setTurn()
     {
-        controller.toggleEnemyTurn();
+        controller.toggleEnemyTurnWithText();
     }
 
 
