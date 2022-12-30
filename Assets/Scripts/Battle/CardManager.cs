@@ -1,12 +1,12 @@
-using JetBrains.Annotations;
-using Mono.Cecil;
+using Photon.Pun;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardManager : MonoBehaviour
 {
+    [SerializeField] PhotonView photonView;
     // kiem tra xem card da bi lay ra chua  true la chua, false la roi
     bool[] allCardStill = new bool[14];
     List<Card> allCard = new List<Card>();
@@ -53,14 +53,23 @@ public class CardManager : MonoBehaviour
             allCardStill[i] = true;
         }
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        while (!controller)
+            controller = FindObjectOfType<Controller>();
+    }
     void Update()
     {
         deckSizeText.text = deck.Count.ToString();
         discardPileSizeText.text = discardPile.Count.ToString();
-        if (!controller)
-        {
-            controller = FindObjectOfType<Controller>();
-        }
     }
     public void DrawCard()
     {
@@ -230,7 +239,7 @@ public class CardManager : MonoBehaviour
         if (enemyCard.Count >= 1)
         {
             int randNum = Random.Range(0, enemyCard.Count);
-            foreach(Card card in notInDeck)
+            foreach (Card card in notInDeck)
             {
                 if (card.name.Equals(enemyCard[randNum].ToString()))
                 {
@@ -260,5 +269,54 @@ public class CardManager : MonoBehaviour
             }
         }
         return false;
+    }
+    public bool card101()
+    {
+        return controller.card101();
+    }
+    public bool card102()
+    {
+        return controller.card102();
+    }
+    public bool card103()
+    {
+        photonView.RPC("RPC_card103()", RpcTarget.Others);
+        return controller.card103();
+    }
+    [PunRPC]
+    void RPC_card103()
+    {
+        controller.card103_receive();
+    }
+    public bool card104()
+    {
+        photonView.RPC("RPC_card104()", RpcTarget.Others);
+        return controller.card104();
+    }
+    void RPC_card104()
+    {
+        controller.card104_receive();
+    }
+    public bool card201()
+    {
+        drawedCard = false;
+        return controller.card201();
+    }
+    public bool card202()
+    {
+        photonView.RPC("RPC_card202_send()", RpcTarget.Others);
+        return true;
+    }
+    void RPC_card202_send()
+    {
+        photonView.RPC("RPC_card202_receive()", RpcTarget.Others, controller.card202_receive()); 
+    }
+    void RPC_card202_receive(int id)
+    {
+         controller.card202(id);
+    }
+    public bool card203()
+    {
+        return controller.card203(); ;
     }
 }

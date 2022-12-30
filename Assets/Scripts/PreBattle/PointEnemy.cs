@@ -1,15 +1,21 @@
 using UnityEngine;
+using System.Collections;
 
 public class PointEnemy : MonoBehaviour
 {
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Sprite _iconSquare;
     [SerializeField] Sprite _iconPoint;
+    [SerializeField] Sprite _iconBarrier;
+    [SerializeField] Sprite _iconTorpedo;
+    [SerializeField] Sprite _iconRed;
     Controller _controller;
 
     SpriteRenderer _renderer;
     bool _destroyed;
     int _id;
+    bool _barrier;
+    bool _torpedo;
 
     private void Start()
     {
@@ -64,5 +70,49 @@ public class PointEnemy : MonoBehaviour
     {
         _destroyed = false;
         _renderer.sprite = _iconPoint;
+    }
+    public void setBarrier(bool state)
+    {
+        // can animation
+        _barrier = state;
+        if (state)
+            _renderer.sprite = _iconBarrier;
+        else
+            _renderer.sprite = _iconPoint;
+    }
+    public bool isBarrier()
+    {
+        return _barrier;
+    }
+    public void setTorpedo(bool state)
+    {
+        //can animation
+        _torpedo = state;
+        if (!state)
+            _renderer.sprite = _iconTorpedo;
+        else
+            _renderer.sprite = _iconPoint;
+    }
+    public bool isTorpedo()
+    {
+        return (_torpedo);
+    }
+    IEnumerator displayRed()
+    {
+        _renderer.sprite = _iconRed;
+        yield return new WaitForSeconds(0.5f);
+        _renderer.sprite = _iconPoint;
+        yield return new WaitForSeconds(0.5f);
+        _renderer.sprite = _iconRed;
+        yield return new WaitForSeconds(0.5f);
+        _renderer.sprite = _iconPoint;
+        yield return new WaitForSeconds(0.5f);
+        _renderer.sprite = _iconRed;
+        yield return new WaitForSeconds(0.5f);
+        _renderer.sprite = _iconPoint;
+    }
+    public void displayRedCausedByCard202()
+    {
+        displayRed();
     }
 }

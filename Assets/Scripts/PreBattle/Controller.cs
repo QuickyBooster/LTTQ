@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,20 +21,26 @@ public class Controller : MonoBehaviour
     bool _enemyTurn;
     bool _cardChose;
     bool _usingCard;
+    bool _vertical;
     //life
     int life;
 
     //array for enemy ship to spawn
-    GameObject[,] _pointToAttack = new GameObject[5, 5];
-    GameObject[,] _enemyPointAttack = new GameObject[5, 5];
+    GameObject[,] _ourPoints = new GameObject[5, 5];
+    GameObject[,] _enemyPoints = new GameObject[5, 5];
     int firstID = 0;
     int HPleft;
     int cardID;
+    int turnNumber;
+    int turnWillAdd1Life;
     //so turn de torpedo no?
     int turns_left = 3;
 
     private void Start()
     {
+        turnWillAdd1Life = -1;
+        turnNumber = 0;
+        _vertical = false;
         life = 1;
         HPleft = 3;
         _usingCard = false;
@@ -48,12 +55,10 @@ public class Controller : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log("OnEnable called!");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnDisable()
     {
-        Debug.Log("OnDisable called!");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -93,15 +98,15 @@ public class Controller : MonoBehaviour
             {
                 GameObject destroyPoint = Instantiate(_point, new Vector2(x, y), Quaternion.identity);
                 destroyPoint.name = id.ToString();
-                _pointToAttack[i, j] = destroyPoint;
+                _ourPoints[i, j] = destroyPoint;
                 y-= 0.7197f;
                 id++;
             }
             x+= 0.7198f;
         }
-        _pointToAttack[firstID/5, firstID%5].GetComponent<Point>().setShipField(true);
-        _pointToAttack[firstID/5+1, firstID%5].GetComponent<Point>().setShipField(true);
-        _pointToAttack[firstID/5+2, firstID%5].GetComponent<Point>().setShipField(true);
+        _ourPoints[firstID/5, firstID%5].GetComponent<Point>().setShipField(true);
+        _ourPoints[firstID/5+1, firstID%5].GetComponent<Point>().setShipField(true);
+        _ourPoints[firstID/5+2, firstID%5].GetComponent<Point>().setShipField(true);
     }
     public void createTableEnemy()
     {
@@ -115,7 +120,7 @@ public class Controller : MonoBehaviour
             {
                 GameObject pointCreated = Instantiate(_pointEnemy, new Vector2(x, y), Quaternion.identity);
                 pointCreated.name = id.ToString();
-                _enemyPointAttack[i, j] = pointCreated;
+                _enemyPoints[i, j] = pointCreated;
                 y-= 0.7197f;
                 id--;
             }
@@ -129,6 +134,9 @@ public class Controller : MonoBehaviour
     }
     public void toggleEnemyTurnWithText()
     {
+        ++turnNumber;
+        if (turnWillAdd1Life==turnNumber)
+            ++life;
         _enemyTurn =!_enemyTurn;
         if (_enemyTurn)
             uIManagerBattle.setTextTurn("Enemy turn: ");
@@ -185,7 +193,7 @@ public class Controller : MonoBehaviour
     {
         if (idHit == -1)
             return false;
-        if (_pointToAttack[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
+        if (_ourPoints[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
             HPleft--;
             if (HPleft ==0)
@@ -196,7 +204,7 @@ public class Controller : MonoBehaviour
                     return true;
                 }
                 StartCoroutine(textChangeWhenLoseLife(0.5f));
-                
+
                 // delete our points and send a message to enemy
                 pointFunction.pauseBattle();
                 deleteOurPoints();
@@ -212,7 +220,7 @@ public class Controller : MonoBehaviour
     public void isEnemyDown(int id, bool status)
     {
         if (id == -1) return;
-        _enemyPointAttack[id/5, id%5].GetComponent<PointEnemy>().displayDestroy(status);
+        _enemyPoints[id/5, id%5].GetComponent<PointEnemy>().displayDestroy(status);
     }
     public void sendIDToAttack(int id)
     {
@@ -232,44 +240,19 @@ public class Controller : MonoBehaviour
     {
         return cardID;
     }
-    public bool card001(int fakeID)
-    {
-        int id = -fakeID-1;
-        _enemyPointAttack[id/5, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
-        if (id/5 <4)
-        {
-            _enemyPointAttack[id/5+1, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
-            if (id/5 <3)
-            {
-                _enemyPointAttack[id/5+2, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
-            }
-        }
-        cardManager.toggleActiveDrawButton();
-        return true;
-    }
-    public bool card004(int fakeID)
-    {
-        int id = -fakeID - 1;
-        _enemyPointAttack[id / 5, id % 5].GetComponent<SpriteRenderer>().sprite = _bracket;
-        if (turns_left == 3)
-        {
 
-        }
-        cardManager.toggleActiveDrawButton();
-        return true;
-    }
 
     public void deleteOurPoints()
     {
         for (int i = 0; i<5; i++)
             for (int j = 0; j<5; j++)
-                Destroy(_pointToAttack[i, j]);
+                Destroy(_ourPoints[i, j]);
     }
     public void deleteEnemyPoints()
     {
         for (int i = 0; i<5; i++)
             for (int j = 0; j<5; j++)
-                Destroy(_enemyPointAttack[i, j]);
+                Destroy(_enemyPoints[i, j]);
     }
 
     public void deletePoint()
@@ -278,8 +261,8 @@ public class Controller : MonoBehaviour
         {
             for (int j = 0; j<5; j++)
             {
-                Destroy(_pointToAttack[i, j]);
-                Destroy(_enemyPointAttack[i, j]);
+                Destroy(_ourPoints[i, j]);
+                Destroy(_enemyPoints[i, j]);
             }
         }
 
@@ -304,5 +287,128 @@ public class Controller : MonoBehaviour
     {
         uIManagerBattle.setTextTurn("Please wait for enemy!");
     }
+    public bool card001(int fakeID)
+    {
+        int id = -fakeID-1;
+        _enemyPoints[id/5, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
+        if (id/5 <4)
+        {
+            _enemyPoints[id/5+1, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
+            if (id/5 <3)
+            {
+                _enemyPoints[id/5+2, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
+            }
+        }
+        cardManager.toggleActiveDrawButton();
+        return true;
+    }
+    public bool card004(int fakeID)
+    {
+        int id = -fakeID - 1;
+        _enemyPoints[id / 5, id % 5].GetComponent<SpriteRenderer>().sprite = _bracket;
+        if (turns_left == 3)
+        {
 
+        }
+        cardManager.toggleActiveDrawButton();
+        return true;
+    }
+    public bool card101()
+    {
+        life++;
+        return true;
+    }
+    public bool card102()
+    {
+        deleteOurPoints();
+        ship.toggleCollider();
+        uIManagerBattle.setTextTurn("move your ship to your favorite position");
+        return true;
+    }
+    public bool card103()
+    {
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                if (_ourPoints[i, j].GetComponent<Point>().isBarrier())
+                {
+                    _ourPoints[i, j].GetComponent<Point>().setBarrier(false);
+                }
+        return true;
+    }
+    public void card103_receive()
+    {
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                if (_enemyPoints[i, j].GetComponent<PointEnemy>().isBarrier())
+                {
+                    _enemyPoints[i, j].GetComponent<PointEnemy>().setBarrier(false);
+                }
+    }
+    public bool card104()
+    {
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                if (_ourPoints[i, j].GetComponent<Point>().isTorpedo())
+                {
+                    _ourPoints[i, j].GetComponent<Point>().setTorpedo(false);
+                }
+        return true;
+    }
+    public void card104_receive()
+    {
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                if (_enemyPoints[i, j].GetComponent<PointEnemy>().isTorpedo())
+                {
+                    _enemyPoints[i, j].GetComponent<PointEnemy>().setTorpedo(false);
+                }
+    }
+    public bool card201()
+    {
+        uIManagerBattle.setTextTurn("You have another turn to draw card");
+        return true;
+    }
+    public bool card202(int id)
+    {
+        bool vertical = false;
+        if (id>100)
+        {
+            vertical = true;
+            id -=100;
+        }
+        _enemyPoints[id/5,id%5].GetComponent<PointEnemy>().displayRedCausedByCard202();
+        if (vertical)
+        {
+            id++;
+            _enemyPoints[id/5, id%5].GetComponent<PointEnemy>().displayRedCausedByCard202();
+            id++;
+            _enemyPoints[id/5,id%5].GetComponent<PointEnemy>().displayRedCausedByCard202();
+        }else
+        {
+            id+=5;
+            _enemyPoints[id/5,id%5].GetComponent<PointEnemy>().displayRedCausedByCard202();
+            id+=5;
+            _enemyPoints[id/5,id%5].GetComponent<PointEnemy>().displayRedCausedByCard202();
+        }
+        return true;
+    }
+    public int card202_receive()
+    {
+        int k=0;
+        for (int i = 0; i<5; i++)
+            for (int j = 0; j<5; j++)
+                if (_ourPoints[i, j].GetComponent<Point>().isShipField())
+                {
+                    k= i*5+j;
+                    if (_vertical)
+                        k+=100;
+                    return k;
+                }
+        return k;
+    }
+    public bool card203()
+    {
+         turnWillAdd1Life = turnNumber+5;
+        return true;
+    }
 }
