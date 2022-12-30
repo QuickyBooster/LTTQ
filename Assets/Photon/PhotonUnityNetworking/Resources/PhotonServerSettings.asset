@@ -78,6 +78,7 @@ MonoBehaviour:
   - RPC_pauseBattle
   - RPC_receiveFromEnemy
   - RPC_resumeBattle
+  - RPC_card103
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
