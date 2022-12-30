@@ -8,22 +8,19 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] Image soundOnIcon;
     [SerializeField] Image soundOffIcon;
-    [SerializeField] Sprite soundOff;
-    [SerializeField] Sprite soundOni;
-    [SerializeField] Button soundButton;
     private bool muted = false;
 
-    // Start is called before the first frame update
+   // Start is called before the first frame update
     void Start()
     {
-        if(!PlayerPrefs.HasKey("muted"))
+        if (!PlayerPrefs.HasKey("muted"))
         {
             PlayerPrefs.SetInt("muted", 0);
             Load();
         }
-        else 
+        else
             Load();
-        //UpdateButtonIcon();
+        UpdateStopIcon();
         AudioListener.pause = muted;
     }
     public void OnButtonPress()
@@ -37,28 +34,20 @@ public class SoundManager : MonoBehaviour
         else
         {
             muted = false;
-            AudioListener.pause = false;    
+            AudioListener.pause = false;
         }
         Save();
-        //UpdateButtonIcon();
+        UpdateStopIcon();
     }
 
-   /* private void UpdateButtonIcon()
+    private void UpdateStopIcon()
     {
-        print("update");
         if (muted == false)
-        {
-            soundOnIcon.enabled = true;
             soundOffIcon.enabled = false;
-            //soundButton.GetComponent<SpriteRenderer>().sprite = soundOni;
-        }
         else
-        {
-            soundOnIcon.enabled = false;
             soundOffIcon.enabled = true;
-            //soundButton.GetComponent<SpriteRenderer>().sprite = soundOff;
-        }
-    }*/
+    }
+
     private void Load()
     {
         muted = PlayerPrefs.GetInt("muted") == 1;
@@ -67,24 +56,11 @@ public class SoundManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("muted", muted ? 1 : 0);
     }
-   /* private void OnMouseDown()
-    {
-        muted = !muted;
-        if (muted == false)
-        {
-            muted = true;
-            AudioListener.pause = true;
-        }
-        else
-        {
-            muted = false;
-            AudioListener.pause = false;
-        }
-        Save();
-        UpdateButtonIcon();
-    }
-    public void toggleMute()
-    {
-        OnMouseDown();
-    }*/
+    /*public void MuteHandle(bool mute)
+     {
+         if (mute)
+             AudioListener.volume = 0;
+         else
+             AudioListener.volume = 1;
+     }*/
 }

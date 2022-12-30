@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Transition : MonoBehaviour
+public class ScreenTransition1 : MonoBehaviour
 {
     public Animator animator;
 
