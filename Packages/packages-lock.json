@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.google.external-dependency-manager": {
-      "version": "file:C:/Users/Vo Huu/Downloads/com.google.external-dependency-manager-1.2.175.tgz",
+      "version": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.external-dependency-manager-1.2.175.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.app": {
-      "version": "file:C:/Users/Vo Huu/Downloads/com.google.firebase.app-10.3.0.tgz",
+      "version": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.firebase.app-10.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -15,7 +15,7 @@
       }
     },
     "com.google.firebase.auth": {
-      "version": "file:C:/Users/Vo Huu/Downloads/com.google.firebase.auth-10.3.0.tgz",
+      "version": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.firebase.auth-10.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -23,7 +23,7 @@
       }
     },
     "com.google.firebase.firestore": {
-      "version": "file:C:/Users/Vo Huu/Downloads/com.google.firebase.firestore-10.3.0.tgz",
+      "version": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.firebase.firestore-10.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
