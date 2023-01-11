@@ -4,7 +4,6 @@ using Firebase;
 using Firebase.Auth;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class AuthManager : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class AuthManager : MonoBehaviour
     public DependencyStatus dependencyStatus;
     FirebaseUser user;
     FirebaseAuth auth;
-    public FirebaseUser User;
 
     //Login variables
     [Header("Login")]
@@ -51,7 +49,6 @@ public class AuthManager : MonoBehaviour
     }
     private void InitializeFirebase()
     {
-        Debug.Log("Setting up Firebase Auth");
         //Set the authentication instance object
         auth = FirebaseAuth.DefaultInstance;
         user = auth.CurrentUser;
@@ -59,7 +56,6 @@ public class AuthManager : MonoBehaviour
     public void LoginButton()
     {
         //Call the login coroutine passing the email and password
-        print(emailLoginField.text+passwordLoginField.text);
         StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
     }
     //Function for the register button
@@ -106,8 +102,8 @@ public class AuthManager : MonoBehaviour
         {
             //User is now logged in
             //Now get the result
-            User = LoginTask.Result;
-            Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
+            user = LoginTask.Result;
+            Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.Email);
             confirmLoginText.text = "Logged In";
             yield return new WaitForSeconds(0.62f);
             warningLoginText.text = "Welcome "+user.DisplayName;
@@ -165,18 +161,17 @@ public class AuthManager : MonoBehaviour
             {
                 //User has now been created
                 //Now get the result
-                User = RegisterTask.Result;
+                user = RegisterTask.Result;
 
-                if (User != null)
+                if (user != null)
                 {
                     //Create a user profile and set the username
                     Firebase.Auth.UserProfile profile = new Firebase.Auth.UserProfile { DisplayName = _username };
 
                     //Call the Firebase auth update user profile function passing the profile with the username
-                    var ProfileTask = User.UpdateUserProfileAsync(profile);
+                    var ProfileTask = user.UpdateUserProfileAsync(profile);
                     //Wait until the task completes
                     yield return new WaitUntil(predicate: () => ProfileTask.IsCompleted);
-                    print(profile.DisplayName);
                     if (ProfileTask.Exception != null)
                     {
                         //If there are errors handle them
