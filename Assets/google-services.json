@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "630277414708",
+    "project_id": "databasebts2d",
+    "storage_bucket": "databasebts2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630277414708:android:f32a7648abcfd9ae238f61",
+        "android_client_info": {
+          "package_name": "com.T3HCooperation.BattleShip2D"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630277414708-v9t0ukm4p8ifpddft2r32s4hsuc8e07i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3HaFPXW4D7fCiti5Xdt8PW5FbNZ6DnGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630277414708-v9t0ukm4p8ifpddft2r32s4hsuc8e07i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
