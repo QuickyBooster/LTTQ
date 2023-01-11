@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 using Firebase.Firestore;
-using Firebase.Extensions;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using System.Collections;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks

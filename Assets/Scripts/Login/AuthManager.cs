@@ -4,6 +4,8 @@ using Firebase;
 using Firebase.Auth;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Firebase.Firestore;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class AuthManager : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class AuthManager : MonoBehaviour
     public DependencyStatus dependencyStatus;
     FirebaseUser user;
     FirebaseAuth auth;
+    FirebaseFirestore db;
 
     //Login variables
     [Header("Login")]
@@ -33,6 +36,7 @@ public class AuthManager : MonoBehaviour
 
     private void Awake()
     {
+        db = FirebaseFirestore.DefaultInstance;
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             dependencyStatus = task.Result;
@@ -182,6 +186,11 @@ public class AuthManager : MonoBehaviour
                     }
                     else
                     {
+                        //adding user to firestore
+                        PlayerData player = new PlayerData { exp=0,silver =0 };
+
+                         db.Collection("account").Document(user.UserId).SetAsync(player);
+                        
                         //Username is now set
                         //Now return to login screen
                         warningRegisterText.text = "Register success";
