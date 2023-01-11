@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "com.google.external-dependency-manager": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.external-dependency-manager-1.2.175.tgz",
-    "com.google.firebase.app": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.firebase.app-10.3.0.tgz",
-    "com.google.firebase.auth": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.firebase.auth-10.3.0.tgz",
-    "com.google.firebase.firestore": "file:D:/CHUONG TRINH DAI HOC/HOC KI 3/LAP TRINH TRUC QUAN/Unity Package/com.google.firebase.firestore-10.3.0.tgz",
+    "com.google.external-dependency-manager": "file:Source/com.google.external-dependency-manager-1.2.175.tgz",
+    "com.google.firebase.app": "file:Source/com.google.firebase.app-10.3.0.tgz",
+    "com.google.firebase.auth": "file:Source/com.google.firebase.auth-10.3.0.tgz",
+    "com.google.firebase.firestore": "file:Source/com.google.firebase.firestore-10.3.0.tgz",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.15",
