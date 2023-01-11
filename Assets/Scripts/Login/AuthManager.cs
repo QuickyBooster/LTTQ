@@ -36,7 +36,6 @@ public class AuthManager : MonoBehaviour
 
     private void Awake()
     {
-        db = FirebaseFirestore.DefaultInstance;
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             dependencyStatus = task.Result;
@@ -53,6 +52,7 @@ public class AuthManager : MonoBehaviour
     }
     private void InitializeFirebase()
     {
+        db = FirebaseFirestore.DefaultInstance;
         //Set the authentication instance object
         auth = FirebaseAuth.DefaultInstance;
         user = auth.CurrentUser;
