@@ -15,7 +15,6 @@ public class PlayerManager : MonoBehaviour
 
     private void InitializeFirebase()
     {
-        Debug.Log("Setting up Firebase Auth");
         //Set the authentication instance object
         auth = FirebaseAuth.DefaultInstance;
         user = auth.CurrentUser;

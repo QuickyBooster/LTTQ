@@ -107,7 +107,6 @@ public class AuthManager : MonoBehaviour
             //User is now logged in
             //Now get the result
             user = LoginTask.Result;
-            Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.Email);
             confirmLoginText.text = "Logged In";
             yield return new WaitForSeconds(0.62f);
             warningLoginText.text = "Welcome "+user.DisplayName;

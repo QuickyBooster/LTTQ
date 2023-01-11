@@ -15,7 +15,6 @@ public class OpenScene : MonoBehaviour
     }
     public void LoadTransition()
     {
-        Debug.Log("aaa");
         StartCoroutine(openSceneLeft());
         StartCoroutine(openSceneRight());
     }
