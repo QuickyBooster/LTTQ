@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "com.google.external-dependency-manager": "file:C:/Users/Vo Huu/Downloads/com.google.external-dependency-manager-1.2.175.tgz",
+    "com.google.firebase.app": "file:C:/Users/Vo Huu/Downloads/com.google.firebase.app-10.3.0.tgz",
+    "com.google.firebase.auth": "file:C:/Users/Vo Huu/Downloads/com.google.firebase.auth-10.3.0.tgz",
+    "com.google.firebase.firestore": "file:C:/Users/Vo Huu/Downloads/com.google.firebase.firestore-10.3.0.tgz",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.15",
