@@ -19,6 +19,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();   
         _resultPanel.SetActive(false);
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
