@@ -41,10 +41,10 @@ public class CardManager : MonoBehaviour
     bool drawedCard;
     Controller controller;
     [SerializeField] GameObject cardFunctionObject;
-    CardFunction cardFunction;
+    NetworkStarter cardFunction;
     private void Start()
     {
-        cardFunction = cardFunctionObject.GetComponent<CardFunction>();
+        cardFunction = cardFunctionObject.GetComponent<NetworkStarter>();
         activeDrawButton = true;
         drawedCard = false;
         allCard = deck;
@@ -270,6 +270,11 @@ public class CardManager : MonoBehaviour
         }
         return false;
     }
+    /// <summary>
+    /// function for card
+    /// authored by Booster
+    /// </summary>
+    /// <returns></returns>
     public bool card101()
     {
         return controller.card101();

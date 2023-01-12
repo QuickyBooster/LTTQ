@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _pointEnemy;
     [SerializeField] Sprite _bracket;
 
-    CardFunction cardFunction;
+    NetworkStarter cardFunction;
     CardManager cardManager;
     Ship ship;
     PointFunction pointFunction;
@@ -35,6 +35,8 @@ public class Controller : MonoBehaviour
     int turnWillAdd1Life;
     //so turn de torpedo no?
     int turns_left = 3;
+    //set barrier
+    int barriersLeft = 0;
 
     private void Start()
     {
@@ -71,7 +73,7 @@ public class Controller : MonoBehaviour
             while (!cardManager)
                 cardManager = FindObjectOfType<CardManager>();
             while (!cardFunction)
-                cardFunction = FindObjectOfType<CardFunction>();
+                cardFunction = FindObjectOfType<NetworkStarter>();
             while (!pointFunction)
                 pointFunction = FindObjectOfType<PointFunction>();
             while (!uIManagerBattle)
@@ -289,16 +291,10 @@ public class Controller : MonoBehaviour
     }
     public bool card001(int fakeID)
     {
-        int id = -fakeID-1;
-        _enemyPoints[id/5, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
-        if (id/5 <4)
-        {
-            _enemyPoints[id/5+1, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
-            if (id/5 <3)
-            {
-                _enemyPoints[id/5+2, id%5].GetComponent<SpriteRenderer>().sprite = _bracket;
-            }
-        }
+        _usingCard = true;
+        cardID = 1;
+        
+        
         cardManager.toggleActiveDrawButton();
         return true;
     }

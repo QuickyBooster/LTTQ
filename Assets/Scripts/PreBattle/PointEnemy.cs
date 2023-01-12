@@ -44,8 +44,8 @@ public class PointEnemy : MonoBehaviour
         {
             if (_controller.IDCardUsing()==1)
             {
-                _controller.card001(_id);
-                _controller.toggleUsingCard(-1);
+                _renderer.sprite =_iconBarrier;
+                _barrier= true;
             }
             return true;
         }

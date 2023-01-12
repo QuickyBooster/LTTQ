@@ -5,12 +5,11 @@ using Firebase.Auth;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Firebase.Firestore;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class AuthManager : MonoBehaviour
 {
 
-
+    OpenScene openScene;
 
 
     [Header("Firebase")]
@@ -36,6 +35,7 @@ public class AuthManager : MonoBehaviour
 
     private void Awake()
     {
+        openScene = FindObjectOfType<OpenScene>();
         db = FirebaseFirestore.DefaultInstance;
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
@@ -109,9 +109,10 @@ public class AuthManager : MonoBehaviour
             user = LoginTask.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.Email);
             confirmLoginText.text = "Logged In";
-            yield return new WaitForSeconds(0.62f);
+            yield return new WaitForSeconds(0.15f);
             warningLoginText.text = "Welcome "+user.DisplayName;
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
+            openScene.LoadTransition();
             SceneManager.LoadScene(1);
 
         }
