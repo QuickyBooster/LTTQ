@@ -15,7 +15,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
 
     PlayerManager player;
     Controller _controller;
-    CardFunction _cardFunction;
+    NetworkStarter _cardFunction;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +23,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         _resultPanel.SetActive(false);
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
-        _cardFunction = FindObjectOfType<CardFunction>();
+        _cardFunction = FindObjectOfType<NetworkStarter>();
 
         _textNameMe.text = player.userName;
         sendMyName();

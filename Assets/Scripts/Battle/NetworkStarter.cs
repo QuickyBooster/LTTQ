@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class CardFunction : MonoBehaviour
+public class NetworkStarter : MonoBehaviour
 {
     [SerializeField] PhotonView photonView;
     [SerializeField] GameObject cardManagerObject;
