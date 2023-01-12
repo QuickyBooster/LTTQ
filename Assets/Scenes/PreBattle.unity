@@ -1105,8 +1105,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -200, y: 179}
-  m_SizeDelta: {x: 167.95, y: 116.02}
+  m_AnchoredPosition: {x: -230.76, y: 222}
+  m_SizeDelta: {x: 200.5, y: 136.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &907452472
 MonoBehaviour:
@@ -1771,8 +1771,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.34638244}
   m_AnchorMax: {x: 0.74500006, y: 0.5}
-  m_AnchoredPosition: {x: -20.574, y: -83.26}
-  m_SizeDelta: {x: 184.39, y: 70.91}
+  m_AnchoredPosition: {x: -29.45, y: -89.18}
+  m_SizeDelta: {x: 279.07, y: 94.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1209808296
 MonoBehaviour:
@@ -1795,12 +1795,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b4b53f22df7481446a65fab21d300fc8, type: 3}
-    m_FontSize: 35
+    m_Font: {fileID: 12800000, guid: 45cec77cf414c734e834a79882545095, type: 3}
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1973,7 +1973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1417155293
 MonoBehaviour:
   m_ObjectHideFlags: 0

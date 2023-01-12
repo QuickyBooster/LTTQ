@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1, y: -96}
-  m_SizeDelta: {x: 754.51, y: 141.27}
+  m_AnchoredPosition: {x: 1, y: -93.53}
+  m_SizeDelta: {x: 754.51, y: 136.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &245211182
 MonoBehaviour:
@@ -182,21 +182,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b4b53f22df7481446a65fab21d300fc8, type: 3}
-    m_FontSize: 48
+    m_Font: {fileID: 12800000, guid: 45cec77cf414c734e834a79882545095, type: 3}
+    m_FontSize: 55
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 48
+    m_MinSize: 0
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'welcome back
-
-    captain'
+  m_Text: "WELCOME BACK \nCAPTAIN"
 --- !u!222 &245211183
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -953,7 +951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &606286028
 Transform:
   m_ObjectHideFlags: 0
