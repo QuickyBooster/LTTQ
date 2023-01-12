@@ -7,9 +7,13 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
 {
     [SerializeField] Text _textTurn;
     [SerializeField] Text _textResult;
+    [SerializeField] Text _textNameMe;
+    [SerializeField] Text _textNameEnemy;
     [SerializeField] GameObject _resultPanel;
     [SerializeField] GameObject _buttonReadyToCountinue;
+    [SerializeField] PhotonView view;
 
+    PlayerManager player;
     Controller _controller;
     CardFunction _cardFunction;
     // Start is called before the first frame update
@@ -19,6 +23,9 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
         _cardFunction = FindObjectOfType<CardFunction>();
+
+        _textNameMe.text = player.userName;
+        sendMyName();
         if (_controller.isEnemyTurn())
         {
             this.setTextTurn("Enemy turn: ");
@@ -28,6 +35,15 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
             this.setTextTurn("Your turn: ");
         }
     }
+    public void sendMyName()
+    {
+        view.RPC("RPC_takeEnemyName", RpcTarget.Others, player.userName);
+    }
+    public void RPC_takeEnemyName(string name)
+    {
+        _textNameEnemy.text = name;
+    }
+
     public void showButtonReadyToCountinue(bool state)
     {
         if (_buttonReadyToCountinue)
