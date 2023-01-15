@@ -99,6 +99,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
     public void onClickLeaveRoom()
     {
+        new WaitForSeconds(1.0f);
         PhotonNetwork.LeaveRoom();
     }
 
