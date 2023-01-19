@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
     [SerializeField] Sprite backSide;    
 
     public bool hasBeenPlayed;
-    public int handIndex=-1;
+    public int handIndex { get; set; }
     //bool isPicked;
 
     private CardManager cardManager;
@@ -21,6 +21,7 @@ public class Card : MonoBehaviour
     public int id;
     private void Start()
     {
+        handIndex = -1;
         int.TryParse(this.name,out id);
        // isPicked = false;   
         cardManager = FindObjectOfType<CardManager>().GetComponent<CardManager>();   
@@ -106,9 +107,8 @@ public class Card : MonoBehaviour
             print("fail");
         }
     }
-    public void MoveToDiscardPile()
+    public void useCard()
     {
-        cardManager.discardPile.Add(this);
         this.gameObject.SetActive(false); 
     }
 

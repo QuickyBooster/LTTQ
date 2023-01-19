@@ -27,8 +27,8 @@ public class CardManager : MonoBehaviour
     //nhung card cua enemy
     Card[] enemySlotCard = new Card[5];
 
+    //vi tri cua card 
     public Transform[] cardSlots;
-    //vi tri cua card enemy
     public Transform[] enemyCardSlots;
     public bool[] availableCardSlots;
     public int cardNum;
@@ -38,8 +38,8 @@ public class CardManager : MonoBehaviour
 
     public PanelOpener cardPanel;
 
-    bool activeDrawButton;
-    bool drawedCard;
+    bool activeDrawButton { get; set; }
+    bool drawedCard { get; set; }
     Controller controller;
     [SerializeField] GameObject cardFunctionObject;
     NetworkStarter cardFunction;
@@ -179,27 +179,12 @@ public class CardManager : MonoBehaviour
         }
         deck.Remove(tempCard);
     }
-
-    public void buttonUseCard()
-    {
-        UseCard(-2);
-    }
     public void UseCard(int handIdex)
     {
         if (handIdex==-1)
         {
             return;
-        }
-        if (handIdex == -2)
-        {
-            deck.Remove(tempCard);
-            cardPanel.setCardInPanel(false);
-            tempCard.MoveToDiscardPile();
-            cardPanel.SetHidePannel(true);
-            cardPanel.SetShowPannel(false);
-            return;
-        }
-        else
+        }else
         {
             print(handIdex);
             cardPanel.SetHidePannel(true);
@@ -211,9 +196,19 @@ public class CardManager : MonoBehaviour
                 deck.Remove(tempCard);
             }
             cardPanel.setCardInPanel(false);
-            slotCard[handIdex].MoveToDiscardPile();
+            photonView.RPC("RPC_enemyUseCard", RpcTarget.Others,handIdex);
+            discardPile.Add(slotCard[handIdex]);
+            slotCard[handIdex].useCard();
             availableCardSlots[handIdex]= true;
         }
+    }
+    [PunRPC]
+    void RPC_enemyUseCard(int index)
+    {
+        discardPile.Add(enemySlotCard[index]);
+        notInDeck.Remove(enemySlotCard[index]);
+        enemyCard.Remove(index);
+        enemySlotCard[index].useCard();
     }
     public void toggleActiveDrawButton()
     {
