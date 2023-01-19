@@ -42,10 +42,9 @@ public class PointEnemy : MonoBehaviour
         if (_destroyed) return false;
         if (_controller.isUsingCard())
         {
-            if (_controller.IDCardUsing()==1)
+            if (_controller.IDCardUsing()==3)
             {
-                _renderer.sprite =_iconBarrier;
-                _barrier= true;
+                
             }
             return true;
         }

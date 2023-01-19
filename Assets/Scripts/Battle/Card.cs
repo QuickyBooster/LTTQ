@@ -18,7 +18,7 @@ public class Card : MonoBehaviour
     private CardManager cardManager;
     Controller controller;
 
-    int id;
+    public int id;
     private void Start()
     {
         int.TryParse(this.name,out id);
@@ -43,7 +43,7 @@ public class Card : MonoBehaviour
     {
         if(hasBeenPlayed == false &&handIndex!=-1)
         {
-            transform.position += Vector3.up;  
+           // transform.position += Vector3.up;  
         }
     }
 
@@ -52,7 +52,7 @@ public class Card : MonoBehaviour
         if (handIndex!=-1)
         {
 
-        transform.position -= Vector3.up;
+        //transform.position -= Vector3.up;
         }
     }
 

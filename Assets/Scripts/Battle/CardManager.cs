@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -98,10 +99,11 @@ public class CardManager : MonoBehaviour
                             randCard.transform.position = cardPanel.cardTransform.position;
                             playerCard.Add(cardID);
                             cardPanel.setCardInPanel(true);
-                            //drawedCard=true;
+                            drawedCard=true;
                             notInDeck.Add(randCard);
                             tempCard = randCard;
-                            //deck.Remove(randCard);
+                            deck.Remove(randCard);
+                            photonView.RPC("RPC_enemyDrawCard", RpcTarget.Others, tempCard);
                             return;
                         }
                     }
@@ -109,6 +111,16 @@ public class CardManager : MonoBehaviour
             }
         }
 
+    }
+    [PunRPC]
+    void RPC_enemyDrawCard(Card card)
+    {
+        deck.Remove(card);
+        enemyCard.Add(card.id);
+        enemySlotCard[enemySlotCard.Length] = card;
+        notInDeck.Add(card);
+        allCardStill[card.id] = false;
+        drawedCard = false;
     }
 
     public void Shufflle()
@@ -124,24 +136,14 @@ public class CardManager : MonoBehaviour
             }
             discardPile.Clear();
             activeDrawButton = true;
+            photonView.RPC("RPC_enemyShufflle", RpcTarget.Others);
         }
     }
-    public void enemyDrawCard(int idCard)
+    void RPC_enemyShufflle()
     {
-
-        allCardStill[idCard] = false;
-        foreach (Card card in deck)
-        {
-            if (card.name.Equals(idCard.ToString()))
-            {
-                notInDeck.Add(card);
-                deck.Remove(card);
-                enemyCard.Add(idCard);
-                return;
-            }
-        }
-
+        Shufflle();
     }
+
     public void enemyUsedCard(int idCard)
     {
 
@@ -217,7 +219,11 @@ public class CardManager : MonoBehaviour
     {
         activeDrawButton = !activeDrawButton;
     }
-    // benefits from card
+    /// <summary>
+    /// authored by Booster
+    /// </summary>
+    /// <returns></returns>
+    
     public bool usingCard003()
     {
         int randomCard = Random.Range(0, enemyCard.Count);

@@ -25,7 +25,6 @@ public class SoundManager : MonoBehaviour
     }
     public void OnButtonPress()
     {
-        print("press");
         if (muted == false)
         {
             muted = true;

@@ -36,7 +36,7 @@ public class Controller : MonoBehaviour
     //so turn de torpedo no?
     int turns_left = 3;
     //set barrier
-    int barriersLeft = 0;
+    public int barriersLeft {  get;  set; }
 
     private void Start()
     {
@@ -289,13 +289,9 @@ public class Controller : MonoBehaviour
     {
         uIManagerBattle.setTextTurn("Please wait for enemy!");
     }
-    public bool card001(int fakeID)
+    public bool card003(int idCard)
     {
-        _usingCard = true;
-        cardID = 1;
-        
-        
-        cardManager.toggleActiveDrawButton();
+
         return true;
     }
     public bool card004(int fakeID)
