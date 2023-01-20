@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     [SerializeField] GameObject _pointEnemy;
     [SerializeField] Sprite _bracket;
 
-    NetworkStarter cardFunction;
+    NetworkStarter networkStarter;
     CardManager cardManager;
     Ship ship;
     PointFunction pointFunction;
@@ -47,7 +47,7 @@ public class Controller : MonoBehaviour
         HPleft = 3;
         _usingCard = false;
         DontDestroyOnLoad(this.gameObject);
-        ship = FindObjectOfType<Ship>();
+        ship = FindObjectOfType<Ship>().GetComponent<Ship>();
         _manager = FindObjectOfType<UIManager>();
 
         _cardChose = true;
@@ -71,13 +71,13 @@ public class Controller : MonoBehaviour
             createTableEnemy();
             ship.toggleCollider();
             while (!cardManager)
-                cardManager = FindObjectOfType<CardManager>();
-            while (!cardFunction)
-                cardFunction = FindObjectOfType<NetworkStarter>();
+                cardManager = FindObjectOfType<CardManager>().GetComponent<CardManager>();
+            while (!networkStarter)
+                networkStarter = FindObjectOfType<NetworkStarter>().GetComponent<NetworkStarter>();
             while (!pointFunction)
-                pointFunction = FindObjectOfType<PointFunction>();
+                pointFunction = FindObjectOfType<PointFunction>().GetComponent<PointFunction>();
             while (!uIManagerBattle)
-                uIManagerBattle = FindObjectOfType<UIManagerBattle>();
+                uIManagerBattle = FindObjectOfType<UIManagerBattle>().GetComponent<UIManagerBattle>();
         }
     }
     private void Update()
@@ -227,7 +227,7 @@ public class Controller : MonoBehaviour
     public void sendIDToAttack(int id)
     {
         pointFunction.attackPoint(id);
-        cardFunction.setNextTurn();
+        networkStarter.setNextTurn();
     }
     public void toggleUsingCard(int id)
     {

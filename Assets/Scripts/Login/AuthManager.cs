@@ -112,7 +112,7 @@ public class AuthManager : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
             warningLoginText.text = "Welcome "+user.DisplayName;
             yield return new WaitForSeconds(0.5f);
-            openScene.LoadTransition();
+            //openScene.LoadTransition();
             SceneManager.LoadScene(1);
 
         }

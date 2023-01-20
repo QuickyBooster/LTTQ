@@ -20,7 +20,6 @@ public class OpenScene : MonoBehaviour
     {
         animator1.SetTrigger("scene_left");
         yield return new WaitForSeconds(1.0f);
-        yield return new WaitForSeconds(0.6f);
     }
     IEnumerator openSceneRight()
     {
