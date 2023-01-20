@@ -438,8 +438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06767b8cb678b14eab90ec0b4a02e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Arrange: {fileID: 0}
-  _textError: {fileID: 0}
+  _Arrange: {fileID: 1740075972}
+  _textError: {fileID: 1740075972}
   buttonBattle: {fileID: 907452470}
 --- !u!4 &382155612
 Transform:
@@ -2386,7 +2386,7 @@ GameObject:
   - component: {fileID: 1740075973}
   - component: {fileID: 1740075972}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: putText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

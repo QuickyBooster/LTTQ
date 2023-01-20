@@ -15,15 +15,16 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
 
     PlayerManager player;
     Controller _controller;
-    NetworkStarter _cardFunction;
+    NetworkStarter _networkStarter;
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();   
+        while(!player)
+            player = FindObjectOfType<PlayerManager>(); 
         _resultPanel.SetActive(false);
         this.setTextTurn("who turn?");
         _controller = FindObjectOfType<Controller>();
-        _cardFunction = FindObjectOfType<NetworkStarter>();
+        _networkStarter = FindObjectOfType<NetworkStarter>();
 
         _textNameMe.text = player.userName;
         sendMyName();
@@ -40,6 +41,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     {
         view.RPC("RPC_takeEnemyName", RpcTarget.Others, player.userName);
     }
+    [PunRPC]
     public void RPC_takeEnemyName(string name)
     {
         _textNameEnemy.text = name;
@@ -60,7 +62,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     }
     public void endMatch()
     {
-        _cardFunction.endMatch();
+        _networkStarter.endMatch();
         showResult(false);
     }
     public void setTextTurn(string text)

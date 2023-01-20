@@ -103,7 +103,7 @@ public class CardManager : MonoBehaviour
                             notInDeck.Add(randCard);
                             tempCard = randCard;
                             deck.Remove(randCard);
-                            photonView.RPC("RPC_enemyDrawCard", RpcTarget.Others, tempCard);
+                            photonView.RPC("RPC_enemyDrawCard", RpcTarget.Others, tempCard.id);
                             return;
                         }
                     }
@@ -113,13 +113,13 @@ public class CardManager : MonoBehaviour
 
     }
     [PunRPC]
-    void RPC_enemyDrawCard(Card card)
+    void RPC_enemyDrawCard(int id)
     {
-        deck.Remove(card);
-        enemyCard.Add(card.id);
-        enemySlotCard[enemySlotCard.Length] = card;
-        notInDeck.Add(card);
-        allCardStill[card.id] = false;
+        deck.Remove(allCard[id]);
+        enemyCard.Add(id);
+        enemySlotCard[enemySlotCard.Length] = allCard[id];
+        notInDeck.Add(allCard[id]);
+        allCardStill[id] = false;
         drawedCard = false;
     }
 

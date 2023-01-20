@@ -149,7 +149,7 @@ public class Controller : MonoBehaviour
         if (status)
         {
             firstID = where;
-            if (scene.buildIndex ==2)
+            if (scene.buildIndex ==3)
             {
                 if (isFinishedChoosingCard())
                     _manager.showButtonBattle(true);
@@ -161,7 +161,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            if (scene.buildIndex ==2)
+            if (scene.buildIndex ==3)
             {
                 if (isFinishedChoosingCard())
                     _manager.showButtonBattle(true);

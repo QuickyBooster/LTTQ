@@ -1,7 +1,6 @@
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
-using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
