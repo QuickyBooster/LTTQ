@@ -1,6 +1,4 @@
 using System.Collections;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,9 +45,9 @@ public class Controller : MonoBehaviour
         HPleft = 3;
         _usingCard = false;
         DontDestroyOnLoad(this.gameObject);
-        ship = FindObjectOfType<Ship>().GetComponent<Ship>();
+        while (!ship)
+            ship = FindObjectOfType<Ship>();
         _manager = FindObjectOfType<UIManager>();
-
         _cardChose = true;
         firstID = 0;
         Application.targetFrameRate = 60;
@@ -65,19 +63,19 @@ public class Controller : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.buildIndex == 3)
+        if (scene.buildIndex == 4)
         {
             createTable();
             createTableEnemy();
             ship.toggleCollider();
             while (!cardManager)
-                cardManager = FindObjectOfType<CardManager>().GetComponent<CardManager>();
+                cardManager = FindObjectOfType<CardManager>();
             while (!networkStarter)
-                networkStarter = FindObjectOfType<NetworkStarter>().GetComponent<NetworkStarter>();
+                networkStarter = FindObjectOfType<NetworkStarter>();
             while (!pointFunction)
-                pointFunction = FindObjectOfType<PointFunction>().GetComponent<PointFunction>();
+                pointFunction = FindObjectOfType<PointFunction>();
             while (!uIManagerBattle)
-                uIManagerBattle = FindObjectOfType<UIManagerBattle>().GetComponent<UIManagerBattle>();
+                uIManagerBattle = FindObjectOfType<UIManagerBattle>();
         }
     }
     private void Update()

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    [SerializeField] UIManager _manager;
     Controller _controller;
 
     float _x;
@@ -12,10 +11,6 @@ public class Ship : MonoBehaviour
     Vector2 _mousePosition;
 
 
-    private void Start()
-    {
-        _manager = FindObjectOfType<UIManager>();
-    }
     private void Awake()
     {
         _controller = FindObjectOfType<Controller>();
