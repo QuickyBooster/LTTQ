@@ -3,6 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerNetwork : MonoBehaviour
 {
@@ -48,8 +49,13 @@ public class PlayerNetwork : MonoBehaviour
         PlayersInGame++;
         if (PlayersInGame == 2)
         {
-            new WaitForSeconds(2f);
-            PhotonNetwork.LoadLevel("Battle");
+            StartCoroutine(waitBeforeBattle());
+            //PhotonNetwork.LoadLevel("Battle");
         }
+    }
+    IEnumerator waitBeforeBattle()
+    {
+        PhotonNetwork.LoadLevel("Battle");
+        yield return new WaitForSeconds(2);
     }
 }
