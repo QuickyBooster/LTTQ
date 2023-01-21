@@ -28,9 +28,10 @@ public class CardManager : MonoBehaviour
     Card[] enemySlotCard = new Card[5];
 
     //vi tri cua card 
-    public Transform[] cardSlots;
-    public Transform[] enemyCardSlots;
+    public Transform[] myCardPositions;
+    public Transform[] enemyCardPositions;
     public bool[] availableCardSlots;
+    public bool[] enemyAvailableCardSlots;
     public int cardNum;
 
     public TextMeshProUGUI deckSizeText;
@@ -39,7 +40,7 @@ public class CardManager : MonoBehaviour
     public PanelOpener cardPanel;
 
     bool activeDrawButton { get; set; }
-    bool drawedCard { get; set; }
+    public bool drawedCard { get; set; }
     Controller controller;
     [SerializeField] GameObject cardFunctionObject;
     NetworkStarter cardFunction;
@@ -52,6 +53,7 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i<13; i++)
         {
             allCardStill[i] = true;
+            
         }
     }
     private void OnEnable()
@@ -103,7 +105,7 @@ public class CardManager : MonoBehaviour
                             notInDeck.Add(randCard);
                             tempCard = randCard;
                             deck.Remove(randCard);
-                            photonView.RPC("RPC_enemyDrawCard", RpcTarget.Others, tempCard.id);
+                            photonView.RPC("RPC_enemyDrawCard", RpcTarget.Others, (tempCard.id-1));
                             return;
                         }
                     }
@@ -117,7 +119,13 @@ public class CardManager : MonoBehaviour
     {
         deck.Remove(allCard[id]);
         enemyCard.Add(id);
-        enemySlotCard[enemySlotCard.Length] = allCard[id];
+        int i = 0;
+        foreach (bool a in enemyAvailableCardSlots)
+        {
+            if (!a) i++;
+            else break;
+        }
+        enemySlotCard[i] = allCard[id];
         notInDeck.Add(allCard[id]);
         allCardStill[id] = false;
         drawedCard = false;
@@ -139,11 +147,12 @@ public class CardManager : MonoBehaviour
             photonView.RPC("RPC_enemyShufflle", RpcTarget.Others);
         }
     }
+    [PunRPC]
     void RPC_enemyShufflle()
     {
         Shufflle();
     }
-
+    
     public void enemyUsedCard(int idCard)
     {
 
@@ -173,11 +182,10 @@ public class CardManager : MonoBehaviour
         {
             tempCard.handIndex =i;
             cardPanel.setCardInPanel(false);
-            tempCard.transform.position = cardSlots[tempCard.handIndex].position;
-            availableCardSlots[tempCard.handIndex] = false;
-            slotCard[tempCard.handIndex] = tempCard;
+            tempCard.transform.position = myCardPositions[i].position;
+            availableCardSlots[i] = false;
+            slotCard[i] = tempCard;
         }
-        deck.Remove(tempCard);
     }
     public void UseCard(int handIdex)
     {
@@ -205,10 +213,12 @@ public class CardManager : MonoBehaviour
     [PunRPC]
     void RPC_enemyUseCard(int index)
     {
+        enemyAvailableCardSlots[index] = true;
         discardPile.Add(enemySlotCard[index]);
         notInDeck.Remove(enemySlotCard[index]);
-        enemyCard.Remove(index);
-        enemySlotCard[index].useCard();
+        allCardStill[enemySlotCard[index].id] =true;
+        enemyCard.Remove(enemySlotCard[index].id);
+        //enemySlotCard[index].useCard();
     }
     public void toggleActiveDrawButton()
     {

@@ -82,7 +82,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     public void showResult(bool status)
     {
         _resultPanel.SetActive(true);
-        StartCoroutine(panelOn());
+        //StartCoroutine(panelOn());
 
         if (status)
         {

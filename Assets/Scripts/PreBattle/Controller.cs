@@ -138,6 +138,7 @@ public class Controller : MonoBehaviour
         if (turnWillAdd1Life==turnNumber)
             ++life;
         _enemyTurn =!_enemyTurn;
+        cardManager.drawedCard = _enemyTurn;
         if (_enemyTurn)
             uIManagerBattle.setTextTurn("Enemy turn: ");
         else
