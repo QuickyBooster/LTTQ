@@ -2,6 +2,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class UIManagerBattle : MonoBehaviourPunCallbacks
 {
@@ -12,11 +13,17 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     [SerializeField] GameObject _resultPanel;
     [SerializeField] GameObject _buttonReadyToCountinue;
     [SerializeField] PhotonView view;
+    public Animator winlosePanel;
 
     PlayerManager player;
     Controller _controller;
     NetworkStarter _networkStarter;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        winlosePanel = GameObject.Find("WinLosePanel").GetComponent<Animator>();
+        
+    }
     void Start()
     {
         while(!player)
@@ -75,6 +82,7 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     public void showResult(bool status)
     {
         _resultPanel.SetActive(true);
+        StartCoroutine(panelOn());
 
         if (status)
         {
@@ -102,5 +110,10 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         SceneManager.LoadScene("Waiting Room");
+    }
+    IEnumerator panelOn()
+    {
+        winlosePanel.SetTrigger("winlosePanelOn");
+        yield return new WaitForSeconds(.5f);
     }
 }

@@ -48,6 +48,7 @@ public class PlayerNetwork : MonoBehaviour
         PlayersInGame++;
         if (PlayersInGame == 2)
         {
+            new WaitForSeconds(2f);
             PhotonNetwork.LoadLevel("Battle");
         }
     }
