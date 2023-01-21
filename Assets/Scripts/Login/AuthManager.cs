@@ -10,7 +10,7 @@ public class AuthManager : MonoBehaviour
 {
 
     OpenScene openScene;
-
+    [SerializeField] PlayerManager playerManager;
 
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
@@ -36,7 +36,6 @@ public class AuthManager : MonoBehaviour
     private void Awake()
     {
         openScene = FindObjectOfType<OpenScene>();
-        db = FirebaseFirestore.DefaultInstance;
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             dependencyStatus = task.Result;
@@ -54,6 +53,7 @@ public class AuthManager : MonoBehaviour
     private void InitializeFirebase()
     {
         //Set the authentication instance object
+        db = FirebaseFirestore.DefaultInstance;
         auth = FirebaseAuth.DefaultInstance;
         user = auth.CurrentUser;
     }
@@ -111,8 +111,10 @@ public class AuthManager : MonoBehaviour
             confirmLoginText.text = "Logged In";
             yield return new WaitForSeconds(0.15f);
             warningLoginText.text = "Welcome "+user.DisplayName;
+            playerManager.userUID = user.UserId;
+            playerManager.userName = user.DisplayName;
             yield return new WaitForSeconds(0.5f);
-            //openScene.LoadTransition();
+            openScene.LoadTransition();
             SceneManager.LoadScene(1);
 
         }

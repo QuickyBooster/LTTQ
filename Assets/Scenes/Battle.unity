@@ -199,7 +199,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 74c69b1d8ffc0de4c816c28dff60f9bd, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &13968432
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -936,7 +936,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 922cc901eed5fb54987f6f61c4867cc1, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &266725520
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: f383c03337dcc254fb1ec863a84bd034, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &388055339
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1734,7 +1734,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 5d440f18034a31c428737eefdb08c131, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &419782810
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2106,7 +2106,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: c3ff6016f3fd9e049a0edc0290e6739f, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &542382374
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3833,7 +3833,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 9b23548059e41cd4d89646c4a3af38d0, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &911741878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4232,7 +4232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -124.45}
+  m_AnchoredPosition: {x: 0, y: -124.45001}
   m_SizeDelta: {x: 420.39, y: 118.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &967426843
@@ -4702,14 +4702,10 @@ MonoBehaviour:
   - {fileID: 266725519}
   discardPile: []
   tempCard: {fileID: 0}
-  cardSlots:
-  - {fileID: 1521000143}
-  - {fileID: 1968134199}
-  - {fileID: 592567614}
-  - {fileID: 1055169472}
-  - {fileID: 2072676434}
-  enemyCardSlots: []
+  myCardPositions: []
+  enemyCardPositions: []
   availableCardSlots: 0101010101
+  enemyAvailableCardSlots: 0101010101
   cardNum: 0
   deckSizeText: {fileID: 791279070}
   discardPileSizeText: {fileID: 1846308057}
@@ -5229,7 +5225,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 9bf4252f11e89ec4d9bdb802328f7fc1, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &1376974636
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5370,7 +5366,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 5685a388de9a0bc4b87463b249915b5d, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &1407113894
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6157,7 +6153,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 3df88639f87b8eb449b06a3a628b5bc0, type: 3}
   backSide: {fileID: 0}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &1758244537
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6879,7 +6875,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: c132aa0abcff3e24ca318f9eff29bf9a, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &1888349630
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7249,7 +7245,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: eaeb34ee2ba560b41908fe8dcbe35522, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &1986425355
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7666,7 +7662,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: a45d1bac6816f504c84baf063a5ad54c, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &2069025660
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7891,7 +7887,7 @@ MonoBehaviour:
   frontSide: {fileID: 21300000, guid: 810cfdefa0b6cb04880ae50179cd7a73, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
-  handIndex: 0
+  id: 0
 --- !u!212 &2077182013
 SpriteRenderer:
   m_ObjectHideFlags: 0

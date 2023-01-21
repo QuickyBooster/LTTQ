@@ -81,6 +81,8 @@ MonoBehaviour:
   - RPC_card103
   - RPC_enemyDrawCard
   - RPC_enemyUseCard
+  - RPC_takeEnemyName
+  - RPC_enemyShufflle
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
