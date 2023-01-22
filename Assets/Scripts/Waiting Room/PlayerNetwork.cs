@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 public class PlayerNetwork : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] PhotonView photonView;
     int PlayersInGame;
     bool ready;
+    float timeBeforeLoad = 6f;
+    //float timeElapsed = 0;
 
     private void Awake()
     {
@@ -27,11 +30,12 @@ public class PlayerNetwork : MonoBehaviour
         PhotonNetwork.AutomaticallySyncScene= true;
         ready = false;
     }
-    
+
     public void readyToBattle()
     {
         if (!ready)
         {
+            Debug.Log("ready");
             ready = true;
             loadedGame();
         }
@@ -47,15 +51,21 @@ public class PlayerNetwork : MonoBehaviour
     void RPC_LoadedGameScene()
     {
         PlayersInGame++;
+        Debug.Log("load");
         if (PlayersInGame == 2)
         {
+            while (timeBeforeLoad > 0)  
+            {
+                Debug.Log("loop");
+                timeBeforeLoad -= Time.deltaTime;
+            }
             StartCoroutine(waitBeforeBattle());
             //PhotonNetwork.LoadLevel("Battle");
         }
     }
     IEnumerator waitBeforeBattle()
     {
+        yield return new WaitForSeconds(3);
         PhotonNetwork.LoadLevel("Battle");
-        yield return new WaitForSeconds(2);
     }
 }
