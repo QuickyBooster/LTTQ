@@ -39,6 +39,10 @@ public class Card : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = frontSide;
 
     }
+    public void hideFrontSide()
+    {
+        GetComponent<SpriteRenderer>().sprite = backSide;
+    }
 
     private void OnMouseEnter()
     {

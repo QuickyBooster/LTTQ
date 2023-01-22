@@ -6651,7 +6651,7 @@ GameObject:
   - component: {fileID: 1834101248}
   - component: {fileID: 1834101250}
   m_Layer: 0
-  m_Name: CardFunctionManager
+  m_Name: NetworkStarter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6671,7 +6671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photonView: {fileID: 1834101250}
   cardManagerObject: {fileID: 1137652388}
-  UIManager: {fileID: 0}
+  UIManager: {fileID: 2026113971}
 --- !u!4 &1834101249
 Transform:
   m_ObjectHideFlags: 0

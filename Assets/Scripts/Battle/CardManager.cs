@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] PhotonView photonView;
     // kiem tra xem card da bi lay ra chua  true la chua, false la roi
     bool[] allCardStill = new bool[14];
-    List<Card> allCard = new List<Card>();
+    List<Card> allCard;
     // id nhung card ma player dang giu
     List<int> playerCard = new List<int>();
     //id nhung card ma enemy dang giu
@@ -49,7 +49,7 @@ public class CardManager : MonoBehaviour
         cardFunction = cardFunctionObject.GetComponent<NetworkStarter>();
         activeDrawButton = true;
         drawedCard = false;
-        allCard = deck;
+        allCard = new List<Card>(deck);
         for (int i = 0; i<13; i++)
         {
             allCardStill[i] = true;
@@ -153,21 +153,6 @@ public class CardManager : MonoBehaviour
         Shufflle();
     }
     
-    public void enemyUsedCard(int idCard)
-    {
-
-        allCardStill[idCard] = true;
-        foreach (Card card in notInDeck)
-        {
-            if (card.name.Equals(idCard.ToString()))
-            {
-                discardPile.Add(card);
-                notInDeck.Remove(card);
-                enemyCard.Remove(idCard);
-                return;
-            }
-        }
-    }
     public void GetCard()
     {
         cardPanel.SetHidePannel(true);
