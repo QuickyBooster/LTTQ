@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     public GameObject playButton;
+
+    float timeBeforeLoad = 3f;
     private void Start()
     {
         PhotonNetwork.JoinLobby();
@@ -40,6 +43,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
     public void onClickPlayButton()
     {
+        while (timeBeforeLoad > 0) 
+        {
+            Debug.Log("loop");
+            timeBeforeLoad -= Time.deltaTime;
+        }
+        StartCoroutine(delayTime());
+        //PhotonNetwork.LoadLevel("PreBattle");
+    }
+    IEnumerator delayTime()
+    {
+        yield return new WaitForSeconds(3);
         PhotonNetwork.LoadLevel("PreBattle");
     }
     public void OnClickCreate()
