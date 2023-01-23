@@ -20,17 +20,18 @@ public class AuthManager : MonoBehaviour
 
     //Login variables
     [Header("Login")]
-    public TMP_InputField emailLoginField;
-    public TMP_InputField passwordLoginField;
+    public TMP_InputField emailLoginField; //0
+    public TMP_InputField passwordLoginField; //1
     public TMP_Text warningLoginText;
     public TMP_Text confirmLoginText;
+    public int InputSelected;
 
     //Register variables
     [Header("Register")]
-    public TMP_InputField usernameRegisterField;
-    public TMP_InputField emailRegisterField;
-    public TMP_InputField passwordRegisterField;
-    public TMP_InputField passwordRegisterVerifyField;
+    public TMP_InputField emailRegisterField; //0
+    public TMP_InputField passwordRegisterField; //1
+    public TMP_InputField passwordRegisterVerifyField; //2
+    public TMP_InputField usernameRegisterField; //3
     public TMP_Text warningRegisterText;
 
     private void Awake()
@@ -50,6 +51,83 @@ public class AuthManager : MonoBehaviour
             }
         });
     }
+    private void Update()
+    {
+        print(loginUI.activeSelf);
+        print(registerUI.activeSelf);
+        void SelectInputField()
+        {
+            if (loginUI.activeSelf == true)
+            {
+                switch (InputSelected)
+                {
+                    case 0: emailLoginField.Select();
+                        break;
+                    case 1: passwordLoginField.Select();
+                        break;
+                }
+            }
+            else if (registerUI.activeSelf == true)
+            {
+                switch (InputSelected)
+                {
+                    case 0:
+                        emailRegisterField.Select();
+                        break;
+                    case 1:
+                        passwordRegisterField.Select();
+                        break;
+                    case 2:
+                        passwordRegisterVerifyField.Select();
+                        break;
+                    case 3:
+                        usernameRegisterField.Select();
+                        break;
+                }
+            }
+        }
+        if (loginUI.activeSelf == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                InputSelected--;
+                if (InputSelected < 0)
+                    InputSelected = 1;
+                SelectInputField();
+            }
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                InputSelected++;
+                if (InputSelected > 1)
+                    InputSelected = 0;
+                SelectInputField();
+            }
+        }
+        else if (registerUI.activeSelf == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                InputSelected--;
+                if (InputSelected < 0)
+                    InputSelected = 3;
+                SelectInputField();
+            }
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                InputSelected++;
+                if (InputSelected > 3)
+                    InputSelected = 0;
+                SelectInputField();
+            }
+        }
+    }
+    public void emailLoginSelected() => InputSelected = 0;
+    public void passwordLoginSelected() => InputSelected = 1;
+    public void emailRegisterSelected() => InputSelected = 0;
+    public void passwordRegisterSelected() => InputSelected = 1;
+    public void passwordRegisterVerifySelected() => InputSelected = 2;
+    public void usernameRegisterSelected() => InputSelected = 3;
+
     private void InitializeFirebase()
     {
         //Set the authentication instance object
@@ -211,9 +289,9 @@ public class AuthManager : MonoBehaviour
     public void LoginScreen() //Back button
     {
         loginUI.SetActive(true);
-        registerUI.SetActive(false);
+        //registerUI.SetActive(false);
     }
-    public void RegisterScreen() // Regester button
+    public void RegisterScreen() // Register button
     {
         loginUI.SetActive(false);
         registerUI.SetActive(true);
