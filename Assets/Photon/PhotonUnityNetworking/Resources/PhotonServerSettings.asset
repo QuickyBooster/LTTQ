@@ -83,6 +83,7 @@ MonoBehaviour:
   - RPC_enemyUseCard
   - RPC_takeEnemyName
   - RPC_enemyShufflle
+  - RPC_card002_receive
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
