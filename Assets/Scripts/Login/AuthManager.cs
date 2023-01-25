@@ -53,8 +53,6 @@ public class AuthManager : MonoBehaviour
     }
     private void Update()
     {
-        print(loginUI.activeSelf);
-        print(registerUI.activeSelf);
         void SelectInputField()
         {
             if (loginUI.activeSelf == true)
