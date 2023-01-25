@@ -86,6 +86,11 @@ public class AuthManager : MonoBehaviour
         }
         if (loginUI.activeSelf == true)
         {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                LoginButton();
+                openScene.LoadTransition();
+            }
             if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 InputSelected--;
