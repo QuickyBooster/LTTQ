@@ -83,27 +83,49 @@ public class Card : MonoBehaviour
             int.TryParse(this.name, out idCard);
             cardManager.UseCard(handIndex);
             handIndex =-1;
+            controller.toggleUsingCard(id);
+                        
             switch (id)
             {
                 case 1:
                     {
-                        //controller.toggleUsingCard(id);
-                        //cardManager.toggleActiveDrawButton();
+                        cardManager.card001();
                         break;
                     }
                 case 2:
                     {
-                        //send to enemy cardManger: cardManager.card002();
-
+                        cardManager.card002();
                         break;
                     }
                 case 3:
                     {
-
-                        //send to enemy cardManger: cardManager.card003();
                         break;
                     }
-
+                case 4:
+                    {
+                        cardManager.card004();
+                        break;
+                    }
+                case 5:
+                    {
+                        cardManager.card005();
+                        break;
+                    }
+                case 6:
+                    {
+                        cardManager.card006();
+                        break;
+                    }
+                case 8:
+                    {
+                        cardManager.card008();
+                        break;
+                    }
+                case 9:
+                    {
+                        cardManager.card009();
+                        break;
+                    }
             }
         }
         else

@@ -214,21 +214,7 @@ public class CardManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     
-    public bool usingCard001()
-    {
-        int randomCard = Random.Range(0, enemyCard.Count);
-        foreach (Card card in notInDeck)
-        {
-            if (card.name.Equals(enemyCard[randomCard].ToString()))
-            {
-                playerCard.Add(randomCard);
-                enemyCard.Remove(randomCard);
-                // send enemy card001();
-                return true;
-            }
-        }
-        return false;
-    }
+    
     // enemy attack
     //public bool card002()
     //{
@@ -271,6 +257,24 @@ public class CardManager : MonoBehaviour
     /// authored by Booster
     /// </summary>
     /// <returns></returns>
+    public void card002()
+    {
+         controller.card002_active();
+    }
+    public void card002_send(int id)
+    {
+        photonView.RPC("RPC_card002_receive", RpcTarget.Others,id);
+    }
+    [PunRPC]
+    void RPC_card002_receive(int id)
+    {
+        controller.card002_receive(id);
+    }
+
+    /// <summary>
+    /// card004
+    /// </summary>
+    /// <returns></returns>
     public bool card004()
     {
         return controller.card004();
@@ -306,8 +310,8 @@ public class CardManager : MonoBehaviour
     {
          controller.card009(id);
     }
-    public bool card010()
+    public bool card001()
     {
-        return controller.card010(); ;
+        return controller.card001(); ;
     }
 }
