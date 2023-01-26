@@ -214,110 +214,104 @@ public class CardManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     
-    public bool usingCard003()
-    {
-        int randomCard = Random.Range(0, enemyCard.Count);
-        foreach (Card card in notInDeck)
-        {
-            if (card.name.Equals(enemyCard[randomCard].ToString()))
-            {
-                playerCard.Add(randomCard);
-                enemyCard.Remove(randomCard);
-                // send enemy card003();
-                return true;
-            }
-        }
-        return false;
-    }
+    
     // enemy attack
-    public bool card002()
-    {
-        if (enemyCard.Count >= 1)
-        {
-            int randNum = Random.Range(0, enemyCard.Count);
-            foreach (Card card in notInDeck)
-            {
-                if (card.name.Equals(enemyCard[randNum].ToString()))
-                {
-                    card.gameObject.SetActive(false);
-                }
-            }
+    //public bool card002()
+    //{
+    //    if (enemyCard.Count >= 1)
+    //    {
+    //        int randNum = Random.Range(0, enemyCard.Count);
+    //        foreach (Card card in notInDeck)
+    //        {
+    //            if (card.name.Equals(enemyCard[randNum].ToString()))
+    //            {
+    //                card.gameObject.SetActive(false);
+    //            }
+    //        }
 
-        }
-        drawedCard = true;
-        return true;
-    }
-    public bool card003(int idCard)
-    {
-        for (int i = 0; i < availableCardSlots.Length; i++)
-        {
-            if (availableCardSlots[i] == true)
-            {
-                foreach (Card card in notInDeck)
-                {
-                    if (card.name.Equals(playerCard[idCard].ToString()))
-                    {
-                        playerCard.Remove(idCard);
-                        enemyCard.Add(idCard);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
+    //    }
+    //    drawedCard = true;
+    //    return true;
+    //}
+    //public bool card003(int idCard)
+    //{
+    //    for (int i = 0; i < availableCardSlots.Length; i++)
+    //    {
+    //        if (availableCardSlots[i] == true)
+    //        {
+    //            foreach (Card card in notInDeck)
+    //            {
+    //                if (card.name.Equals(playerCard[idCard].ToString()))
+    //                {
+    //                    playerCard.Remove(idCard);
+    //                    enemyCard.Add(idCard);
+    //                    return true;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return false;
+    //}
     /// <summary>
     /// function for card
     /// authored by Booster
     /// </summary>
     /// <returns></returns>
-    public bool card101()
+    public void card002()
     {
-        return controller.card101();
+         controller.card002_active();
     }
-    public bool card102()
+    public void card002_send(int id)
     {
-        return controller.card102();
-    }
-    public bool card103()
-    {
-        photonView.RPC("RPC_card103()", RpcTarget.Others);
-        return controller.card103();
+        photonView.RPC("RPC_card002_receive", RpcTarget.Others,id);
     }
     [PunRPC]
-    void RPC_card103()
+    void RPC_card002_receive(int id)
     {
-        controller.card103_receive();
+        controller.card002_receive(id);
     }
-    public bool card104()
+
+    /// <summary>
+    /// card004
+    /// </summary>
+    /// <returns></returns>
+    public bool card004()
     {
-        photonView.RPC("RPC_card104()", RpcTarget.Others);
-        return controller.card104();
+        return controller.card004();
     }
-    void RPC_card104()
+    public bool card005()
     {
-        controller.card104_receive();
+        return controller.card005();
     }
-    public bool card201()
+    public bool card006()
+    {
+        photonView.RPC("RPC_card006()", RpcTarget.Others);
+        return controller.card006();
+    }
+    void RPC_card006()
+    {
+        controller.card006_receive();
+    }
+    public bool card008()
     {
         drawedCard = false;
-        return controller.card201();
+        return controller.card008();
     }
-    public bool card202()
+    public bool card009()
     {
-        photonView.RPC("RPC_card202_send()", RpcTarget.Others);
+        photonView.RPC("RPC_card009_send()", RpcTarget.Others);
         return true;
     }
-    void RPC_card202_send()
+    void RPC_card009_send()
     {
-        photonView.RPC("RPC_card202_receive()", RpcTarget.Others, controller.card202_receive()); 
+        photonView.RPC("RPC_card009_receive()", RpcTarget.Others, controller.card009_receive()); 
     }
-    void RPC_card202_receive(int id)
+    void RPC_card009_receive(int id)
     {
-         controller.card202(id);
+         controller.card009(id);
     }
-    public bool card203()
+    public bool card001()
     {
-        return controller.card203(); ;
+        return controller.card001(); ;
     }
 }

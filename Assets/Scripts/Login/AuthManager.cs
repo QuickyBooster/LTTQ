@@ -53,8 +53,6 @@ public class AuthManager : MonoBehaviour
     }
     private void Update()
     {
-        print(loginUI.activeSelf);
-        print(registerUI.activeSelf);
         void SelectInputField()
         {
             if (loginUI.activeSelf == true)
@@ -88,6 +86,11 @@ public class AuthManager : MonoBehaviour
         }
         if (loginUI.activeSelf == true)
         {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                LoginButton();
+                openScene.LoadTransition();
+            }
             if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 InputSelected--;

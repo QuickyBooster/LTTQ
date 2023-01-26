@@ -42,9 +42,14 @@ public class PointEnemy : MonoBehaviour
         if (_destroyed) return false;
         if (_controller.isUsingCard())
         {
-            if (_controller.IDCardUsing()==3)
+            if (_controller.IDCardUsing()==2)
             {
-                
+                setTorpedo(true);
+                _controller.card002(-_id-1);
+            }else if(_controller.IDCardUsing()==3)
+            {
+                if (_destroyed) return false;
+                _controller.card003(-_id-1);    
             }
             return true;
         }
@@ -70,24 +75,11 @@ public class PointEnemy : MonoBehaviour
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }
-    public void setBarrier(bool state)
-    {
-        // can animation
-        _barrier = state;
-        if (state)
-            _renderer.sprite = _iconBarrier;
-        else
-            _renderer.sprite = _iconPoint;
-    }
-    public bool isBarrier()
-    {
-        return _barrier;
-    }
     public void setTorpedo(bool state)
     {
         //can animation
         _torpedo = state;
-        if (!state)
+        if (state)
             _renderer.sprite = _iconTorpedo;
         else
             _renderer.sprite = _iconPoint;
@@ -112,6 +104,6 @@ public class PointEnemy : MonoBehaviour
     }
     public void displayRedCausedByCard202()
     {
-        displayRed();
+        StartCoroutine(displayRed());
     }
 }

@@ -78,22 +78,7 @@ public class Point : MonoBehaviour
         _destroyed = false;
         _renderer.sprite = _iconPoint;
     }
-    IEnumerator displayBarrier()
-    {
-        _renderer.sprite = _iconBarrier;
-        yield return new WaitForSeconds(1f);
-    }
-    public void setBarrier(bool state)
-    {
-        _barrier = state;
-        if (!state)
-            displayBarrier();
-        _renderer.sprite = _iconPoint;
-    }
-    public bool isBarrier()
-    {
-        return _barrier;
-    }
+
     IEnumerator displayTorpedo()
     {
         _renderer.sprite = _iconTorpedo;
@@ -103,7 +88,9 @@ public class Point : MonoBehaviour
     {
         _torpedo = state;
         if (!state)
-            displayTorpedo();
+        {
+            StartCoroutine( displayTorpedo());
+        }
         _renderer.sprite = _iconPoint;
     }
     public bool isTorpedo()

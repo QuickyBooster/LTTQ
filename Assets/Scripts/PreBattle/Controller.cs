@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +8,6 @@ public class Controller : MonoBehaviour
     [SerializeField] UIManager _manager;
     [SerializeField] GameObject _point;
     [SerializeField] GameObject _pointEnemy;
-    [SerializeField] Sprite _bracket;
 
     NetworkStarter networkStarter;
     CardManager cardManager;
@@ -32,12 +32,13 @@ public class Controller : MonoBehaviour
     int turnNumber;
     int turnWillAdd1Life;
     //so turn de torpedo no?
-    int turns_left = 3;
+    int turnToExpode;
     //set barrier
     public int barriersLeft {  get;  set; }
 
     private void Start()
     {
+        turnToExpode = 0;
         turnWillAdd1Life = -1;
         turnNumber = 0;
         _vertical = false;
@@ -288,54 +289,60 @@ public class Controller : MonoBehaviour
     {
         uIManagerBattle.setTextTurn("Please wait for enemy!");
     }
-    public bool card003(int idCard)
+    /// <summary>
+    /// card 002
+    /// </summary>
+    public void card002_active()
     {
-
+        uIManagerBattle.setTextTurn("choose a place to set up torpedo!");
+    }
+    public void card002_receive(int id)
+    {
+        turnToExpode = turnNumber+3;
+        _ourPoints[id/5,id%5].GetComponent<Point>().setTorpedo(true);
+    }
+    public bool card002(int id)
+    {
+        cardManager.card002_send(id);
         return true;
     }
-    public bool card004(int fakeID)
+    /// <summary>
+    /// card 003
+    /// </summary>
+    /// <returns></returns>
+    /// 
+    public void card003(int id)
     {
-        int id = -fakeID - 1;
-        _enemyPoints[id / 5, id % 5].GetComponent<SpriteRenderer>().sprite = _bracket;
-        if (turns_left == 3)
-        {
-
-        }
-        cardManager.toggleActiveDrawButton();
-        return true;
+        pointFunction.attackPoint(id);
+        _usingCard = false;
     }
-    public bool card101()
+
+
+    /// <summary>
+    /// card004
+    /// </summary>
+    /// <returns></returns>
+    public bool card004()
     {
         life++;
         return true;
     }
-    public bool card102()
+    /// <summary>
+    /// card005
+    /// </summary>
+    /// <returns></returns>
+    public bool card005()
     {
         deleteOurPoints();
         ship.toggleCollider();
         uIManagerBattle.setTextTurn("move your ship to your favorite position");
         return true;
     }
-    public bool card103()
-    {
-        for (int i = 0; i<5; i++)
-            for (int j = 0; j<5; j++)
-                if (_ourPoints[i, j].GetComponent<Point>().isBarrier())
-                {
-                    _ourPoints[i, j].GetComponent<Point>().setBarrier(false);
-                }
-        return true;
-    }
-    public void card103_receive()
-    {
-        for (int i = 0; i<5; i++)
-            for (int j = 0; j<5; j++)
-                if (_enemyPoints[i, j].GetComponent<PointEnemy>().isBarrier())
-                {
-                    _enemyPoints[i, j].GetComponent<PointEnemy>().setBarrier(false);
-                }
-    }
-    public bool card104()
+    /// <summary>
+    /// card006
+    /// </summary>
+    /// <returns></returns>
+    public bool card006()
     {
         for (int i = 0; i<5; i++)
             for (int j = 0; j<5; j++)
@@ -345,7 +352,7 @@ public class Controller : MonoBehaviour
                 }
         return true;
     }
-    public void card104_receive()
+    public void card006_receive()
     {
         for (int i = 0; i<5; i++)
             for (int j = 0; j<5; j++)
@@ -354,12 +361,20 @@ public class Controller : MonoBehaviour
                     _enemyPoints[i, j].GetComponent<PointEnemy>().setTorpedo(false);
                 }
     }
-    public bool card201()
+    /// <summary>
+    /// card008
+    /// </summary>
+    /// <returns></returns>
+    public bool card008()
     {
         uIManagerBattle.setTextTurn("You have another turn to draw card");
         return true;
     }
-    public bool card202(int id)
+    /// <summary>
+    /// card009
+    /// </summary>
+    /// <returns></returns>
+    public bool card009(int id)
     {
         bool vertical = false;
         if (id>100)
@@ -383,7 +398,7 @@ public class Controller : MonoBehaviour
         }
         return true;
     }
-    public int card202_receive()
+    public int card009_receive()
     {
         int k=0;
         for (int i = 0; i<5; i++)
@@ -397,7 +412,11 @@ public class Controller : MonoBehaviour
                 }
         return k;
     }
-    public bool card203()
+    /// <summary>
+    /// card001
+    /// </summary>
+    /// <returns></returns>
+    public bool card001()
     {
          turnWillAdd1Life = turnNumber+5;
         return true;

@@ -29,9 +29,9 @@ public class ChatManager : MonoBehaviour
     }
     private void Update()
     {     
-            if ( chatInputField.isFocused )
+            if (chatInputField.text != "")
             {
-                if (chatInputField.text  != "" && chatInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Return))
+                if (/*chatInputField.isFocused &&*/ Input.GetKeyDown(KeyCode.Return))
                 {
                     photonView.RPC("sendMessage", RpcTarget.Others, chatInputField.text);
                     updateText.text = chatInputField.text;
