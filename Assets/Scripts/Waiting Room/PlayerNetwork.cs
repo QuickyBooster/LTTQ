@@ -1,10 +1,8 @@
-using UnityEngine.SceneManagement;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using System.Collections;
-using System.Runtime.CompilerServices;
 
 public class PlayerNetwork : MonoBehaviour
 {
@@ -13,6 +11,7 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] PhotonView photonView;
     int PlayersInGame;
     bool ready;
+    float timeBeforeLoad = 6f;
     //float timeElapsed = 0;
 
     private void Awake()
@@ -35,18 +34,14 @@ public class PlayerNetwork : MonoBehaviour
         if (!ready)
         {
             ready = true;
-            loadedGame();
             PlayersInGame++;
-            if (PlayersInGame == 2)
-            {
-                StartCoroutine(waitBeforeBattle());
-            }
+            loadedGame();
         }
     }
 
     void loadedGame()
     {
-        photonView.RPC("RPC_LoadedGameScene", RpcTarget.Others);
+        photonView.RPC("RPC_LoadedGameScene", RpcTarget.All);
     }
 
 
@@ -56,6 +51,10 @@ public class PlayerNetwork : MonoBehaviour
         PlayersInGame++;
         if (PlayersInGame == 2)
         {
+            while (timeBeforeLoad > 0)  
+            {
+                timeBeforeLoad -= Time.deltaTime;
+            }
             StartCoroutine(waitBeforeBattle());
         }
     }
