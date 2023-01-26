@@ -333,9 +333,11 @@ public class Controller : MonoBehaviour
     /// <returns></returns>
     public bool card005()
     {
+        StartCoroutine(textChangeWhenLoseLife(0.5f));
+        pointFunction.pauseBattle();
         deleteOurPoints();
+        HPleft = 3;
         ship.toggleCollider();
-        uIManagerBattle.setTextTurn("move your ship to your favorite position");
         return true;
     }
     /// <summary>

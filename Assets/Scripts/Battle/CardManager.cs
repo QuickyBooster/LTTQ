@@ -92,14 +92,12 @@ public class CardManager : MonoBehaviour
                             {
                                 cardPanel.toggleActive();
                             }
-                            int cardID;
-                            int.TryParse(randCard.name, out cardID);
-                            allCardStill[cardID] = false;
+                            allCardStill[randCard.id] = false;
                             randCard.gameObject.SetActive(true);
                             //randCard.handIndex = i;
                             randCard.picked();
                             randCard.transform.position = cardPanel.cardTransform.position;
-                            playerCard.Add(cardID);
+                            playerCard.Add(randCard.id);
                             cardPanel.setCardInPanel(true);
                             drawedCard=true;
                             notInDeck.Add(randCard);
@@ -128,29 +126,42 @@ public class CardManager : MonoBehaviour
         enemySlotCard[i] = allCard[id];
         notInDeck.Add(allCard[id]);
         allCardStill[id] = false;
+        allCard[id].GetComponent<Card>().hideFrontSide();
+        allCard[id].transform.position = enemyCardPositions[i].position;
         drawedCard = false;
     }
 
-    public void Shufflle()
+    public void Shuffle()
     {
         if (deck.Count == 0)
         {
             foreach (Card card in discardPile)
             {
                 deck.Add(card);
-                int idCard;
-                int.TryParse(card.name, out idCard);
-                allCardStill[idCard] = false;
+                allCardStill[card.id] = false;
             }
             discardPile.Clear();
             activeDrawButton = true;
             photonView.RPC("RPC_enemyShufflle", RpcTarget.Others);
         }
     }
-    [PunRPC]
-    void RPC_enemyShufflle()
+    void Shuffle_recieve()
     {
-        Shufflle();
+        if (deck.Count == 0)
+        {
+            foreach (Card card in discardPile)
+            {
+                deck.Add(card);
+                allCardStill[card.id] = false;
+            }
+            discardPile.Clear();
+            activeDrawButton = true;
+        }
+    }
+    [PunRPC]
+    void RPC_enemyShuflle()
+    {
+        Shuffle_recieve();
     }
     
     public void GetCard()
@@ -201,6 +212,8 @@ public class CardManager : MonoBehaviour
         enemyAvailableCardSlots[index] = true;
         discardPile.Add(enemySlotCard[index]);
         notInDeck.Remove(enemySlotCard[index]);
+        print("215: "+index);
+        print(enemySlotCard[index].id);
         allCardStill[enemySlotCard[index].id] =true;
         enemyCard.Remove(enemySlotCard[index].id);
         //enemySlotCard[index].useCard();
@@ -288,6 +301,7 @@ public class CardManager : MonoBehaviour
         photonView.RPC("RPC_card006()", RpcTarget.Others);
         return controller.card006();
     }
+    [PunRPC]
     void RPC_card006()
     {
         controller.card006_receive();
@@ -302,10 +316,12 @@ public class CardManager : MonoBehaviour
         photonView.RPC("RPC_card009_send()", RpcTarget.Others);
         return true;
     }
+    [PunRPC]
     void RPC_card009_send()
     {
         photonView.RPC("RPC_card009_receive()", RpcTarget.Others, controller.card009_receive()); 
     }
+    [PunRPC]
     void RPC_card009_receive(int id)
     {
          controller.card009(id);

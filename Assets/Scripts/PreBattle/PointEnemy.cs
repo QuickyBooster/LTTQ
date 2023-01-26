@@ -44,16 +44,28 @@ public class PointEnemy : MonoBehaviour
         {
             if (_controller.IDCardUsing()==2)
             {
-                setTorpedo(true);
-                _controller.card002(-_id-1);
-            }else if(_controller.IDCardUsing()==3)
+
+                StartCoroutine(delayID3(0.7f));
+            }
+            else if(_controller.IDCardUsing()==3)
             {
                 if (_destroyed) return false;
-                _controller.card003(-_id-1);    
+                StartCoroutine(delayID3(0.7f));  
             }
             return true;
         }
         return false;
+    }
+    IEnumerator delayID2(float time)
+    {
+        yield return new WaitForSeconds(time);
+        setTorpedo(true);
+        _controller.card002(-_id-1);
+    }
+    IEnumerator delayID3(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _controller.card003(-_id-1);
     }
     public void displayDestroy(bool status)
     {
