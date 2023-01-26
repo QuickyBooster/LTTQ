@@ -13,7 +13,6 @@ public class PlayerNetwork : MonoBehaviour
     [SerializeField] PhotonView photonView;
     int PlayersInGame;
     bool ready;
-    float timeBeforeLoad = 6f;
     //float timeElapsed = 0;
 
     private void Awake()
@@ -35,15 +34,19 @@ public class PlayerNetwork : MonoBehaviour
     {
         if (!ready)
         {
-            Debug.Log("ready");
             ready = true;
             loadedGame();
+            PlayersInGame++;
+            if (PlayersInGame == 2)
+            {
+                StartCoroutine(waitBeforeBattle());
+            }
         }
     }
 
     void loadedGame()
     {
-        photonView.RPC("RPC_LoadedGameScene", RpcTarget.All);
+        photonView.RPC("RPC_LoadedGameScene", RpcTarget.Others);
     }
 
 
@@ -51,17 +54,6 @@ public class PlayerNetwork : MonoBehaviour
     void RPC_LoadedGameScene()
     {
         PlayersInGame++;
-        Debug.Log("load");
-        if (PlayersInGame == 2)
-        {
-            while (timeBeforeLoad > 0)  
-            {
-                Debug.Log("loop");
-                timeBeforeLoad -= Time.deltaTime;
-            }
-            StartCoroutine(waitBeforeBattle());
-            //PhotonNetwork.LoadLevel("Battle");
-        }
     }
     IEnumerator waitBeforeBattle()
     {
