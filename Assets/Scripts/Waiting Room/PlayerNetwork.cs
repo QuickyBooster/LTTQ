@@ -54,6 +54,10 @@ public class PlayerNetwork : MonoBehaviour
     void RPC_LoadedGameScene()
     {
         PlayersInGame++;
+        if (PlayersInGame == 2)
+        {
+            StartCoroutine(waitBeforeBattle());
+        }
     }
     IEnumerator waitBeforeBattle()
     {
