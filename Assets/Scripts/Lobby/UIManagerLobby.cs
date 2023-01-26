@@ -20,6 +20,6 @@ public class UIManagerLobby : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         _img.sprite = _default; 
-        _audioSource.PlayOneShot(_uncompressClip);
+        //_audioSource.PlayOneShot(_uncompressClip);
     }
 }
