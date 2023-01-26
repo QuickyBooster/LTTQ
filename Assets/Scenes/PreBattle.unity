@@ -503,7 +503,6 @@ MonoBehaviour:
   _manager: {fileID: 382155611}
   _point: {fileID: 5069116452013809690, guid: ee38aff1d254daa4489456c56c2de512, type: 3}
   _pointEnemy: {fileID: 5069116452013809690, guid: 0d05231d81ba7214b97b9225dabb43e4, type: 3}
-  _bracket: {fileID: 21300000, guid: bc05ec553fbdbcc4398d5594c5735ffa, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,9 +1350,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1417155293}
-        m_TargetAssemblyTypeName: OpenScene, Assembly-CSharp
-        m_MethodName: LoadTransition
+      - m_Target: {fileID: 1145101563}
+        m_TargetAssemblyTypeName: PlayerNetwork, Assembly-CSharp
+        m_MethodName: readyToBattle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1363,9 +1362,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1145101563}
-        m_TargetAssemblyTypeName: PlayerNetwork, Assembly-CSharp
-        m_MethodName: readyToBattle
+      - m_Target: {fileID: 1417155293}
+        m_TargetAssemblyTypeName: OpenScene, Assembly-CSharp
+        m_MethodName: LoadTransition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
