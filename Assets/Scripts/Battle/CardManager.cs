@@ -1,15 +1,14 @@
 using Photon.Pun;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class CardManager : MonoBehaviour
 {
     [SerializeField] PhotonView photonView;
     // kiem tra xem card da bi lay ra chua  true la chua, false la roi
-    bool[] allCardStill = new bool[14];
+    bool[] allCardStill = new bool[9];
     List<Card> allCard;
     // id nhung card ma player dang giu
     List<int> playerCard = new List<int>();
@@ -46,28 +45,17 @@ public class CardManager : MonoBehaviour
     NetworkStarter cardFunction;
     private void Start()
     {
+        while (!controller)
+                    controller = FindObjectOfType<Controller>().GetComponent<Controller>();
         cardFunction = cardFunctionObject.GetComponent<NetworkStarter>();
         activeDrawButton = true;
         drawedCard = false;
         allCard = new List<Card>(deck);
-        for (int i = 0; i<13; i++)
+        for (int i = 0; i<allCardStill.Length; i++)
         {
             allCardStill[i] = true;
-            
+
         }
-    }
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        while (!controller)
-            controller = FindObjectOfType<Controller>();
     }
     void Update()
     {
@@ -163,7 +151,7 @@ public class CardManager : MonoBehaviour
     {
         Shuffle_recieve();
     }
-    
+
     public void GetCard()
     {
         cardPanel.SetHidePannel(true);
@@ -188,7 +176,8 @@ public class CardManager : MonoBehaviour
         if (handIdex==-1)
         {
             return;
-        }else
+        }
+        else
         {
             print(handIdex);
             cardPanel.SetHidePannel(true);
@@ -200,7 +189,7 @@ public class CardManager : MonoBehaviour
                 deck.Remove(tempCard);
             }
             cardPanel.setCardInPanel(false);
-            photonView.RPC("RPC_enemyUseCard", RpcTarget.Others,handIdex);
+            photonView.RPC("RPC_enemyUseCard", RpcTarget.Others, handIdex);
             discardPile.Add(slotCard[handIdex]);
             slotCard[handIdex].useCard();
             availableCardSlots[handIdex]= true;
@@ -226,8 +215,8 @@ public class CardManager : MonoBehaviour
     /// authored by Booster
     /// </summary>
     /// <returns></returns>
-    
-    
+
+
     // enemy attack
     //public bool card002()
     //{
@@ -272,11 +261,11 @@ public class CardManager : MonoBehaviour
     /// <returns></returns>
     public void card002()
     {
-         controller.card002_active();
+        controller.card002_active();
     }
     public void card002_send(int id)
     {
-        photonView.RPC("RPC_card002_receive", RpcTarget.Others,id);
+        photonView.RPC("RPC_card002_receive", RpcTarget.Others, id);
     }
     [PunRPC]
     void RPC_card002_receive(int id)
@@ -319,12 +308,12 @@ public class CardManager : MonoBehaviour
     [PunRPC]
     void RPC_card009_send()
     {
-        photonView.RPC("RPC_card009_receive()", RpcTarget.Others, controller.card009_receive()); 
+        photonView.RPC("RPC_card009_receive()", RpcTarget.Others, controller.card009_receive());
     }
     [PunRPC]
     void RPC_card009_receive(int id)
     {
-         controller.card009(id);
+        controller.card009(id);
     }
     public bool card001()
     {

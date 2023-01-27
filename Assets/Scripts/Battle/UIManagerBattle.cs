@@ -29,8 +29,9 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         while(!player)
             player = FindObjectOfType<PlayerManager>(); 
         _resultPanel.SetActive(false);
+        while(!_controller)
+            _controller = FindObjectOfType<Controller>();
         this.setTextTurn("who turn?");
-        _controller = FindObjectOfType<Controller>();
         _networkStarter = FindObjectOfType<NetworkStarter>();
 
         _textNameMe.text = player.userName;
