@@ -61,7 +61,8 @@ public class PlayerNetwork : MonoBehaviour
     }
     IEnumerator waitBeforeBattle()
     {
-        yield return new WaitForSeconds(2);
+        Debug.Log("aaaa");
+        yield return new WaitForSeconds(3);
         PhotonNetwork.LoadLevel("Battle");
     }
 }
