@@ -956,8 +956,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240.14, y: -351.96}
-  m_SizeDelta: {x: 435, y: 193}
+  m_AnchoredPosition: {x: -221.65, y: -355.15}
+  m_SizeDelta: {x: 398.01, y: 186.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &463719025
 MonoBehaviour:
@@ -1580,6 +1580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 2130521598}
+  xxx: {fileID: 1828019814}
   dependencyStatus: 0
   emailLoginField: {fileID: 1926588742}
   passwordLoginField: {fileID: 1119091862}
@@ -5525,8 +5526,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7427293, y: 0.7908148}
   m_AnchorMax: {x: 0.9615209, y: 0.95185184}
-  m_AnchoredPosition: {x: -75, y: -700.71}
-  m_SizeDelta: {x: 501.12, y: 33.62}
+  m_AnchoredPosition: {x: -77, y: -684}
+  m_SizeDelta: {x: 129.34, y: -20.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1767420990
 MonoBehaviour:
@@ -6002,8 +6003,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7427293, y: 0.7908148}
   m_AnchorMax: {x: 0.9615209, y: 0.95185184}
-  m_AnchoredPosition: {x: -535.4, y: -697.83}
-  m_SizeDelta: {x: 254.23, y: 39.39}
+  m_AnchoredPosition: {x: -564.44, y: -697.83}
+  m_SizeDelta: {x: 233.11, y: 33.615}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907799841
 MonoBehaviour:
@@ -7147,8 +7148,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 254, y: -355.15}
-  m_SizeDelta: {x: 655.86, y: 186.62}
+  m_AnchoredPosition: {x: 240, y: -344}
+  m_SizeDelta: {x: 329.86, y: 148.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135307281
 MonoBehaviour:

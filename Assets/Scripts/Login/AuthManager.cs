@@ -11,6 +11,7 @@ public class AuthManager : MonoBehaviour
 
     OpenScene openScene;
     [SerializeField] PlayerManager playerManager;
+    [SerializeField] GameObject xxx;
 
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
@@ -33,6 +34,8 @@ public class AuthManager : MonoBehaviour
     public TMP_InputField passwordRegisterVerifyField; //2
     public TMP_InputField usernameRegisterField; //3
     public TMP_Text warningRegisterText;
+
+    float time = 10f;
 
     private void Awake()
     {
@@ -195,9 +198,8 @@ public class AuthManager : MonoBehaviour
             playerManager.userUID = user.UserId;
             playerManager.userName = user.DisplayName;
             yield return new WaitForSeconds(0.5f);
-            openScene.LoadTransition();
+            //openScene.LoadTransition();
             SceneManager.LoadScene(1);
-
         }
     }
 
