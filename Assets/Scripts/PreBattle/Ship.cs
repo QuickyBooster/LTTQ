@@ -3,6 +3,7 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
     Controller _controller;
+    [SerializeField] GameObject _buttonPlay;
 
     float _x;
     float _y;
@@ -13,6 +14,7 @@ public class Ship : MonoBehaviour
 
     private void Awake()
     {
+        _buttonPlay.SetActive(false);
         _controller = FindObjectOfType<Controller>();
         DontDestroyOnLoad(this.gameObject);
     }
@@ -24,7 +26,7 @@ public class Ship : MonoBehaviour
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
             _controller.setShipInPlace(false, 0);
-
+            _buttonPlay.SetActive(false);
         }
     }
     private void OnMouseDrag()
@@ -39,7 +41,6 @@ public class Ship : MonoBehaviour
     {
         if (true)
         {
-
             // find the standard position of it
             int id = 0;
             float vX, vY, tX, tY;
@@ -55,6 +56,7 @@ public class Ship : MonoBehaviour
                     {
                         transform.position = new Vector2(tX + 0.7224f, tY);
                         _controller.setShipInPlace(true, i * 5 + j);
+                        _buttonPlay.SetActive(true);
                         return;
                     }
                     id++;

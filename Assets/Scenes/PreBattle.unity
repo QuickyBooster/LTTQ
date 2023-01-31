@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Arrange: {fileID: 1740075972}
   _textError: {fileID: 1740075972}
-  buttonBattle: {fileID: 907452470}
+  buttonBattle: {fileID: 0}
 --- !u!4 &382155612
 Transform:
   m_ObjectHideFlags: 0
@@ -2756,6 +2756,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1832414477619942764, guid: 603299717b22cba40ab1364daf126f6e, type: 3}
+      propertyPath: _buttonPlay
+      value: 
+      objectReference: {fileID: 1059123023}
     - target: {fileID: 4537427179673027681, guid: 603299717b22cba40ab1364daf126f6e, type: 3}
       propertyPath: m_IsTrigger
       value: 1

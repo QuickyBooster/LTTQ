@@ -13,10 +13,15 @@ public class LogoutButton : MonoBehaviour
     }
     public void Logout()
     {
+        StartCoroutine(loginSceneDelay());
         playerManager.LogoutButton();
     }
     public void loadLoginScene()
     {
         SceneManager.LoadScene(0);
+    }
+    IEnumerator loginSceneDelay()
+    {
+        yield return new WaitForSeconds(2);
     }
 }

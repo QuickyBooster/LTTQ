@@ -141,9 +141,9 @@ public class Controller : MonoBehaviour
         _enemyTurn =!_enemyTurn;
         cardManager.drawedCard = _enemyTurn;
         if (_enemyTurn)
-            uIManagerBattle.setTextTurn("Enemy turn: ");
+            uIManagerBattle.setTextTurn("Enemy turn");
         else
-            uIManagerBattle.setTextTurn("Your turn: ");
+            uIManagerBattle.setTextTurn("Your turn");
     }
     public void setShipInPlace(bool status, int where)
     {
