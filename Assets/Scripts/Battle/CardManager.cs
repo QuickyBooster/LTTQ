@@ -71,6 +71,8 @@ public class CardManager : MonoBehaviour
                 if (deck.Count >= 1)
                 {
                     cardNum = Random.Range(0, deck.Count);
+                    print("cardNum");
+                    print(deck.Count);
                     Card randCard = deck[cardNum];
                     for (int i = 0; i < availableCardSlots.Length; i++)
                     {
@@ -201,7 +203,7 @@ public class CardManager : MonoBehaviour
         enemyAvailableCardSlots[index] = true;
         discardPile.Add(enemySlotCard[index]);
         notInDeck.Remove(enemySlotCard[index]);
-        print("215: "+index);
+        print("line 215: "+index);
         print(enemySlotCard[index].id);
         allCardStill[enemySlotCard[index].id] =true;
         enemyCard.Remove(enemySlotCard[index].id);

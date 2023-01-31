@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a8dea360102ad4ea4a4b5d9aa15ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSide: {fileID: 21300000, guid: 922cc901eed5fb54987f6f61c4867cc1, type: 3}
+  frontSide: {fileID: 21300000, guid: 1e020a711cbe4964caac2a64a8a51d80, type: 3}
   backSide: {fileID: 21300000, guid: 30a50d51776eebb46a9207444da34fab, type: 3}
   hasBeenPlayed: 0
   id: 0
@@ -2119,7 +2119,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 922cc901eed5fb54987f6f61c4867cc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e020a711cbe4964caac2a64a8a51d80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
