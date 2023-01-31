@@ -97,4 +97,11 @@ public class Point : MonoBehaviour
     {
         return (_torpedo);
     }
+    public void explodeTorpedo()
+    {
+        if(_torpedo) 
+        {
+            _controller.card002_explodeTorpedo(_id,isBeingAttack());
+        }
+    }
 }

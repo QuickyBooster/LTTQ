@@ -45,7 +45,7 @@ public class PointEnemy : MonoBehaviour
             if (_controller.IDCardUsing()==2)
             {
 
-                StartCoroutine(delayID3(0.7f));
+                StartCoroutine(delayID3(1f));
             }
             else if(_controller.IDCardUsing()==3)
             {
