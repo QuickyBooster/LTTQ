@@ -138,6 +138,8 @@ public class Controller : MonoBehaviour
         ++turnNumber;
         if (turnWillAdd1Life==turnNumber)
             ++life;
+        if (turnToExpode == turnNumber)
+
         _enemyTurn =!_enemyTurn;
         cardManager.drawedCard = _enemyTurn;
         if (_enemyTurn)
@@ -305,6 +307,10 @@ public class Controller : MonoBehaviour
     {
         cardManager.card002_send(id);
         return true;
+    }
+    public void card002_explodeTorpedo(int id,bool result)
+    {
+        pointFunction.torpedoExplodeOnEnemy(id, result);
     }
     /// <summary>
     /// card 003

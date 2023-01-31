@@ -3220,7 +3220,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1137652389}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
-        m_MethodName: Shufflle
+        m_MethodName: Shuffle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

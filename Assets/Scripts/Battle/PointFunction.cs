@@ -63,4 +63,14 @@ public class PointFunction : MonoBehaviour
         controller.createTableEnemy();
 
     }
+    //special
+    public void torpedoExplodeOnEnemy(int id, bool result)
+    {
+        view.RPC("RPC_torpedoExplodeOnEnemy", RpcTarget.Others, id, result);
+    }
+    [PunRPC]
+    void RPC_torpedoExplodeOnEnemy(int id, bool result)
+    {
+        controller.isEnemyDown(id, result);
+    }
 }

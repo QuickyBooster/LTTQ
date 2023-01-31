@@ -71,8 +71,6 @@ public class CardManager : MonoBehaviour
                 if (deck.Count >= 1)
                 {
                     cardNum = Random.Range(0, deck.Count);
-                    print("cardNum");
-                    print(deck.Count);
                     Card randCard = deck[cardNum];
                     for (int i = 0; i < availableCardSlots.Length; i++)
                     {
@@ -84,7 +82,6 @@ public class CardManager : MonoBehaviour
                             }
                             allCardStill[randCard.id-1] = false;
                             randCard.gameObject.SetActive(true);
-                            //randCard.handIndex = i;
                             randCard.picked();
                             randCard.transform.position = cardPanel.cardTransform.position;
                             playerCard.Add(randCard.id-1);
@@ -128,7 +125,7 @@ public class CardManager : MonoBehaviour
             foreach (Card card in discardPile)
             {
                 deck.Add(card);
-                allCardStill[card.id] = false;
+                allCardStill[card.id - 1] = false;
             }
             discardPile.Clear();
             activeDrawButton = true;
@@ -142,7 +139,7 @@ public class CardManager : MonoBehaviour
             foreach (Card card in discardPile)
             {
                 deck.Add(card);
-                allCardStill[card.id] = false;
+                allCardStill[card.id-1] = false;
             }
             discardPile.Clear();
             activeDrawButton = true;
@@ -196,9 +193,7 @@ public class CardManager : MonoBehaviour
         enemyAvailableCardSlots[index] = true;
         discardPile.Add(enemySlotCard[index]);
         notInDeck.Remove(enemySlotCard[index]);
-        print("line 215: "+index);
-        print(enemySlotCard[index].id);
-        allCardStill[enemySlotCard[index].id] =true;
+        allCardStill[enemySlotCard[index].id-1] =true;
         enemyCard.Remove(enemySlotCard[index].id);
     }
     public void toggleActiveDrawButton()
