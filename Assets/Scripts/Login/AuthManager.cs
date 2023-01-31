@@ -35,8 +35,6 @@ public class AuthManager : MonoBehaviour
     public TMP_InputField usernameRegisterField; //3
     public TMP_Text warningRegisterText;
 
-    float time = 10f;
-
     private void Awake()
     {
         openScene = FindObjectOfType<OpenScene>();
@@ -196,6 +194,8 @@ public class AuthManager : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
             warningLoginText.text = "Welcome "+user.DisplayName;
             playerManager.userUID = user.UserId;
+            playerManager.user = user;
+            playerManager.auth = auth;
             playerManager.userName = user.DisplayName;
             openScene.LoadTransition();
             yield return new WaitForSeconds(2.5f);
@@ -299,7 +299,7 @@ public class AuthManager : MonoBehaviour
     }
     public void RegisterScreen() // Register button
     {
-        //loginUI.SetActive(false);
+        loginUI.SetActive(false);
         registerUI.SetActive(true);
     }
 }
