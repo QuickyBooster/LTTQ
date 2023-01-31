@@ -15,6 +15,7 @@ public class OpenScene : MonoBehaviour
     {
         StartCoroutine(openSceneLeft());
         StartCoroutine(openSceneRight());
+        Debug.Log("scene");
     }
     IEnumerator openSceneLeft()
     {

@@ -197,8 +197,9 @@ public class AuthManager : MonoBehaviour
             warningLoginText.text = "Welcome "+user.DisplayName;
             playerManager.userUID = user.UserId;
             playerManager.userName = user.DisplayName;
-            yield return new WaitForSeconds(0.5f);
-            //openScene.LoadTransition();
+            openScene.LoadTransition();
+            yield return new WaitForSeconds(2.5f);
+            Debug.Log("login");
             SceneManager.LoadScene(1);
         }
     }

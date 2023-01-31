@@ -38,11 +38,11 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
         sendMyName();
         if (_controller.isEnemyTurn())
         {
-            this.setTextTurn("Enemy turn: ");
+            this.setTextTurn("Enemy turn");
         }
         else
         {
-            this.setTextTurn("Your turn: ");
+            this.setTextTurn("Your turn");
         }
     }
     public void sendMyName()
@@ -65,9 +65,12 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     public void buttonReadyToContinueClick()
     {
         _controller.setBattleAgain();
+        StartCoroutine(readyButtonDelay());
         this.showButtonReadyToCountinue(false);
         _controller.toggleEnemyTurnWithText();
     }
+    IEnumerator readyButtonDelay() { yield return new WaitForSeconds(0.5f); }
+
     public void endMatch()
     {
         _networkStarter.endMatch();
