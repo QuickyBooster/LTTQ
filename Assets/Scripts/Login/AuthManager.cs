@@ -299,7 +299,7 @@ public class AuthManager : MonoBehaviour
     }
     public void RegisterScreen() // Register button
     {
-        loginUI.SetActive(false);
+        //loginUI.SetActive(false);
         registerUI.SetActive(true);
     }
 }
