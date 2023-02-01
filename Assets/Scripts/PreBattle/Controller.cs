@@ -46,7 +46,6 @@ public class Controller : MonoBehaviour
         HPleft = 3;
         _usingCard = false;
         DontDestroyOnLoad(this.gameObject);
-        while (!ship)
             ship = FindObjectOfType<Ship>();
         _manager = FindObjectOfType<UIManager>();
         _cardChose = true;
@@ -69,14 +68,10 @@ public class Controller : MonoBehaviour
             createTable();
             createTableEnemy();
             ship.toggleCollider();
-            while (!cardManager)
-                cardManager = FindObjectOfType<CardManager>();
-            while (!networkStarter)
-                networkStarter = FindObjectOfType<NetworkStarter>();
-            while (!pointFunction)
-                pointFunction = FindObjectOfType<PointFunction>();
-            while (!uIManagerBattle)
-                uIManagerBattle = FindObjectOfType<UIManagerBattle>();
+            cardManager = FindObjectOfType<CardManager>();
+            networkStarter = FindObjectOfType<NetworkStarter>();
+            pointFunction = FindObjectOfType<PointFunction>();
+            uIManagerBattle = FindObjectOfType<UIManagerBattle>();
         }
     }
     private void Update()

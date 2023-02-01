@@ -45,8 +45,7 @@ public class CardManager : MonoBehaviour
     NetworkStarter cardFunction;
     private void Start()
     {
-        while (!controller)
-                    controller = FindObjectOfType<Controller>().GetComponent<Controller>();
+        controller = FindObjectOfType<Controller>().GetComponent<Controller>();
         cardFunction = cardFunctionObject.GetComponent<NetworkStarter>();
         activeDrawButton = true;
         drawedCard = false;
