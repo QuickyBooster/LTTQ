@@ -8,7 +8,7 @@ public class BackToLobby : MonoBehaviour
 {
     public void BackButton()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(lobbyDelayTime());
     }
     public void DisconnectedFromServer()
     {
@@ -22,5 +22,11 @@ public class BackToLobby : MonoBehaviour
         {
             yield return null;
         }
+    }
+    IEnumerator lobbyDelayTime()
+    {
+        yield return new WaitForSeconds(2.5f);
+        SceneManager.LoadScene(1);
+        
     }
 }
