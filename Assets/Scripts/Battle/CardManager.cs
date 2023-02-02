@@ -59,16 +59,20 @@ public class CardManager : MonoBehaviour
     {
         if (!controller.isEnemyTurn()&&  !drawedCard)
         {
+            print(62);
             if (activeDrawButton)
             {
+            print(65);
                 if (deck.Count >= 1)
                 {
                     cardNum = Random.Range(0, deck.Count);
                     Card randCard = deck[cardNum];
+                    print(70);
                     for (int i = 0; i < myAvailableCardSlots.Length; i++)
                     {
                         if (myAvailableCardSlots[i] == true)
                         {
+                            print(75);
                             if (cardPanel.isActive() == false)
                             {
                                 cardPanel.toggleActive();

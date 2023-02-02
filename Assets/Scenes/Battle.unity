@@ -9884,7 +9884,7 @@ MonoBehaviour:
   - {fileID: 114015518}
   - {fileID: 501056584}
   - {fileID: 951143800}
-  myAvailableCardSlots: 
+  myAvailableCardSlots: 0101010101
   enemyAvailableCardSlots: 0101010101
   cardNum: 0
   deckSizeText: {fileID: 791279070}
