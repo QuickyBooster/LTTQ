@@ -11,7 +11,7 @@ public class PointEnemy : MonoBehaviour
     [SerializeField] Sprite _iconTorpedo;
     [SerializeField] Sprite _iconRed;
     Controller _controller;
-    [SerializeField] ParticleSystem explosion;
+    //[SerializeField] ParticleSystem explosion;
     SpriteRenderer _renderer;
     bool _destroyed;
     int _id;
@@ -32,7 +32,11 @@ public class PointEnemy : MonoBehaviour
 
     private void OnMouseDown()
     {
-        isBeingAttack();
+        if (_destroyed) return;
+        if (!_controller.isEnemyTurn())
+        {
+            _controller.sendIDToAttack(-_id-1);
+        }
     }
     public bool isBeingAttack()
     {
@@ -42,7 +46,7 @@ public class PointEnemy : MonoBehaviour
             if (_controller.IDCardUsing()==2)
             {
 
-                StartCoroutine(delayID2(1f));
+                StartCoroutine(delayID3(1f));
             }
             else if(_controller.IDCardUsing()==3)
             {
@@ -51,7 +55,6 @@ public class PointEnemy : MonoBehaviour
             }
             return true;
         }
-        _controller.sendIDToAttack(-_id-1);
         return false;
     }
     IEnumerator delayID2(float time)
@@ -69,13 +72,13 @@ public class PointEnemy : MonoBehaviour
     {
         if (status)
         {
-            explosion.Play();
+            //explosion.Play();
             _renderer.sprite =_iconDestroyed;
             _destroyed = true;
 
         }else
         {
-            explosion.Play();
+            //explosion.Play();
             _renderer.sprite =_iconSquare;
             _destroyed = true;
         }

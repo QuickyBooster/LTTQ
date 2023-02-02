@@ -13,7 +13,7 @@ public class Point : MonoBehaviour
     [SerializeField] Sprite _iconBarrier;
     [SerializeField] Sprite _iconTorpedo;
     Controller _controller;
-    public ParticleSystem explosion;
+    //public ParticleSystem explosion;
     SpriteRenderer _renderer;
     bool _shipField;
     bool _destroyed;
@@ -51,14 +51,14 @@ public class Point : MonoBehaviour
         {
             if (_shipField)
             {
-                explosion.Play();
+                //explosion.Play();
                 _renderer.sprite =_iconDestroyed;
                 _destroyed = true;
                 return true;
             }
             else
             {
-                explosion.Play();
+                //explosion.Play();
                 _renderer.sprite = _iconSquare;
                 _destroyed = true;
                 return false;
