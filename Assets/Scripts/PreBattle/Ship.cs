@@ -29,6 +29,7 @@ public class Ship : MonoBehaviour
     {
         if (true)
         {
+            sceneName = currentScene.name;
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
             _controller.setShipInPlace(false, 0);
@@ -48,6 +49,7 @@ public class Ship : MonoBehaviour
     {
         if (true)
         {
+            sceneName = currentScene.name;
             // find the standard position of it
             int id = 0;
             float vX, vY, tX, tY;
