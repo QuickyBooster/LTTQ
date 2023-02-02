@@ -1,12 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ship : MonoBehaviour
 {
     Controller _controller;
+    Scene currentScene;
     [SerializeField] GameObject _buttonPlay;
 
     float _x;
     float _y;
+
+    string sceneName;
 
     float _deltaX, _deltaY;
     Vector2 _mousePosition;
@@ -14,6 +18,8 @@ public class Ship : MonoBehaviour
 
     private void Awake()
     {
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
         _buttonPlay.SetActive(false);
         _controller = FindObjectOfType<Controller>();
         DontDestroyOnLoad(this.gameObject);
@@ -26,7 +32,8 @@ public class Ship : MonoBehaviour
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
             _controller.setShipInPlace(false, 0);
-            _buttonPlay.SetActive(false);
+            if (sceneName == "PreBattle") 
+                _buttonPlay.SetActive(false);
         }
     }
     private void OnMouseDrag()
@@ -56,7 +63,8 @@ public class Ship : MonoBehaviour
                     {
                         transform.position = new Vector2(tX + 0.7224f, tY);
                         _controller.setShipInPlace(true, i * 5 + j);
-                        _buttonPlay.SetActive(true);
+                        if (sceneName == "PreBattle")
+                            _buttonPlay.SetActive(true);
                         return;
                     }
                     id++;
