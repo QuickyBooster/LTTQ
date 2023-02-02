@@ -69,7 +69,7 @@ public class Card : MonoBehaviour
         //    cardManager.availableCardSlots[handIndex] = true;
         //    Invoke("MoveToDiscardPile", 0.1f);
         //}
-        if (handIndex!=-1)
+        if (handIndex!=-1&& !controller.isEnemyTurn())
         {
             usingCard();
 

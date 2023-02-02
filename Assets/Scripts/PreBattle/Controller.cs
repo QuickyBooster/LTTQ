@@ -241,7 +241,7 @@ public class Controller : MonoBehaviour
     }
     public void toggleUsingCard(int id)
     {
-        _usingCard = !_usingCard;
+        _usingCard = true;
         cardID   = id;
     }
     public bool isUsingCard()

@@ -10,7 +10,6 @@ public class Point : MonoBehaviour
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Sprite _iconSquare;
     [SerializeField] Sprite _iconPoint;
-    [SerializeField] Sprite _iconBarrier;
     [SerializeField] Sprite _iconTorpedo;
     Controller _controller;
     //public ParticleSystem explosion;
@@ -18,7 +17,6 @@ public class Point : MonoBehaviour
     bool _shipField;
     bool _destroyed;
     int _id;
-    bool _barrier;
     bool _torpedo;
 
     private void Start()

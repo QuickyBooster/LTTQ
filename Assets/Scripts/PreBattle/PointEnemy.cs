@@ -1,13 +1,11 @@
 using UnityEngine;
 using System.Collections;
-using System.Security;
 
 public class PointEnemy : MonoBehaviour
 {
     [SerializeField] Sprite _iconDestroyed;
     [SerializeField] Sprite _iconSquare;
     [SerializeField] Sprite _iconPoint;
-    [SerializeField] Sprite _iconBarrier;
     [SerializeField] Sprite _iconTorpedo;
     [SerializeField] Sprite _iconRed;
     Controller _controller;
@@ -15,7 +13,6 @@ public class PointEnemy : MonoBehaviour
     SpriteRenderer _renderer;
     bool _destroyed;
     int _id;
-    bool _barrier;
     bool _torpedo;
 
     private void Start()
@@ -35,7 +32,7 @@ public class PointEnemy : MonoBehaviour
         if (_destroyed) return;
         if (!_controller.isEnemyTurn())
         {
-            _controller.sendIDToAttack(-_id-1);
+            isBeingAttack();
         }
     }
     public bool isBeingAttack()
@@ -53,6 +50,7 @@ public class PointEnemy : MonoBehaviour
                 if (_destroyed) return false;
                 StartCoroutine(delayID3(0.7f));  
             }
+            _controller.sendIDToAttack(-_id-1);
             return true;
         }
         return false;
