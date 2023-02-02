@@ -139,7 +139,12 @@ public class Controller : MonoBehaviour
             {
                 for (int j = 0; j<5; j++)
                 {
-                    _ourPoints[i, j].GetComponent<Point>().explodeTorpedo();
+                    if (_enemyPoints[i, j].GetComponent<PointEnemy>().isTorpedo())
+                    {
+                        pointFunction.attackPoint(i*5+j);
+                        break;
+                    }
+
                 }
             }
         }    
@@ -309,6 +314,7 @@ public class Controller : MonoBehaviour
     public bool card002(int id)
     {
         cardManager.card002_send(id);
+        _usingCard = false;
         return true;
     }
     public void card002_explodeTorpedo(int id,bool result)
@@ -334,6 +340,7 @@ public class Controller : MonoBehaviour
     public bool card004()
     {
         life++;
+        _usingCard = false;
         return true;
     }
     /// <summary>
@@ -347,6 +354,7 @@ public class Controller : MonoBehaviour
         deleteOurPoints();
         HPleft = 3;
         ship.toggleCollider();
+        _usingCard = false;
         return true;
     }
     /// <summary>
@@ -361,6 +369,7 @@ public class Controller : MonoBehaviour
                 {
                     _ourPoints[i, j].GetComponent<Point>().setTorpedo(false);
                 }
+        _usingCard = false;
         return true;
     }
     public void card006_receive()
@@ -379,6 +388,7 @@ public class Controller : MonoBehaviour
     public bool card008()
     {
         uIManagerBattle.setTextTurn("You have another turn to draw card");
+        _usingCard = false;
         return true;
     }
     /// <summary>
@@ -407,6 +417,7 @@ public class Controller : MonoBehaviour
             id+=5;
             _enemyPoints[id/5,id%5].GetComponent<PointEnemy>().displayRedCausedByCard202();
         }
+        _usingCard = false;
         return true;
     }
     public int card009_receive()
@@ -430,6 +441,7 @@ public class Controller : MonoBehaviour
     public bool card001()
     {
          turnWillAdd1Life = turnNumber+5;
+        _usingCard = false;
         return true;
     }
 }
