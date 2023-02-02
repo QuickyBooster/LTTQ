@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Security;
 
 public class PointEnemy : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PointEnemy : MonoBehaviour
     [SerializeField] Sprite _iconTorpedo;
     [SerializeField] Sprite _iconRed;
     Controller _controller;
-
+    [SerializeField] ParticleSystem explosion;
     SpriteRenderer _renderer;
     bool _destroyed;
     int _id;
@@ -71,11 +72,13 @@ public class PointEnemy : MonoBehaviour
     {
         if (status)
         {
+            explosion.Play();
             _renderer.sprite =_iconDestroyed;
             _destroyed = true;
 
         }else
         {
+            explosion.Play();
             _renderer.sprite =_iconSquare;
             _destroyed = true;
         }
