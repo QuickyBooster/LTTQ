@@ -29,7 +29,6 @@ public class PointEnemy : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (_destroyed) return;
         if (!_controller.isEnemyTurn())
         {
             isBeingAttack();
@@ -37,7 +36,6 @@ public class PointEnemy : MonoBehaviour
     }
     public bool isBeingAttack()
     {
-        if (_destroyed) return false;
         if (_controller.isUsingCard())
         {
             if (_controller.IDCardUsing()==2)
@@ -50,10 +48,11 @@ public class PointEnemy : MonoBehaviour
                 if (_destroyed) return false;
                 StartCoroutine(delayID3(0.7f));  
             }
-            _controller.sendIDToAttack(-_id-1);
             return true;
         }
-        return false;
+        if (_destroyed) return false;
+        _controller.sendIDToAttack(-_id-1);
+        return true;
     }
     IEnumerator delayID2(float time)
     {

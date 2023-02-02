@@ -16,7 +16,7 @@ public class Controller : MonoBehaviour
     UIManagerBattle uIManagerBattle;
 
 
-    bool _enemyTurn;
+    bool _enemyTurn { get; set; }
     bool _cardChose;
     bool _usingCard;
     bool _vertical;
@@ -38,6 +38,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
+        _enemyTurn = true;
         turnToExpode = 0;
         turnWillAdd1Life = -1;
         turnNumber = 0;

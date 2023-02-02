@@ -87,8 +87,8 @@ MonoBehaviour:
   - RPC_card006
   - RPC_card009_receive
   - RPC_card009_send
-  - RPC_enemyShuflle
   - RPC_torpedoExplodeOnEnemy
+  - RPC_enemyShuffle
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
