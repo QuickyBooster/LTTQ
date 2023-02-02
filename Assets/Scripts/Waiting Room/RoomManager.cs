@@ -25,7 +25,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public GameObject playButton;
 
-    float timeBeforeLoad = 3f;
+    float timeBeforeLoad = 2f;
     private void Start()
     {
         PhotonNetwork.JoinLobby();
@@ -113,9 +113,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
     public void onClickLeaveRoom()
     {
-        new WaitForSeconds(1.0f);
-        PhotonNetwork.LeaveRoom();
+        //new WaitForSeconds(1.0f);
+        //PhotonNetwork.LeaveRoom();
+        StartCoroutine(delayTime1());
     }
+    IEnumerator delayTime1()
+    {
+        yield return new WaitForSeconds(.5f);
+        PhotonNetwork.LeaveRoom();
+    }    
 
     void updatePlayerList()
     {

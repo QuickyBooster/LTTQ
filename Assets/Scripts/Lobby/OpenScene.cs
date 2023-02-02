@@ -17,6 +17,7 @@ public class OpenScene : MonoBehaviour
         StartCoroutine(openSceneRight());
         Debug.Log("scene");
     }
+ 
     IEnumerator openSceneLeft()
     {
         animator1.SetTrigger("scene_left");
@@ -27,4 +28,5 @@ public class OpenScene : MonoBehaviour
         animator2.SetTrigger("scene_right");
         yield return new WaitForSeconds(1.0f);
     }
+
 }

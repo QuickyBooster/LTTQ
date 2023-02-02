@@ -62,12 +62,15 @@ public class UIManagerBattle : MonoBehaviourPunCallbacks
     }
     public void buttonReadyToContinueClick()
     {
-        _controller.setBattleAgain();
         StartCoroutine(readyButtonDelay());
+    }
+    IEnumerator readyButtonDelay() 
+    { 
+        _controller.setBattleAgain();
+        yield return new WaitForSeconds(1.5f); 
         this.showButtonReadyToCountinue(false);
         _controller.toggleEnemyTurnWithText();
     }
-    IEnumerator readyButtonDelay() { yield return new WaitForSeconds(1.5f); }
 
     public void endMatch()
     {
