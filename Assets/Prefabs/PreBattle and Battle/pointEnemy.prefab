@@ -49,6 +49,10 @@ MonoBehaviour:
   _iconDestroyed: {fileID: 21300000, guid: d8e16873fff73ac41a12f1dacce23d65, type: 3}
   _iconSquare: {fileID: 21300000, guid: 1a6dd3bd5eaf5a14da6b0179abc29b78, type: 3}
   _iconPoint: {fileID: 21300000, guid: 45cb18a7e630e2b499db14cb12f92adf, type: 3}
+  _iconBarrier: {fileID: 0}
+  _iconTorpedo: {fileID: 0}
+  _iconRed: {fileID: 0}
+  explosion: {fileID: 2176854826189856245, guid: ec554ff426a976f4f860d5edd68568e4, type: 3}
 --- !u!212 &5069116452013809689
 SpriteRenderer:
   m_ObjectHideFlags: 0
