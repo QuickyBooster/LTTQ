@@ -134,7 +134,15 @@ public class Controller : MonoBehaviour
         if (turnWillAdd1Life==turnNumber)
             ++life;
         if (turnToExpode == turnNumber)
-
+        {
+            for (int i = 0; i<5; i++)
+            {
+                for (int j = 0; j<5; j++)
+                {
+                    _ourPoints[i, j].GetComponent<Point>().explodeTorpedo();
+                }
+            }
+        }    
         _enemyTurn =!_enemyTurn;
         cardManager.drawedCard = _enemyTurn;
         if (_enemyTurn)

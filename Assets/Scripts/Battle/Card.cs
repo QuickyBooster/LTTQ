@@ -79,8 +79,6 @@ public class Card : MonoBehaviour
     {
         if (cardManager)
         {
-            int idCard;
-            int.TryParse(this.name, out idCard);
             cardManager.UseCard(handIndex);
             handIndex =-1;
             controller.toggleUsingCard(id);
