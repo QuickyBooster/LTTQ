@@ -42,11 +42,13 @@ public class PointEnemy : MonoBehaviour
             {
 
                 StartCoroutine(delayID3(1f));
+                return true;
             }
             else if(_controller.IDCardUsing()==3)
             {
                 if (_destroyed) return false;
-                StartCoroutine(delayID3(0.7f));  
+                StartCoroutine(delayID3(0.7f));
+                return true;
             }
         }
         if (_destroyed) return false;
