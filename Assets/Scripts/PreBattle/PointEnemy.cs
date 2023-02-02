@@ -48,7 +48,6 @@ public class PointEnemy : MonoBehaviour
                 if (_destroyed) return false;
                 StartCoroutine(delayID3(0.7f));  
             }
-            return true;
         }
         if (_destroyed) return false;
         _controller.sendIDToAttack(-_id-1);
