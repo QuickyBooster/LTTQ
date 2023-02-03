@@ -21,7 +21,7 @@ public class Controller : MonoBehaviour
     bool _usingCard;
     bool _vertical;
     //life
-    int life;
+    int life { get; set; }
 
     //array for enemy ship to spawn
     GameObject[,] _ourPoints = new GameObject[5, 5];
@@ -213,7 +213,6 @@ public class Controller : MonoBehaviour
         if (_ourPoints[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
             HPleft--;
-            liveCount.changeText(life+"ship(s)");
             if (HPleft ==0)
             {
                 if (--life ==-1)
@@ -221,6 +220,7 @@ public class Controller : MonoBehaviour
                     uIManagerBattle.endMatch();
                     return true;
                 }
+                liveCount.changeText(life+"ship(s)");
                 StartCoroutine(textChangeWhenLoseLife(0.5f));
 
                 // delete our points and send a message to enemy
