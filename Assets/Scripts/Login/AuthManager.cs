@@ -194,6 +194,7 @@ public class AuthManager : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
             warningLoginText.text = "Welcome "+user.DisplayName;
             playerManager.userUID = user.UserId;
+            print(playerManager.userUID+": day la userid ne");
             playerManager.user = user;
             playerManager.auth = auth;
             playerManager.userName = user.DisplayName;
