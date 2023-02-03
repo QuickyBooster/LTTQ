@@ -41,7 +41,7 @@ public class PointEnemy : MonoBehaviour
             if (_controller.IDCardUsing()==2)
             {
 
-                StartCoroutine(delayID3(1f));
+                StartCoroutine(delayID2(1f));
                 _destroyed= true;
                 return true;
             }
@@ -60,13 +60,13 @@ public class PointEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         setTorpedo(true);
+        _destroyed = false;
         _controller.card002(-_id-1);
     }
     IEnumerator delayID3(float time)
     {
         yield return new WaitForSeconds(time);
         _controller.card003(-_id-1);
-        _destroyed = false;
     }
     public void displayDestroy(bool status)
     {
