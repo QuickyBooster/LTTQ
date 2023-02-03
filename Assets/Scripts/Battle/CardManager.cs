@@ -96,6 +96,7 @@ public class CardManager : MonoBehaviour
     void RPC_enemyDrawCard(int id)
     {
         deck.Remove(allCard[id]);
+        allCard[id].gameObject.SetActive(true);
         enemyCardID.Add(id);
         int i = 0;
         foreach (bool a in enemyAvailableCardSlots)

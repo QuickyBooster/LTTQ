@@ -41,7 +41,7 @@ public class PointEnemy : MonoBehaviour
             if (_controller.IDCardUsing()==2)
             {
 
-                StartCoroutine(delayID2(1f));
+                StartCoroutine(delayID2(0.3f));
                 _destroyed= true;
                 return true;
             }
