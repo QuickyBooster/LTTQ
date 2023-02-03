@@ -33,7 +33,7 @@ public class Ship : MonoBehaviour
             _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
             _controller.setShipInPlace(false, 0);
-            if (sceneName == "PreBattle") 
+            if (sceneName == "PreBattle" || sceneName == "Battle")  
                 _buttonPlay.SetActive(false);
         }
     }
@@ -65,7 +65,7 @@ public class Ship : MonoBehaviour
                     {
                         transform.position = new Vector2(tX + 0.7224f, tY);
                         _controller.setShipInPlace(true, i * 5 + j);
-                        if (sceneName == "PreBattle")
+                        if (sceneName == "PreBattle" || sceneName == "Battle") 
                             _buttonPlay.SetActive(true);
                         return;
                     }
