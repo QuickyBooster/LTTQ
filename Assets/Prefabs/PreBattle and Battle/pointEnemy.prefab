@@ -50,7 +50,7 @@ MonoBehaviour:
   _iconSquare: {fileID: 21300000, guid: 1a6dd3bd5eaf5a14da6b0179abc29b78, type: 3}
   _iconPoint: {fileID: 21300000, guid: 45cb18a7e630e2b499db14cb12f92adf, type: 3}
   _iconTorpedo: {fileID: 21300000, guid: 3ca078cb6f7c1af40941ae3b663d486a, type: 3}
-  _iconRed: {fileID: 21300000, guid: c3a30be13d3cf0f47a128d6339c3f344, type: 3}
+  _iconRed: {fileID: 21300000, guid: 65c72135fdc34f843ab875d163173cfc, type: 3}
 --- !u!212 &5069116452013809689
 SpriteRenderer:
   m_ObjectHideFlags: 0
