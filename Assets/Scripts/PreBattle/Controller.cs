@@ -14,7 +14,7 @@ public class Controller : MonoBehaviour
     Ship ship;
     PointFunction pointFunction;
     UIManagerBattle uIManagerBattle;
-
+    LiveCount liveCount;
 
     bool _enemyTurn { get; set; }
     bool _cardChose;
@@ -73,6 +73,7 @@ public class Controller : MonoBehaviour
             networkStarter = FindObjectOfType<NetworkStarter>();
             pointFunction = FindObjectOfType<PointFunction>();
             uIManagerBattle = FindObjectOfType<UIManagerBattle>();
+            liveCount = FindObjectOfType<LiveCount>();
         }
     }
     private void Update()
@@ -133,7 +134,10 @@ public class Controller : MonoBehaviour
     {
         ++turnNumber;
         if (turnWillAdd1Life==turnNumber)
+        {
             ++life;
+            liveCount.changeText(life+"ship(s)");
+        }
         if (turnToExpode == turnNumber)
         {
             for (int i = 0; i<5; i++)
@@ -209,6 +213,7 @@ public class Controller : MonoBehaviour
         if (_ourPoints[idHit/5, idHit%5].GetComponent<Point>().isBeingAttack())
         {
             HPleft--;
+            liveCount.changeText(life+"ship(s)");
             if (HPleft ==0)
             {
                 if (--life ==-1)
@@ -342,6 +347,7 @@ public class Controller : MonoBehaviour
     {
         life++;
         _usingCard = false;
+        liveCount.changeText(life+"ship(s)");
         return true;
     }
     /// <summary>
