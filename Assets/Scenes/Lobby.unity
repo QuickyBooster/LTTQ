@@ -2248,6 +2248,7 @@ GameObject:
   - component: {fileID: 1835211995}
   - component: {fileID: 1835212000}
   - component: {fileID: 1835211999}
+  - component: {fileID: 1835212001}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -2318,7 +2319,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1835211997}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1835212000}
+        m_TargetAssemblyTypeName: Exit, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!82 &1835211996
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2472,6 +2485,18 @@ MonoBehaviour:
   _uncompressClip: {fileID: 0}
   _audioSource: {fileID: 1835211996}
 --- !u!114 &1835212000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835211993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10542414465916b48a06c7b6f4fc72f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1835212001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
